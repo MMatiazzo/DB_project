@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib tagdir="/WEB-INF/tags/session" prefix="session"%>
+<session:my_user context="${pageContext.servletContext.contextPath}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +29,7 @@
 
                 <div class="form-group">
                     <label class="control-label" for="usuario-login">Login</label>
-                    <input id="usuario-login" class="form-control" type="text" name="login" value="${user.login}" required autofocus/>
+                    <input id="usuario-login" class="form-control" type="text" name="login" value="${user.login}" data-value="${user.login}" required autofocus/>
 
                     <p class="help-block"></p>
                 </div>

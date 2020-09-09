@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib tagdir="/WEB-INF/tags/session" prefix="session"%>
+<session:my_user context="${pageContext.servletContext.contextPath}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,6 +26,12 @@
                 <button class="btn btn-lg btn-warning" data-toggle="modal" data-target=".modal_excluir_usuarios">
                     Excluir múltiplos usuários
                 </button>
+                <a class="btn btn-default"
+                   href="${pageContext.servletContext.contextPath}/logout"
+                   data-toggle="tooltip"
+                   data-original-title="Logout">
+                    <i class="fa fa-sign-out"></i>
+                </a>
             </div>
 
             <form class="form_excluir_usuarios" action="${pageContext.servletContext.contextPath}/user/delete" method="POST">

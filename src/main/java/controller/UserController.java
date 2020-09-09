@@ -9,18 +9,20 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.DAO;
 import dao.DAOFactory;
+import dao.UserDAO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +46,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/user/create",
             "/user/update",
             "/user/delete",
-            "/user/read"
+            "/user/read",
+            "/user/checkLogin"
         })
 public class UserController extends HttpServlet {
 
@@ -151,7 +154,6 @@ public class UserController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -224,7 +226,6 @@ public class UserController extends HttpServlet {
                                 String appPath = request.getServletContext().getRealPath("");
                                 // Grava novo arquivo na pasta img no caminho absoluto
                                 String savePath = appPath + File.separator + SAVE_DIR + File.separator + fileName;
-                                System.out.println(savePath);
                                 File uploadedFile = new File(savePath);
                                 item.write(uploadedFile);
 
@@ -294,9 +295,35 @@ public class UserController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/user");
                 break;
             }
+
+            case "/user/checkLogin": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    UserDAO udao = daoFactory.getUserDAO();
+
+                    user = udao.getByLogin(request.getParameter("login"));
+
+                    Gson gson = new Gson();
+                    Map<String, String> result = new HashMap<>();
+                    if (user != null) {
+                        result.put("status", "USADO");
+                    } else {
+                        result.put("status", "NAO_USADO");
+                    }
+
+                    String json = gson.toJson(result);
+                    response.setContentType("application/json");
+                    response.getOutputStream().print(json);
+
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                    response.sendRedirect(request.getContextPath() + "/user");
+                }
+
+                break;
+            }
+
         }
     }
-    
 
     /**
      * Returns a short description of the servlet.

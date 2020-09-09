@@ -62,9 +62,14 @@ public class PgUserDAO implements UserDAO {
                                 "ORDER BY id;";
 
     private static final String AUTHENTICATE_QUERY =
-                                "SELECT id, nome, nascimento " +
+                                "SELECT id, nome, nascimento, avatar " +
                                 "FROM j2ee.user " +
                                 "WHERE login = ? AND senha = md5(?);";
+    
+    private static final String GET_BY_LOGIN_QUERY =
+                                "SELECT id, login, nome, nascimento, avatar " +
+                                "FROM j2ee.user " +
+                                "WHERE login = ?;";
 
     public PgUserDAO(Connection connection) {
         this.connection = connection;
@@ -127,13 +132,13 @@ public class PgUserDAO implements UserDAO {
     public void update(User user) throws SQLException {
         String query;
 
-        if (user.getSenha() == null) {
-            if (user.getAvatar() == null)
+        if ((user.getSenha() == null) || (user.getSenha().isBlank())) {
+            if ((user.getAvatar() == null) || (user.getAvatar().isBlank()))
                 query = UPDATE_QUERY;
             else
                 query = UPDATE_WITH_AVATAR_QUERY;
         } else {
-            if (user.getAvatar() == null)
+            if ((user.getAvatar() == null) || (user.getAvatar().isBlank()))
                 query = UPDATE_WITH_PASSWORD_QUERY;
             else
                 query = UPDATE_WITH_AVATAR_AND_PASSWORD_QUERY;
@@ -144,15 +149,15 @@ public class PgUserDAO implements UserDAO {
             statement.setString(2, user.getNome());
             statement.setDate(3, user.getNascimento());
 
-            if (user.getSenha() == null) {
-                if (user.getAvatar() == null) {
+            if ((user.getSenha() == null) || (user.getSenha().isBlank())) {
+                if ((user.getAvatar() == null) || (user.getAvatar().isBlank())) {
                     statement.setInt(4, user.getId());
                 } else {
                     statement.setString(4, user.getAvatar());
                     statement.setInt(5, user.getId());
                 }
             } else {
-                if (user.getAvatar() == null) {
+                if ((user.getAvatar() == null) || (user.getAvatar().isBlank())) {
                     statement.setString(4, user.getSenha());
                     statement.setInt(5, user.getId());
                 } else {
@@ -232,6 +237,7 @@ public class PgUserDAO implements UserDAO {
                     user.setId(result.getInt("id"));
                     user.setNome(result.getString("nome"));
                     user.setNascimento(result.getDate("nascimento"));
+                    user.setAvatar(result.getString("avatar"));
                 } else {
                     throw new SecurityException("Login ou senha incorretos.");
                 }
@@ -242,4 +248,33 @@ public class PgUserDAO implements UserDAO {
             throw new SQLException("Erro ao autenticar usuário.");
         }
     }
+    
+    @Override
+    public User getByLogin(String login) throws SQLException {
+
+        try (PreparedStatement statement = connection.prepareStatement(GET_BY_LOGIN_QUERY)) {
+            statement.setString(1, login);
+
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    User user = new User();
+                    user.setId(result.getInt("id"));
+                    user.setNome(result.getString("nome"));
+                    user.setNascimento(result.getDate("nascimento"));
+                    user.setAvatar(result.getString("avatar"));
+                    user.setLogin(login);
+                    return user;
+
+                } else {
+
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgUserDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+            
+            throw new SQLException("Erro ao obter usuário.");
+        }
+    }
+    
 }
