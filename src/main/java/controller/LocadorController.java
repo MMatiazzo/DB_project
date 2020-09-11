@@ -23,26 +23,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Car;
+import model.Locador;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 
 /**
  *
  * @author Guilherme
  */
 @WebServlet(
-        name = "CarController",
+        name = "LocadorController",
         urlPatterns = {
-            "/car",
-            "/car/create",
-            "/car/update",
-            "/car/delete",
-            "/car/read"
+            "/locador",
+            "/locador/create",
+            "/locador/update",
+            "/locador/delete",
+            "/locador/read"
         })
-public class CarController extends HttpServlet {
+public class LocadorController extends HttpServlet {
 
     private static int MAX_FILE_SIZE = 1024 * 1024 * 4;
 
@@ -66,73 +67,73 @@ public class CarController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAO<Car, String> dao;
-        Car car;
+        DAO<Locador, String> dao;
+        Locador locador;
         RequestDispatcher dispatcher;
 
         switch (request.getServletPath()) {
-            case "/car": {
+            case "/locador": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getCarDAO();
+                    dao = daoFactory.getLocadorDAO();
 
-                    List<Car> carList = dao.all();
-                    request.setAttribute("carList", carList);
+                    List<Locador> locadorList = dao.all();
+                    request.setAttribute("locadorList", locadorList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                dispatcher = request.getRequestDispatcher("/view/car/index.jsp");
+                dispatcher = request.getRequestDispatcher("/view/locador/index.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
 
-            case "/car/create": {
-                dispatcher = request.getRequestDispatcher("/view/car/create.jsp");
+            case "/locador/create": {
+                dispatcher = request.getRequestDispatcher("/view/locador/create.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
             
-            case "/car/update": {
+            case "/locador/update": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getCarDAO();
+                    dao = daoFactory.getLocadorDAO();
 
-                    car = dao.read(request.getParameter("placa"));
-                    request.setAttribute("carro", car);
+                    locador = dao.read(request.getParameter("cpf_pessoa"));
+                    request.setAttribute("locador", locador);
 
-                    dispatcher = request.getRequestDispatcher("/view/car/update.jsp");
+                    dispatcher = request.getRequestDispatcher("/view/locador/update.jsp");
                     dispatcher.forward(request, response);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/car");
+                    response.sendRedirect(request.getContextPath() + "/locador");
                 }
                 break;
             }
             
-            case "/car/delete": {
+            case "/locador/delete": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getCarDAO();
-                    dao.delete(request.getParameter("placa"));
+                    dao = daoFactory.getLocadorDAO();
+                    dao.delete(request.getParameter("cpf_pessoa"));
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                response.sendRedirect(request.getContextPath() + "/car");
+                response.sendRedirect(request.getContextPath() + "/locador");
                 break;
             }
             
-            case "/car/read": {
+            case "/locador/read": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getCarDAO();
+                    dao = daoFactory.getLocadorDAO();
 
-                    car = dao.read(request.getParameter("placa"));
+                    locador = dao.read(request.getParameter("cpf_pessoa"));
 
                     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-                    String json = gson.toJson(car);
+                    String json = gson.toJson(locador);
 
                     response.getOutputStream().print(json);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/car");
+                    response.sendRedirect(request.getContextPath() + "/locador");
                 }
                 break;
             }
@@ -151,15 +152,15 @@ public class CarController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAO<Car, String> dao;
-        Car car = new Car();
+        DAO<Locador, String> dao;
+        Locador locador = new Locador();
         HttpSession session = request.getSession();
 
         String servletPath = request.getServletPath();
 
         switch (request.getServletPath()) {
-            case "/car/create":
-            case "/car/update": {
+            case "/locador/create":
+            case "/locador/update": {
                 // Se fosse um form simples, usaria request.getParameter()
                 // String login = request.getParameter("login");
 
@@ -190,97 +191,54 @@ public class CarController extends HttpServlet {
                             String fieldValue = item.getString();
 
                             switch (fieldName) {
-                                case "placa":
-                                    car.setPlaca(fieldValue);
+                                case "cpf_pessoa":
+                                    locador.setCpf_pessoa(fieldValue);
                                     break;
-                                case "abss":
-                                    car.setAbss(Boolean.parseBoolean(fieldValue));
+                                case "doc_carro":
+                                    locador.setDoc_carro(fieldValue);
                                     break;
-                                case "modelo":
-                                    car.setModelo(fieldValue);
-                                    break;
-                                case "tipo":
-                                    car.setTipo(fieldValue);
-                                    break;
-                                case "ar_condicionado":
-                                    car.setAr_condicionado(Boolean.parseBoolean(fieldValue));
-                                    break;
-                                case "airbags":
-                                    car.setAirbags(Boolean.parseBoolean(fieldValue));
-                                    break;
-                                case "num_lugares":
-                                    car.setNum_lugares(Integer.parseInt(fieldValue));
-                                    break;
-                                case "descricao":
-                                    car.setDescricao(fieldValue);
-                                    break;
-                                case "disponibilidade":
-                                    car.setDisponibilidade(Boolean.parseBoolean(fieldValue));
-                                    break;
-                                case "cpf_locador":
-                                    car.setCpf_locador(fieldValue);
-                                    break;
-                                
-                            }
-                        } else {
-                            String fieldName = item.getFieldName();
-                            String fileName = item.getName();
-                            if (fieldName.equals("avatar") && !fileName.isBlank()) {
-                                // Dados adicionais (não usado nesta aplicação)
-                                String contentType = item.getContentType();
-                                boolean isInMemory = item.isInMemory();
-                                long sizeInBytes = item.getSize();
-
-                                // Pega o caminho absoluto da aplicação
-                                String appPath = request.getServletContext().getRealPath("");
-                                // Grava novo arquivo na pasta img no caminho absoluto
-                                String savePath = appPath + File.separator + SAVE_DIR + File.separator + fileName;
-                                File uploadedFile = new File(savePath);
-                                item.write(uploadedFile);
-
-                                car.setAvatar(fileName);
                             }
                         }
                     }
 
-                    dao = daoFactory.getCarDAO();
+                    dao = daoFactory.getLocadorDAO();
 
-                    if (servletPath.equals("/car/create")) {
-                        dao.create(car);
+                    if (servletPath.equals("/locador/create")) {
+                        dao.create(locador);
                     } else {
-                        servletPath += "?placa=" + String.valueOf(car.getPlaca());
-                        dao.update(car);
+                        servletPath += "?cpf_pessoa=" + String.valueOf(locador.getCpf_pessoa());
+                        dao.update(locador);
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/car");
+                    response.sendRedirect(request.getContextPath() + "/locador");
                     
                 } catch (FileUploadException ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocadorController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", "Erro ao fazer upload do arquivo.");
                     response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocadorController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", ex.getMessage());
                     response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (Exception ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocadorController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", "Erro ao gravar arquivo no servidor.");
                     response.sendRedirect(request.getContextPath() + servletPath);
                 }
                 break;
             }
             
-            case "/car/delete": {
-                String[] cars = request.getParameterValues("delete");
+            case "/locador/delete": {
+                String[] locadores = request.getParameterValues("delete");
 
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getCarDAO();
+                    dao = daoFactory.getLocadorDAO();
 
                     try {
                         daoFactory.beginTransaction();
 
-                        for (String carPlaca : cars) {
-                            dao.delete(carPlaca);
+                        for (String locadorCpf : locadores) {
+                            dao.delete(locadorCpf);
                         }
 
                         daoFactory.commitTransaction();
@@ -290,14 +248,14 @@ public class CarController extends HttpServlet {
                         daoFactory.rollbackTransaction();
                     }
                 } catch (ClassNotFoundException | IOException ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocadorController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", ex.getMessage());
                 } catch (SQLException ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocadorController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("rollbackError", ex.getMessage());
                 }
 
-                response.sendRedirect(request.getContextPath() + "/car");
+                response.sendRedirect(request.getContextPath() + "/locador");
                 break;
             }
         }
@@ -314,3 +272,4 @@ public class CarController extends HttpServlet {
     }// </editor-fold>
 
 }
+

@@ -109,6 +109,7 @@ public abstract class DAOFactory implements AutoCloseable {
     
     public abstract PessoaDAO getPessoaDAO();
     
+    public abstract LocadorDAO getLocadorDAO();
     public abstract LocatarioDAO getLocatarioDAO();
 
     @Override

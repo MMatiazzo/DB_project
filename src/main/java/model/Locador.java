@@ -9,7 +9,7 @@ package model;
  *
  * @author mathe
  */
-public class Locador {
+final public class Locador {
     private String cpf_pessoa;
     private String doc_carro;
 
