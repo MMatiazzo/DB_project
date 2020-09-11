@@ -9,9 +9,10 @@ package model;
  *
  * @author mathe
  */
-final class Locatario {
+final public class Locatario {
+    private String cpf_pessoa;
     private String comp_renda;
-    private String com_residencia;
+    private String endereco;
     private String habilitacao;
 
     /**
@@ -28,23 +29,7 @@ final class Locatario {
         this.comp_renda = comp_renda;
     }
 
-    /**
-     * @return the com_residencia
-     */
-    public String getCom_residencia() {
-        return com_residencia;
-    }
 
-    /**
-     * @param com_residencia the com_residencia to set
-     */
-    public void setCom_residencia(String com_residencia) {
-        this.com_residencia = com_residencia;
-    }
-
-    /**
-     * @return the habilitacao
-     */
     public String getHabilitacao() {
         return habilitacao;
     }
@@ -54,6 +39,34 @@ final class Locatario {
      */
     public void setHabilitacao(String habilitacao) {
         this.habilitacao = habilitacao;
+    }
+
+    /**
+     * @return the cpf_pessoa
+     */
+    public String getCpf_pessoa() {
+        return cpf_pessoa;
+    }
+
+    /**
+     * @param cpf_pessoa the cpf_pessoa to set
+     */
+    public void setCpf_pessoa(String cpf_pessoa) {
+        this.cpf_pessoa = cpf_pessoa;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public String getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
     
     

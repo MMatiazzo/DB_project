@@ -9,7 +9,8 @@ package model;
  *
  * @author mathe
  */
-final class Locador extends Pessoa {
+final public class Locador {
+    private String cpf_pessoa;
     private String doc_carro;
 
     /**
@@ -24,6 +25,20 @@ final class Locador extends Pessoa {
      */
     public void setDoc_carro(String doc_carro) {
         this.doc_carro = doc_carro;
+    }
+
+    /**
+     * @return the cpf_pessoa
+     */
+    public String getCpf_pessoa() {
+        return cpf_pessoa;
+    }
+
+    /**
+     * @param cpf_pessoa the cpf_pessoa to set
+     */
+    public void setCpf_pessoa(String cpf_pessoa) {
+        this.cpf_pessoa = cpf_pessoa;
     }
     
     
