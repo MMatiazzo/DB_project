@@ -31,6 +31,11 @@ public class PgDAOFactory extends DAOFactory {
     public PessoaDAO getPessoaDAO() {
         return new PgPessoaDAO(this.connection);
     }
+
+    @Override
+    public LocatarioDAO getLocatarioDAO() {
+       return new PgLocatarioDAO(this.connection);
+    }
    
 
 }

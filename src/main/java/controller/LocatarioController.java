@@ -11,14 +11,13 @@ import dao.DAO;
 import dao.DAOFactory;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -28,7 +27,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Pessoa;
+import model.Locatario;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -36,20 +35,18 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
- * @author dskaster
+ * @author mathe
  */
 @WebServlet(
-        name = "PessoaController",
+        name = "LocatarioController",
         urlPatterns = {
-            "/pessoa",
-            "/pessoa/create",
-            "/pessoa/update",
-            "/pessoa/delete",
-            "/pessoa/read",
-            "/pessoa/checkLogin"
+            "/locatario",
+            "/locatario/create",
+            "/locatario/update",
+            "/locatario/delete",
+            "/locatario/read",
         })
-public class PessoaController extends HttpServlet {
-
+public class LocatarioController extends HttpServlet {
     private static int MAX_FILE_SIZE = 1024 * 1024 * 4;
 
     /**
@@ -59,7 +56,6 @@ public class PessoaController extends HttpServlet {
      */
     private static String SAVE_DIR = "img";
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -70,81 +66,80 @@ public class PessoaController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
-        DAO<Pessoa, String> dao;
-        Pessoa pessoa;
+        DAO<Locatario, String> dao;
+        Locatario locatario;
         RequestDispatcher dispatcher;
 
         switch (request.getServletPath()) {
-            case "/pessoa": {
+            case "/locatario": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getPessoaDAO();
+                    dao = daoFactory.getLocatarioDAO();
 
-                    List<Pessoa> pessoaList = dao.all();
-                    request.setAttribute("pessoaList", pessoaList);
+                    List<Locatario> locatarioList = dao.all();
+                    request.setAttribute("locatarioList", locatarioList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                dispatcher = request.getRequestDispatcher("/view/pessoa/index.jsp");
+                dispatcher = request.getRequestDispatcher("/view/locatario/index.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
 
-            case "/pessoa/create": {
-                dispatcher = request.getRequestDispatcher("/view/pessoa/create.jsp");
+            case "/locatario/create": {
+                dispatcher = request.getRequestDispatcher("/view/locatario/create.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
             
-            case "/pessoa/update": {
+            case "/locatario/update": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getPessoaDAO();
+                    dao = daoFactory.getLocatarioDAO();
 
-                    pessoa = dao.read(request.getParameter("cpf"));
-                    request.setAttribute("pessoa", pessoa);
+                    locatario = dao.read(request.getParameter("cpf_pessoa"));
+                    request.setAttribute("locatario", locatario);
 
-                    dispatcher = request.getRequestDispatcher("/view/pessoa/update.jsp");
+                    dispatcher = request.getRequestDispatcher("/view/locatario/update.jsp");
                     dispatcher.forward(request, response);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/pessoa");
+                    response.sendRedirect(request.getContextPath() + "/locatario");
                 }
                 break;
             }
             
-            case "/pessoa/delete": {
+            case "/locatario/delete": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getPessoaDAO();
-                    dao.delete(request.getParameter("cpf"));
+                    dao = daoFactory.getLocatarioDAO();
+                    dao.delete(request.getParameter("cpf_pessoa"));
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                response.sendRedirect(request.getContextPath() + "/pessoa");
+                response.sendRedirect(request.getContextPath() + "/locatario");
                 break;
             }
             
-            case "/pessoa/read": {
+            case "/locatario/read": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getPessoaDAO();
+                    dao = daoFactory.getLocatarioDAO();
 
-                    pessoa = dao.read(request.getParameter("cpf"));
+                    locatario = dao.read(request.getParameter("cpf_pessoa"));
 
                     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-                    String json = gson.toJson(pessoa);
+                    String json = gson.toJson(locatario);
 
                     response.getOutputStream().print(json);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/pessoa");
+                    response.sendRedirect(request.getContextPath() + "/locatario");
                 }
                 break;
             }
            
         }
-           
     }
 
     /**
@@ -155,20 +150,19 @@ public class PessoaController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+             throws ServletException, IOException {
 
-        DAO<Pessoa, String> dao;
-        Pessoa pessoa = new Pessoa();
+        DAO<Locatario, String> dao;
+        Locatario locatario = new Locatario();
         HttpSession session = request.getSession();
 
         String servletPath = request.getServletPath();
 
         switch (request.getServletPath()) {
-            case "/pessoa/create":
-            case "/pessoa/update": {
+            case "/locatario/create":
+            case "/locatario/update": {
                 // Se fosse um form simples, usaria request.getParameter()
                 // String login = request.getParameter("login");
 
@@ -199,28 +193,22 @@ public class PessoaController extends HttpServlet {
                             String fieldValue = item.getString();
 
                             switch (fieldName) {
-                                case "cpf":
-                                    pessoa.setCpf(fieldValue);
+                                case "cpf_pessoa":
+                                    locatario.setCpf_pessoa(fieldValue);
                                     break;
-                                case "login":
-                                    pessoa.setLogin(fieldValue);
+                                case "habilitacao":
+                                    locatario.setHabilitacao(fieldValue);
                                     break;
-                                case "senha":
-                                    pessoa.setSenha(fieldValue);
-                                    break;
-                                case "nome":
-                                    pessoa.setNome(fieldValue);
-                                    break;
-                                case "nascimento":
-                                    java.util.Date dataNascimento = new SimpleDateFormat("yyyy-mm-dd").parse(fieldValue);
-                                    pessoa.setNascimento(new Date(dataNascimento.getTime()));
+                                case "endereco":
+                                    locatario.setEndereco(fieldValue);
                                     break;
                             }
                         } else {
                             
                             String fieldName = item.getFieldName();
                             String fileName = item.getName();
-                            if (fieldName.equals("avatar") && !fileName.isBlank()) {
+                            System.out.println("PINTAO GOSTOSO TESAO -> AHAHAHHAHAHAHA " + fieldName);
+                            if(fieldName.equals("comp_renda") && !fileName.isBlank()){
                                 // Dados adicionais (não usado nesta aplicação)
                                 String contentType = item.getContentType();
                                 boolean isInMemory = item.isInMemory();
@@ -228,59 +216,61 @@ public class PessoaController extends HttpServlet {
 
                                 // Pega o caminho absoluto da aplicação
                                 String appPath = request.getServletContext().getRealPath("");
+                                
                                 // Grava novo arquivo na pasta img no caminho absoluto
                                 String savePath = appPath + File.separator + SAVE_DIR + File.separator + fileName;
                                 File uploadedFile = new File(savePath);
+                             
                                 item.write(uploadedFile);
 
-                                pessoa.setAvatar(fileName);
+                                locatario.setComp_renda(fileName);
                             }
                             
                         }
                     }
 
-                    dao = daoFactory.getPessoaDAO();
+                    dao = daoFactory.getLocatarioDAO();
 
-                    if (servletPath.equals("/pessoa/create")) {
-                        dao.create(pessoa);
+                    if (servletPath.equals("/locatario/create")) {
+                        dao.create(locatario);
                     } else {
-                        servletPath += "?cpf=" + String.valueOf(pessoa.getCpf());
-                        dao.update(pessoa);
+                        servletPath += "?cpf_pessoa=" + String.valueOf(locatario.getCpf_pessoa());
+                        dao.update(locatario);
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/pessoa");
+                    response.sendRedirect(request.getContextPath() + "/locatario");
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocatarioController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", "O formato de data não é válido. Por favor entre data no formato dd/mm/aaaa");
                     response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (FileUploadException ex) {
-                    Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocatarioController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", "Erro ao fazer upload do arquivo.");
                     response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
-                    Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocatarioController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", ex.getMessage());
                     response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (Exception ex) {
-                    Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocatarioController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", "Erro ao gravar arquivo no servidor.");
                     response.sendRedirect(request.getContextPath() + servletPath);
                 }
                 break;
             }
             
-            case "/pessoa/delete": {
-                String[] pessoas = request.getParameterValues("delete");
+            case "/locatario/delete": {
+                String[] locatarios = request.getParameterValues("delete");
 
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getPessoaDAO();
+                    dao = daoFactory.getLocatarioDAO();
 
                     try {
                         daoFactory.beginTransaction();
 
-                        for (String pessoaCpf : pessoas) {
-                            dao.delete(pessoaCpf);
+                        for (String locatarioCpf : locatarios) {
+                            dao.delete(locatarioCpf);
                         }
 
                         daoFactory.commitTransaction();
@@ -290,20 +280,20 @@ public class PessoaController extends HttpServlet {
                         daoFactory.rollbackTransaction();
                     }
                 } catch (ClassNotFoundException | IOException ex) {
-                    Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocatarioController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", ex.getMessage());
                 } catch (SQLException ex) {
-                    Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(LocatarioController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("rollbackError", ex.getMessage());
                 }
 
-                response.sendRedirect(request.getContextPath() + "/pessoa");
+                response.sendRedirect(request.getContextPath() + "/locatario");
                 break;
             }
 
         }
     }
-    
+
     /**
      * Returns a short description of the servlet.
      *
