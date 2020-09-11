@@ -90,6 +90,7 @@ public class LoginController extends HttpServlet {
         HttpSession session = request.getSession();
 
         switch (request.getServletPath()) {
+            /*
             case "/login":
                 user.setLogin(request.getParameter("login"));
                 user.setSenha(request.getParameter("senha"));
@@ -105,6 +106,7 @@ public class LoginController extends HttpServlet {
                 }
 
                 response.sendRedirect(request.getContextPath() + "/");
+            */
         }        
     }
 

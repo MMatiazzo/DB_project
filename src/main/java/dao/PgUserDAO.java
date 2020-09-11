@@ -20,9 +20,122 @@ import model.User;
  * @author dskaster
  */
 public class PgUserDAO implements UserDAO {
-
     private final Connection connection;
+    
+    @Override
+    public void authenticate(User usuario) throws SQLException, SecurityException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public User getByLogin(String login) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void create(User t) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public User read(Integer id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(User t) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Integer id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<User> all() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public PgUserDAO(Connection connection) {
+        this.connection = connection;
+    }
+/*
+    private final Connection connection;
+    
+    
+    //testes matheus
+   
+    //Create
+    
+    private static final String CREATE_QUERY_LOCADOR =
+                                "INSERT INTO j2ee.user(cpf, doc_carro) " +
+                                "VALUES (?, ?);";
+    
+    private static final String CREATE_QUERY_LOCATARIO =
+                                "INSERT INTO j2ee.user(cpf_pessoa, comp_renda, comp_residencia, habilitacao) " +
+                                "VALUES (?, ?, ?, ?);";
+    
+    //Update
+    private static final String UPDATE_QUERY_PESSOA =
+                                "UPDATE j2ee.user " +
+                                "SET login = ?, nome = ?, nascimento = ? " +
+                                "WHERE cpf = ?;";
+    
+    private static final String UPDATE_QUERY_LOCADOR
+            = "UPDATE j2ee.user "
+            + "SET doc_carro  = ?"
+            + "WHERE cpf_pessoa = ?;";
+
+    private static final String UPDATE_QUERY_LOCATARIO
+            = "UPDATE j2ee.user "
+            + "SET comp_renda = ?, comp_residencia = ?, habilitacao = ? "
+            + "WHERE cpf_pessoa = ?;";
+    
+    //Read
+    private static final String READ_QUERY_PESSOA =
+                                "SELECT cpf, login, nome, nascimento " +
+                                "FROM j2ee.user " +
+                                "WHERE cpf = ?;";
+    
+    private static final String READ_QUERY_LOCADOR =
+                                "SELECT cpf_pessoa, docs_carro" +
+                                "FROM j2ee.user " +
+                                "WHERE cpf_pessoa = ?;";   
+    
+    private static final String READ_QUERY_LOCATARIO =
+                                "SELECT cpf_pessoa, comp_renda, comp_residencia, habilitacao" +
+                                "FROM j2ee.user " +
+                                "WHERE cpf_pessoa = ?;";
+    
+    //Delete
+    private static final String DELETE_QUERY_PESSOA =
+                                "DELETE FROM j2ee.user " +
+                                "WHERE cpf = ?;";
+    
+    private static final String DELETE_QUERY_LOCADOR =
+                                "DELETE FROM j2ee.user " +
+                                "WHERE cpf_pessoa = ?;";
+    
+    private static final String DELETE_QUERY_LOCATARIO =
+                                "DELETE FROM j2ee.user " +
+                                "WHERE cpf_pessoa = ?;";
+
+    //All_querry
+    private static final String ALL_QUERY_PESSOA =
+                                "SELECT nome, login " +
+                                "FROM j2ee.user ";
+    
+    private static final String ALL_QUERY_LOCADOR =
+                                "SELECT cpf_pessoa, doc_carros " +
+                                "FROM j2ee.user ";
+    
+        private static final String ALL_QUERY_LOCATARIO =
+                                "SELECT cpf_pessoa, comp_renda, comp_residencia, habilitacao " +
+                                "FROM j2ee.user ";
+    
+    //testes matheus
+    /*
     private static final String CREATE_QUERY =
                                 "INSERT INTO j2ee.user(login, senha, nome, nascimento, avatar) " +
                                 "VALUES(?, md5(?), ?, ?, ?);";
@@ -70,7 +183,7 @@ public class PgUserDAO implements UserDAO {
                                 "SELECT id, login, nome, nascimento, avatar " +
                                 "FROM j2ee.user " +
                                 "WHERE login = ?;";
-
+    
     public PgUserDAO(Connection connection) {
         this.connection = connection;
     }
@@ -276,5 +389,5 @@ public class PgUserDAO implements UserDAO {
             throw new SQLException("Erro ao obter usuário.");
         }
     }
-    
+    */
 }
