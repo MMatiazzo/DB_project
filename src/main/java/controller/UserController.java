@@ -73,7 +73,7 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAO<User> dao;
+        DAO<User, Integer> dao;
         User user;
         RequestDispatcher dispatcher;
 
@@ -158,7 +158,7 @@ public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAO<User> dao;
+        DAO<User, Integer> dao;
         User user = new User();
         HttpSession session = request.getSession();
 

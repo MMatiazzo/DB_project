@@ -22,4 +22,9 @@ public class PgDAOFactory extends DAOFactory {
         return new PgUserDAO(this.connection);
     }
 
+    @Override
+    public CarDAO getCarDAO() {
+        return new PgCarDAO(this.connection);
+    }
+
 }

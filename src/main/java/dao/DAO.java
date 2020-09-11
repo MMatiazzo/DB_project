@@ -11,12 +11,14 @@ import java.util.List;
 /**
  *
  * @author dskaster
+ * @param <T>
+ * @param <P>
  */
-public interface DAO<T> {
+public interface DAO<T, P> {
     public void create(T t) throws SQLException;
-    public T read(Integer id) throws SQLException;
+    public T read(P id) throws SQLException;
     public void update(T t) throws SQLException;
-    public void delete(Integer id) throws SQLException;
+    public void delete(P id) throws SQLException;
 
     public List<T> all() throws SQLException;    
 }

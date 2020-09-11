@@ -12,7 +12,7 @@ import model.User;
  *
  * @author dskaster
  */
-public interface UserDAO extends DAO<User> {
+public interface UserDAO extends DAO<User, Integer> {
 
     public void authenticate(User usuario) throws SQLException, SecurityException;
     public User getByLogin(String login) throws SQLException;
