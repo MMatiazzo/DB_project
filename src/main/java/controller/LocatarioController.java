@@ -207,7 +207,6 @@ public class LocatarioController extends HttpServlet {
                             
                             String fieldName = item.getFieldName();
                             String fileName = item.getName();
-                            System.out.println("PINTAO GOSTOSO TESAO -> AHAHAHHAHAHAHA " + fieldName);
                             if(fieldName.equals("comp_renda") && !fileName.isBlank()){
                                 // Dados adicionais (não usado nesta aplicação)
                                 String contentType = item.getContentType();
