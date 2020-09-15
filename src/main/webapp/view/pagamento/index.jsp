@@ -64,6 +64,9 @@
                     </tbody>
                 </table>
             </form>
+                <a class="btn btn-lg btn-primary" href="http://localhost:8080/bdapp">
+                    Voltar para tela incial
+                </a>
                 
             <div class="modal fade modal_excluir_pagamento">
                 <div class="modal-dialog">

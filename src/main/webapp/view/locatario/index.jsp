@@ -22,16 +22,6 @@
                 <a class="btn btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/locatario/create">
                     Inserir nova Locatario
                 </a>
-
-                <button class="btn btn-lg btn-warning" data-toggle="modal" data-target=".modal_excluir_locatarios">
-                    Excluir múltiplos locatarios
-                </button>
-                <a class="btn btn-default"
-                   href="${pageContext.servletContext.contextPath}/logout"
-                   data-toggle="tooltip"
-                   data-original-title="Logout">
-                    <i class="fa fa-sign-out"></i>
-                </a>
             </div>
 
             <form class="form_excluir_lcatarios" action="${pageContext.servletContext.contextPath}/locatario/delete" method="POST">
@@ -78,6 +68,9 @@
                     </tbody>
                 </table>
             </form>
+                <a class="btn btn-lg btn-primary" href="http://localhost:8080/bdapp">
+                    Voltar para tela incial
+                </a>
                 
             <div class="modal fade modal_excluir_locatario">
                 <div class="modal-dialog">

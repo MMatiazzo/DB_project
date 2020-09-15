@@ -21,16 +21,6 @@
                 <a class="btn btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/locador/create">
                     Inserir novo Locador
                 </a>
-
-                <button class="btn btn-lg btn-warning" data-toggle="modal" data-target=".modal_excluir_locadores">
-                    Excluir múltiplos locadores
-                </button>
-                <a class="btn btn-default"
-                   href="${pageContext.servletContext.contextPath}/logout"
-                   data-toggle="tooltip"
-                   data-original-title="Logout">
-                    <i class="fa fa-sign-out"></i>
-                </a>
             </div>
 
             <form class="form_excluir_locadores" action="${pageContext.servletContext.contextPath}/locador/delete" method="POST">
@@ -77,6 +67,9 @@
                     </tbody>
                 </table>
             </form>
+                <a class="btn btn-lg btn-primary" href="http://localhost:8080/bdapp">
+                    Voltar para tela incial
+                </a>
                 
             <div class="modal fade modal_excluir_locador">
                 <div class="modal-dialog">

@@ -42,7 +42,12 @@ public class PgDAOFactory extends DAOFactory {
     public LocatarioDAO getLocatarioDAO() {
        return new PgLocatarioDAO(this.connection);
     }
-
+    
+    @Override
+    public ReviewDAO getReviewDAO() {
+        return new PgReviewDAO(this.connection);
+    }
+    
     @Override
     public PagamentoDAO getPagamentoDAO() {
         return new PgPagamentoDAO(this.connection);
