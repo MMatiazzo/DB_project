@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import jdbc.ConnectionFactory;
+import model.Pagamento;
 
 /**
  *
@@ -110,7 +111,10 @@ public abstract class DAOFactory implements AutoCloseable {
     public abstract PessoaDAO getPessoaDAO();
     
     public abstract LocadorDAO getLocadorDAO();
+    
     public abstract LocatarioDAO getLocatarioDAO();
+    
+    public abstract PagamentoDAO getPagamentoDAO();
 
     @Override
     public void close() throws SQLException {

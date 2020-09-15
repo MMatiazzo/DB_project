@@ -6,6 +6,7 @@
 package dao;
 
 import java.sql.Connection;
+import model.Pagamento;
 
 /**
  *
@@ -40,6 +41,11 @@ public class PgDAOFactory extends DAOFactory {
     @Override
     public LocatarioDAO getLocatarioDAO() {
        return new PgLocatarioDAO(this.connection);
+    }
+
+    @Override
+    public PagamentoDAO getPagamentoDAO() {
+        return new PgPagamentoDAO(this.connection);
     }
    
 
