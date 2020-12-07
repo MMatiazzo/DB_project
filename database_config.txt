@@ -6,6 +6,7 @@ CREATE TABLE j2ee.pessoa(
 	senha character(32) NOT NULL,
 	nome character varying(40) NOT NULL,
 	nascimento date NOT NULL,
+	avatar character varying(150),
 	CONSTRAINT pk_cpf PRIMARY KEY (cpf),
 	CONSTRAINT uq_user_login UNIQUE (login)
 );
@@ -37,6 +38,7 @@ CREATE TABLE j2ee.car(
 	descricao varchar(100),
 	disponibilidade boolean NOT NULL,
 	cpf_locador char(11) NOT NULL,
+	avatar character varying(150),
 	CONSTRAINT pk_placa PRIMARY KEY(placa),
 	CONSTRAINT fk_cpf_locador FOREIGN KEY(cpf_locador)
 		REFERENCES j2ee.locador(cpf_pessoa)
