@@ -6,7 +6,7 @@
 package controller;
 
 import dao.DAOFactory;
-import dao.UserDAO;
+import dao.PessoaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
+import model.Pessoa;
 
 /**
  *
@@ -85,28 +85,26 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO dao;
-        User user = new User();
+        PessoaDAO dao;
+        Pessoa pessoa = new Pessoa();
         HttpSession session = request.getSession();
 
         switch (request.getServletPath()) {
-            /*
             case "/login":
-                user.setLogin(request.getParameter("login"));
-                user.setSenha(request.getParameter("senha"));
+                pessoa.setLogin(request.getParameter("login"));
+                pessoa.setSenha(request.getParameter("senha"));
 
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao = daoFactory.getUserDAO();
+                    dao = daoFactory.getPessoaDAO();
 
-                    dao.authenticate(user);
+                    dao.authenticate(pessoa);
 
-                    session.setAttribute("usuario", user);
+                    session.setAttribute("usuario", pessoa);
                 } catch (ClassNotFoundException | IOException | SQLException | SecurityException ex) {
                     session.setAttribute("error", ex.getMessage());
                 }
 
                 response.sendRedirect(request.getContextPath() + "/");
-            */
         }        
     }
 

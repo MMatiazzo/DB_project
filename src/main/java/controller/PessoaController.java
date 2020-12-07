@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.DAO;
 import dao.DAOFactory;
+import dao.PessoaDAO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -50,14 +51,14 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
         })
 public class PessoaController extends HttpServlet {
 
-    private static int MAX_FILE_SIZE = 1024 * 1024 * 4;
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 4;
 
     /**
      * Pasta para salvar os arquivos que foram 'upados'. Os arquivos vão ser
      * salvos na pasta de build do servidor. Ao limpar o projeto (clean),
      * pode-se perder estes arquivos. Façam backup antes de limpar.
      */
-    private static String SAVE_DIR = "img";
+    private static final String SAVE_DIR = "img";
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -141,6 +142,10 @@ public class PessoaController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/pessoa");
                 }
                 break;
+            }
+            
+            case "/pessoa/login": {
+                
             }
            
         }
@@ -299,6 +304,34 @@ public class PessoaController extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/pessoa");
                 break;
+            }
+            
+            
+            case "/pessoa/checkLogin": {
+                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    PessoaDAO udao = daoFactory.getPessoaDAO();
+
+                    pessoa = udao.getByLogin(request.getParameter("login"));
+
+                    Gson gson = new Gson();
+                    Map<String, String> result = new HashMap<>();
+                    if (pessoa != null) {
+                        result.put("status", "USADO");
+                    } else {
+                        result.put("status", "NAO_USADO");
+                    }
+
+                    String json = gson.toJson(result);
+                    response.setContentType("application/json");
+                    response.getOutputStream().print(json);
+
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                    response.sendRedirect(request.getContextPath() + "/pessoa");
+                }
+
+                break;
+                
             }
 
         }

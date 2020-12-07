@@ -8,12 +8,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author dskaster
- * @param <T>
- * @param <P>
- */
+
 public interface DAO<T, P> {
     public void create(T t) throws SQLException;
     public T read(P id) throws SQLException;

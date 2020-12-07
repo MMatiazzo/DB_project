@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.SQLException;
 import model.Pessoa;
 
 /**
@@ -12,5 +13,6 @@ import model.Pessoa;
  * @author mathe
  */
 public interface PessoaDAO extends DAO<Pessoa, String> {
-    
+    public void authenticate(Pessoa pessoa) throws SQLException, SecurityException;
+    public Pessoa getByLogin(String login) throws SQLException;
 }

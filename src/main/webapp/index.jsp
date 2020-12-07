@@ -1,38 +1,36 @@
 <%-- 
-    Document   : newjsp
-    Created on : 10 de set. de 2020, 13:30:21
-    Author     : mathe
+    Document   : welcome
+    Created on : 4 de dez. de 2020, 15:48:30
+    Author     : Guilherme
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <style>
-        .myDivElement{
-            text-align:center;
-        }
-        .myDivElement ul li{
-            display:inline;
-        }
-    </style>
+        <%@include file="/view/include/head.jsp"%>
+        <title>[BD 2020] Login</title>
     </head>
     <body>
-        <div class="myDivElement">
-        <nav aria-label="..." display="inline" text-align="center">
-            <ul class="pagination pagination-lg">
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/pessoa">Pessoa</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/car">Carro</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/locador">Locador</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/locatario">Locatario</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/pagamento">Pagamento</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/review">Review</a></li>
-                
-            </ul>
-        </nav>
+        <div class="container">
+            <form class="form-signin" action="${pageContext.servletContext.contextPath}/login" method="POST">
+                <h2 class="form-signin-heading">Por favor, faça login.</h2>
+
+                <input class="form-control" type="text" name="login" placeholder="Usuário" required autofocus>
+                <input class="form-control" type="password" name="senha" placeholder="Senha" required>
+                <p class="help-block">Ainda não é cadastrado?
+                    <a href="${pageContext.servletContext.contextPath}/pessoa/create">
+                        Clique aqui
+                    </a>
+                </p>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </form>
+
         </div>
+
+        <%@include file="/view/include/scripts.jsp"%>
+        <script src="${pageContext.servletContext.contextPath}/assets/js/base.js"></script>
     </body>
 </html>

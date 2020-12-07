@@ -166,7 +166,7 @@ public class PgPagamentoDAO implements PagamentoDAO{
                 throw new SQLException("Erro ao excluir: pagamento não encontrado.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PgUserDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+            Logger.getLogger(PgPessoaDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
 
             if (ex.getMessage().equals("Erro ao excluir: pagamento não encontrado.")) {
                 throw ex;

@@ -6,7 +6,7 @@ $(document).on('focusout', '.password-input,.password-confirm', function(e) {
     var $password = $form.find(".password-input");
     var $passwordConfirm = $form.find(".password-confirm");
 
-    if ($password.val().trim() == '') {
+    if ($password.val().trim() === '') {
         return false;
     }
 
@@ -53,6 +53,35 @@ function readPessoa(e) {
         $modal.modal();
     });
 }
+
+$(document).on('focusout', '#pessoa-login', function (e) {
+    var $input = $(this);
+    if ($("#pessoa-login").val() === $(this).data('value')) {
+        var $formGroup = $input.parents(".form-group").first();
+        if ($formGroup.hasClass("has-error")) {
+            $formGroup.removeClass("has-error");
+        }
+        $input.next("p").html("");
+    }
+    else {
+        $.post($.url("//pessoa/checkLogin"), { login: $("#pessoa-login").val() }, function(data) {
+            var $formGroup = $input.parents(".form-group").first();
+            if (data.status === "USADO") {
+                if (!$formGroup.hasClass("has-error")) {
+                    $formGroup.addClass("has-error");
+                }
+                $input.next("p").html("O login escolhido existe. Por favor, tente outro.");
+            } else {
+                if ($formGroup.hasClass("has-error")) {
+                    $formGroup.removeClass("has-error");
+                }
+                $input.next("p").html("");
+            }
+        });
+    }
+});
+
+
 
 $(document).ready(function () {
     $(document).on('click', '.link_excluir_pessoa', deletePessoa);

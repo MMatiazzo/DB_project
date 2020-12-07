@@ -58,6 +58,16 @@ public class PgPessoaDAO implements PessoaDAO {
      private static final String ALL_QUERY =
                                 "SELECT cpf, login " +
                                 "FROM j2ee.pessoa ";
+     
+     private static final String AUTHENTICATE_QUERY =
+                                "SELECT cpf, nome, nascimento, avatar " +
+                                "FROM j2ee.pessoa " +
+                                "WHERE login = ? AND senha = md5(?);";
+     
+     private static final String GET_BY_LOGIN_QUERY =
+                                "SELECT cpf, login, nome, nascimento, avatar " +
+                                "FROM j2ee.pessoa " +
+                                "WHERE login = ?;";
     
     public PgPessoaDAO(Connection connection) {
         this.connection = connection;
@@ -216,4 +226,53 @@ public class PgPessoaDAO implements PessoaDAO {
         }
     }
 
+    @Override
+    public void authenticate(Pessoa pessoa) throws SQLException, SecurityException {
+        try (PreparedStatement statement = connection.prepareStatement(AUTHENTICATE_QUERY)) {
+            statement.setString(1, pessoa.getLogin());
+            statement.setString(2, pessoa.getSenha());
+
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    pessoa.setCpf(result.getString("cpf"));
+                    pessoa.setNome(result.getString("nome"));
+                    pessoa.setNascimento(result.getDate("nascimento"));
+                    pessoa.setAvatar(result.getString("avatar"));
+                } else {
+                    throw new SecurityException("Login ou senha incorretos.");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgPessoaDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+            throw new SQLException("Erro ao autenticar usuário.");
+        }
+    }
+
+    @Override
+    public Pessoa getByLogin(String login) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(GET_BY_LOGIN_QUERY)) {
+            statement.setString(1, login);
+
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    Pessoa pessoa = new Pessoa();
+                    pessoa.setCpf(result.getString("id"));
+                    pessoa.setNome(result.getString("nome"));
+                    pessoa.setNascimento(result.getDate("nascimento"));
+                    pessoa.setAvatar(result.getString("avatar"));
+                    pessoa.setLogin(login);
+                    return pessoa;
+
+                } else {
+
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgPessoaDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+            
+            throw new SQLException("Erro ao obter usuário.");
+        }
+    }
 }

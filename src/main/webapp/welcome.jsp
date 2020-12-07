@@ -1,40 +1,40 @@
 <%-- 
-    Document   : welcome
-    Created on : Sep. 8, 2020, 10:24:11 a.m.
-    Author     : dskaster
+    Document   : newjsp
+    Created on : 10 de set. de 2020, 13:30:21
+    Author     : mathe
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib tagdir="/WEB-INF/tags/session" prefix="session"%>
+<session:my_user context="${pageContext.servletContext.contextPath}"/>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="/view/include/head.jsp"  %>
-        <title>[BD 2020] Início</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <style>
+        .myDivElement{
+            text-align:center;
+        }
+        .myDivElement ul li{
+            display:inline;
+        }
+    </style>
     </head>
     <body>
-        
-        <div class="container">
-            
-            <div class="jumbotron">
-                <h1>Bem-vindo,
-                <c:out value="${usuario.nome}"/>!</h1>
-                <p>Este é um exemplo de cadastro de usuários para o trabalho da disciplina Bancos de Dados A.</p>
-                <p>
-                    <a class="btn btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/user">
-                        Cadastro de usuários
-                    </a>                 
-                    <a class="btn btn-default"
-                       href="${pageContext.servletContext.contextPath}/logout"
-                       data-toggle="tooltip"
-                       data-original-title="Logout">
-                        <i class="fa fa-sign-out"></i>
-                    </a>
-                </p>
-            </div>
+        <div class="myDivElement">
+        <nav aria-label="..." display="inline" text-align="center">
+            <ul class="pagination pagination-lg">
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/pessoa">Pessoa</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/car">Carro</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/locador">Locador</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/locatario">Locatario</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/pagamento">Pagamento</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/bdapp/review">Review</a></li>
+                
+            </ul>
+        </nav>
         </div>
-
-        <%@include file="/view/include/scripts.jsp"%>
-        <script src="${pageContext.servletContext.contextPath}/assets/js/user.js"></script>        
     </body>
 </html>

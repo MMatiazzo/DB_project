@@ -19,6 +19,8 @@ public class Pessoa {
     private Date nascimento;
     private String avatar;
 
+    
+    
     /**
      * @return the cpf
      */
