@@ -47,7 +47,7 @@ public class PgCarDAO implements CarDAO {
             + "WHERE placa = ?;";
 
     private static final String ALL_QUERY
-            = "SELECT placa, modelo, avatar, disponibilidade "
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
             + "FROM j2ee.car ";
 
     public PgCarDAO(Connection connection) {
@@ -196,9 +196,11 @@ public class PgCarDAO implements CarDAO {
                 car.setPlaca(result.getString("placa"));
                 car.setModelo(result.getString("modelo"));
                 car.setAvatar(result.getString("avatar"));
-
+                car.setPreco(result.getDouble("preco"));
+                car.setDisponibilidade(result.getBoolean("disponibilidade"));
+                car.setDescricao(result.getString("descricao"));
+                
                 carList.add(car);
-//                System.out.println("MEU DEUS EU ME AJUDA");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PgCarDAO.class.getName()).log(Level.SEVERE, "DAO", ex);

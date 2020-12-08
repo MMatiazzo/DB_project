@@ -21,6 +21,7 @@ public class Car {
     private boolean disponibilidade;
     private String cpf_locador;
     private String avatar;
+    private double preco;
 
     /**
      * @return the placa
@@ -174,6 +175,20 @@ public class Car {
      */
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    /**
+     * @return the preco
+     */
+    public double getPreco() {
+        return preco;
+    }
+
+    /**
+     * @param preco the preco to set
+     */
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
     
 }

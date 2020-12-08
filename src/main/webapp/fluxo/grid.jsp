@@ -86,17 +86,13 @@
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.jsp" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
               <div class="desc std">
-                <div class="new-label"> Used </div>
+              <c:if test="${carro.disponibilidade == true}"> <div class="new-label"> Used </div> </c:if>
                 <br>
                 <br>
-                <p>Sed volutpat ac massa eget 
-                  lacinia.  
-                  Aenean volutpat lacus at dolor blandit </p>
-                <p>cu sed interdum diam. Donec sit ametenim tempor, dapibus nunc eu, 
-                  tincidunt mi. Vivamus dictum nec... <a class="link-learn" title="" href="#">Learn More</a> </p>
+                <p> ${carro.descricao} </p>
               </div>
               <div class="price-box">
-                <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $222.99 </span> </p>
+                <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
               </div>
               <div class="actions">
                 <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Alugar</span></button>
@@ -107,19 +103,19 @@
           </div>
           <div class="toolbar bottom">
             
-            <div id="sort-by">
+            <form id="sort-by">
               <label class="left">Sort By: </label>
               <ul>
                 <li><a href="#">Position<span class="right-arrow"></span></a>
                   <ul>
-                    <li><a href="#">Name</a></li>
-                    <li><a href="#">Price</a></li>
-                    <li><a href="#">Position</a></li>
+                    <li><input type="button" name="order" value="name"> <a href="#">Name</a></li>
+                    <li><input type="button" name="order" value="price"><a href="#">Price</a></li>
+                    <li><input type="button" name="order" value="position"><a href="#">Position</a></li>
                   </ul>
                 </li>
               </ul>
               <a class="button-asc left" href="#" title="Set Descending Direction"><span class="top_arrow"></span></a> </div>
-          </div>
+          </form>
           
         </article>
         </div>
