@@ -47,7 +47,7 @@ public class PgCarDAO implements CarDAO {
             + "WHERE placa = ?;";
 
     private static final String ALL_QUERY
-            = "SELECT placa, modelo, disponibilidade "
+            = "SELECT placa, modelo, avatar, disponibilidade "
             + "FROM j2ee.car ";
 
     public PgCarDAO(Connection connection) {
@@ -187,7 +187,7 @@ public class PgCarDAO implements CarDAO {
 
     @Override
     public List<Car> all() throws SQLException {
-        List<Car> userList = new ArrayList<>();
+        List<Car> carList = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(ALL_QUERY);
              ResultSet result = statement.executeQuery()) {
@@ -195,8 +195,10 @@ public class PgCarDAO implements CarDAO {
                 Car car = new Car();
                 car.setPlaca(result.getString("placa"));
                 car.setModelo(result.getString("modelo"));
+                car.setAvatar(result.getString("avatar"));
 
-                userList.add(car);
+                carList.add(car);
+//                System.out.println("MEU DEUS EU ME AJUDA");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PgCarDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
@@ -204,7 +206,7 @@ public class PgCarDAO implements CarDAO {
             throw new SQLException("Erro ao listar carros.");
         }
 
-        return userList;
+        return carList;
     }
 }
 

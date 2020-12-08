@@ -40,7 +40,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/car/create",
             "/car/update",
             "/car/delete",
-            "/car/read"
+            "/car/read",
+            "/fluxo/novo_teste"
         })
 public class CarController extends HttpServlet {
 
@@ -82,6 +83,21 @@ public class CarController extends HttpServlet {
                 }
 
                 dispatcher = request.getRequestDispatcher("/view/car/index.jsp");
+                dispatcher.forward(request, response);
+                break;
+            }
+            
+            case "/fluxo/novo_teste": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getCarDAO();
+
+                    List<Car> carList = dao.all();
+                    request.setAttribute("carList", carList);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/fluxo/grid.jsp");
                 dispatcher.forward(request, response);
                 break;
             }

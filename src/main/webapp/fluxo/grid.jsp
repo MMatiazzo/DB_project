@@ -11,7 +11,6 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Harrier Car Grid Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Default Description">
 <meta name="keywords" content="fashion, store, E-commerce">
@@ -83,9 +82,9 @@
           <ol class="products-list" id="products-list">
        <c:forEach var="carro" items="${requestScope.carList}">
                  <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+            <div class="product-image"> <a href="car-detail.jsp" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
             <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
+              <h2 class="product-name"><a href="car-detail.jsp" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
               <div class="desc std">
                 <div class="new-label"> Used </div>
                 <br>
@@ -104,178 +103,6 @@
             </div>
           </li>
           </c:forEach>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="HTC Rhyme Sense"> <img class="small-image" src="products-images/p1.jpg" alt="HTC Rhyme Sense"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
-              <div class="desc std">
-                <div class="new-label"> Used </div>
-                <br>
-                <br>
-                <p>Sed volutpat ac massa eget 
-                  lacinia.  
-                  Aenean volutpat lacus at dolor blandit </p>
-                <p>cu sed interdum diam. Donec sit ametenim tempor, dapibus nunc eu, 
-                  tincidunt mi. Vivamus dictum nec... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box">
-                <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $222.99 </span> </p>
-              </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Alugar</span></button>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="Microsoft Natural Keyboard"> <img class="small-image" src="products-images/p2.jpg" alt="Microsoft Natural Keyboard"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="Microsoft Natural Keyboard">Microsoft Natural Keyboard</a></h2>
-              <div class="desc std">
-                <p>Sed volutpat ac massa eget 
-                  lacinia. Suspendisse non purus semper, tellus vel, tristique urna. 
-                  Aenean volutpat lacus at dolor blandit. </p>
-                <p>Sed sed interdum diam. Donec sit ametenim tempor, dapibus nunc eu, 
-                  tincidunt mi. Vivamus dignissimm ... <a class="link-learn" title="" href="#">Learn More</a></p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-159"> <span class="price">$99.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="30&quot; Flat-Panel HD Monitor"> <img class="small-image" src="products-images/p3.jpg" alt="30&quot; Flat-Panel HD Monitor"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="30&quot; Flat-Panel HD Monitor">30" Flat-Panel HD Monitor</a></h2>
-              <div class="desc std">Computer games, digital photo 
-                editing and graphic applications will astound you on this huge 30" 
-                flat-panel monitor.
-                <p>Sed sed interdum diam. Donec sit ametenim tempor, dapibus nunc eu, 
-                  tincidunt mi. </p>
-                <p>Phasellus consequat id purus in convallis. Nulla quis... <a class="link-learn" title="" href="#">Learn More</a></p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-157"> <span class="price">$699.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="19&quot; Widescreen LCD Monitor"> <img class="small-image" src="products-images/p4.jpg" alt="19&quot; Widescreen LCD Monitor"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="19&quot; Widescreen LCD Monitor">19" Widescreen LCD Monitor</a></h2>
-              <div class="desc std">2 ms response time; 10,000:1 contrast ratio; 300 cd/m² brightness; 1440 x 900 maximum resolution; DVI-D and 15-pin D-sub inputs
-                <p>Phasellus consequat id purus pretium enimnec, tristique... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-156"> <span class="price">$399.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="Seagate 250GB HD "> <img class="small-image" src="products-images/p5.jpg" alt="Seagate 250GB HD "> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="Seagate 250GB HD ">Seagate 250GB HD </a></h2>
-              <div class="desc std">1 TB - 7200RPM, SATA 3.0Gb/s, 32MB Cache
-                <p>Maecenas vehicula volutpat elit, in interdum lacus faucibus sit amet. </p>
-                <p>Sed sed interdum diam. Donec sit ametenim tempor, dapibus nunc eu, 
-                  tincidunt mi. Vivamus dignissim nisl. Donec eget feugiat ante. 
-                  Integerarcu libero, dictum nec congue sed, faucibus ... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-155"> <span class="price">$99.00</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="Seagate 500GB HD"> <img class="small-image" src="products-images/p6.jpg" alt="Seagate 500GB HD"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="Seagate 500GB HD">Seagate 500GB HD</a></h2>
-              <div class="desc std">1 TB - 7200RPM, SATA 3.0Gb/s, 32MB Cache
-                <p>Aenean volutpat lacus at dolor blandit, 
-                  vitae lobortisante semper. Ut 
-                  bibendum metusfringilla, in interdum lacus faucibus sit amet. </p>
-                <p> Donec eget feugiat ante. 
-                  Integerarcu libero... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-154"> <span class="price">$299<span class="sub">.00</span></span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="Intel Core 2 Extreme QX9775"> <img class="small-image" src="products-images/p7.jpg" alt="Intel Core 2 Extreme QX9775"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="Intel Core 2 Extreme QX9775">Intel Core 2 Extreme QX9775</a></h2>
-              <div class="desc std">Intel Core 2 Extreme QX9775 
-                Processor BX80574QX9775 - 45nm, 3.20GHz, 12MB Cache, 1600MHz FSB,
-                <p>Vivamus dignissim nisl eu euismod ullamcorper. Donec 
-                  pellentesque diam id est tristique vestibulum. Donec eget feugiat ante. 
-                  Integerarcu libero, dictum nec congue sed, faucibus sit amet lectus. </p>
-                <p>Phasellus consequat... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-153"> <span class="price">$2,049.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="24&quot; Widescreen LCD Monitor"> <img class="small-image" src="products-images/p8.jpg" alt="24&quot; Widescreen LCD Monitor"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="24&quot; Widescreen LCD Monitor">24" Widescreen LCD Monitor</a></h2>
-              <div class="desc std">5 ms response time; 10,000:1 contrast ratio; 400 cd/m² brightness; 1920 x 1200 maximum resolution; DVI-D and 15-pin D-sub inputs
-                <p> tellus vel, tristique urna. </p>
-                <p>Phasellus consequat id purus in convallis. Nulla quis nunc auctor, 
-                  pretium enimnec, tristique magna... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-152"> <span class="price">$699.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="Logitech Optical Trackman"> <img class="small-image" src="products-images/p9.jpg" alt="Logitech Optical Trackman"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="Logitech Optical Trackman">Logitech Optical Trackman</a></h2>
-              <div class="desc std">Our most advanced trackball yet. 
-                
-                Save space and eliminate desktop clutter.
-                <p>Donec eget feugiat ante. 
-                  Integerarcu libero, dictum nec congue sed, faucibus sit amet lectus. </p>
-                <p>Vivamus vitae arcu faucibus, dictum 
-                  magna vel, adipiscing... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-160"> <span class="price">$79.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
-          <li class="item even">
-            <div class="product-image"> <a href="car-detail.html" title="Logitech diNovo Edge Keyboard"> <img class="small-image" src="products-images/p10.jpg" alt="Logitech diNovo Edge Keyboard"> </a> </div>
-            <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.html" title="Logitech diNovo Edge Keyboard">Logitech diNovo Edge Keyboard</a></h2>
-              <div class="ratings">
-                <div class="rating-box">
-                  <div style="width:80%" class="rating"></div>
-                </div>
-                <p class="rating-links"> <a href="#/review/product/list/id/167/category/35/">1 Review(s)</a> <span class="separator">|</span> <a href="#/review/product/list/id/167/category/35/#review-form">Add Your Review</a> </p>
-              </div>
-              <div class="desc std">Li-Ion powered.
-                <p>Sed volutpat ac massa eget lacinia. Suspendisse non purus semper, 
-                  vitae lobortisante semper. </p>
-                <p>Integerarcu libero, dictum nec congue sed, faucibus sit... <a class="link-learn" title="" href="#">Learn More</a> </p>
-              </div>
-              <div class="price-box"> <span class="regular-price" id="product-price-161"> <span class="price">$239.99</span> </span> </div>
-              <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
-            </div>
-          </li>
         </ol>
           </div>
           <div class="toolbar bottom">

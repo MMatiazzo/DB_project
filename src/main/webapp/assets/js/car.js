@@ -33,8 +33,6 @@ function readCar(e) {
     });
 }
 
-
-
 $(document).ready(function () {
     $(document).on('click', '.link_excluir_carro', deleteCar);
     $(document).on('click', '.button_confirmacao_excluir_carros', deleteCars);
