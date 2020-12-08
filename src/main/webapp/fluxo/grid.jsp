@@ -69,7 +69,7 @@
               <ul>
                 <li><a href="#">Position<span class="right-arrow"></span></a>
                   <ul>
-                    <li><a href="#">Name</a></li>
+                    <li><a href="?meucu=10">Name</a></li>
                     <li><a href="#">Price</a></li>
                     <li><a href="#">Position</a></li>
                   </ul>
@@ -82,9 +82,9 @@
           <ol class="products-list" id="products-list">
        <c:forEach var="carro" items="${requestScope.carList}">
                  <li class="item even">
-            <div class="product-image"> <a href="car-detail.jsp" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+            <div class="product-image"> <a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
             <div class="product-shop">
-              <h2 class="product-name"><a href="car-detail.jsp" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
+              <h2 class="product-name"><a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
               <div class="desc std">
               <c:if test="${carro.disponibilidade == true}"> <div class="new-label"> Used </div> </c:if>
                 <br>
@@ -96,6 +96,7 @@
               </div>
               <div class="actions">
                 <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Alugar</span></button>
+            </div>
             </div>
           </li>
           </c:forEach>
@@ -114,9 +115,9 @@
                   </ul>
                 </li>
               </ul>
-              <a class="button-asc left" href="#" title="Set Descending Direction"><span class="top_arrow"></span></a> </div>
+              <a class="button-asc left" href="#" title="Set Descending Direction"><span class="top_arrow"></span></a>
           </form>
-          
+         </div>
         </article>
         </div>
         <!--	///*///======    End article  ========= //*/// --> 

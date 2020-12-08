@@ -47,7 +47,7 @@ public class PgCarDAO implements CarDAO {
             + "WHERE placa = ?;";
 
     private static final String ALL_QUERY
-            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, num_lugares, abss, ar_condicionado, airbags  "
             + "FROM j2ee.car ";
 
     public PgCarDAO(Connection connection) {
