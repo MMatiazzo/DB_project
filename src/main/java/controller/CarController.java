@@ -7,6 +7,7 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dao.CarDAO;
 import dao.DAO;
 import dao.DAOFactory;
 import java.io.File;
@@ -41,7 +42,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/car/update",
             "/car/delete",
             "/car/read",
-            "/fluxo/novo_teste"
+            "/fluxo/novo_teste",
+            "/fluxo/order_by"
         })
 public class CarController extends HttpServlet {
 
@@ -92,6 +94,22 @@ public class CarController extends HttpServlet {
                     dao = daoFactory.getCarDAO();
 
                     List<Car> carList = dao.all();
+                    request.setAttribute("carList", carList);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/fluxo/grid.jsp");
+                dispatcher.forward(request, response);
+                break;
+            }
+            
+            case "/fluxo/order_by": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getCarDAO();
+                    String order_by = request.getParameter("order_by");
+
+                    List<Car> carList = ((CarDAO)dao).all(order_by);
                     request.setAttribute("carList", carList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
