@@ -6,6 +6,8 @@
 package dao;
 
 
+import java.sql.SQLException;
+import java.util.List;
 import model.Car;
 
 /**
@@ -13,5 +15,5 @@ import model.Car;
  * @author Guilherme
  */
 public interface CarDAO extends DAO<Car, String>{
-    
+    public List<Car> all(String order_by) throws SQLException;
 }
