@@ -48,7 +48,18 @@ public class PgCarDAO implements CarDAO {
 
     private static final String ALL_QUERY
             = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
-            + "FROM j2ee.car ";
+            + "FROM j2ee.car;";
+    
+    private static final String[] ALL_QUERY_ORDER_BY
+            = {"SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            + "FROM j2ee.car " 
+            + "ORDER BY modelo ASC;",
+            "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            + "FROM j2ee.car " 
+            + "ORDER BY preco ASC;",
+            "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            + "FROM j2ee.car " 
+            + "ORDER BY ano ASC;"};
 
     public PgCarDAO(Connection connection) {
         this.connection = connection;
@@ -189,8 +200,54 @@ public class PgCarDAO implements CarDAO {
     public List<Car> all() throws SQLException {
         List<Car> carList = new ArrayList<>();
 
+
         try (PreparedStatement statement = connection.prepareStatement(ALL_QUERY);
              ResultSet result = statement.executeQuery()) {
+            while (result.next()) {
+                Car car = new Car();
+                car.setPlaca(result.getString("placa"));
+                car.setModelo(result.getString("modelo"));
+                car.setAvatar(result.getString("avatar"));
+                car.setPreco(result.getDouble("preco"));
+                car.setDisponibilidade(result.getBoolean("disponibilidade"));
+                car.setDescricao(result.getString("descricao"));
+                
+                carList.add(car);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgCarDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+            throw new SQLException("Erro ao listar carros.");
+        }
+
+        return carList;
+    }
+
+   
+
+    public List<Car> all(String order_by) throws SQLException {
+        List<Car> carList = new ArrayList<>();
+        int i = 0;
+        switch(order_by) {
+            case "modelo": {
+                i = 0;
+                break;
+            }
+            
+            case "preco": {
+                i = 1;
+                break;
+            }
+            
+            case "ano": {
+                i = 2;
+                break;
+            }
+        }
+        try (PreparedStatement statement = connection.prepareStatement(ALL_QUERY_ORDER_BY[i])) {
+            System.out.println(order_by);
+            
+            ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Car car = new Car();
                 car.setPlaca(result.getString("placa"));

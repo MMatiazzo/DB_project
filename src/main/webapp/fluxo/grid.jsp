@@ -69,9 +69,9 @@
               <ul>
                 <li><a href="#">Position<span class="right-arrow"></span></a>
                   <ul>
-                    <li><a href="#">Name</a></li>
-                    <li><a href="#">Price</a></li>
-                    <li><a href="#">Position</a></li>
+                    <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=modelo&order=asc">Name</a></li>
+                    <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=preco&order=asc">Price</a></li>
+                    <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=avatar&order=asc">Position</a></li>
                   </ul>
                 </li>
               </ul>
@@ -101,21 +101,6 @@
           </c:forEach>
         </ol>
           </div>
-          <div class="toolbar bottom">
-            
-            <form id="sort-by">
-              <label class="left">Sort By: </label>
-              <ul>
-                <li><a href="#">Position<span class="right-arrow"></span></a>
-                  <ul>
-                    <li><input type="button" name="order" value="name"> <a href="#">Name</a></li>
-                    <li><input type="button" name="order" value="price"><a href="#">Price</a></li>
-                    <li><input type="button" name="order" value="position"><a href="#">Position</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <a class="button-asc left" href="#" title="Set Descending Direction"><span class="top_arrow"></span></a> </div>
-          </form>
           
         </article>
         </div>
