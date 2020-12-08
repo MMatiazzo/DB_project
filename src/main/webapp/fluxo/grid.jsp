@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ﻿<!DOCTYPE html>
 <html lang="en">
 
@@ -80,7 +81,30 @@
           </div>
         <div class="category-products">
           <ol class="products-list" id="products-list">
-          <li class="item first">
+       <c:forEach var="carro" items="${requestScope.carList}">
+                 <li class="item even">
+            <div class="product-image"> <a href="car-detail.html" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+            <div class="product-shop">
+              <h2 class="product-name"><a href="car-detail.html" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
+              <div class="desc std">
+                <div class="new-label"> Used </div>
+                <br>
+                <br>
+                <p>Sed volutpat ac massa eget 
+                  lacinia.  
+                  Aenean volutpat lacus at dolor blandit </p>
+                <p>cu sed interdum diam. Donec sit ametenim tempor, dapibus nunc eu, 
+                  tincidunt mi. Vivamus dictum nec... <a class="link-learn" title="" href="#">Learn More</a> </p>
+              </div>
+              <div class="price-box">
+                <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $222.99 </span> </p>
+              </div>
+              <div class="actions">
+                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Alugar</span></button>
+            </div>
+          </li>
+          </c:forEach>
+          <li class="item even">
             <div class="product-image"> <a href="car-detail.html" title="HTC Rhyme Sense"> <img class="small-image" src="products-images/p1.jpg" alt="HTC Rhyme Sense"> </a> </div>
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.html" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
@@ -118,7 +142,7 @@
                 <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
             </div>
           </li>
-          <li class="item odd">
+          <li class="item even">
             <div class="product-image"> <a href="car-detail.html" title="30&quot; Flat-Panel HD Monitor"> <img class="small-image" src="products-images/p3.jpg" alt="30&quot; Flat-Panel HD Monitor"> </a> </div>
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.html" title="30&quot; Flat-Panel HD Monitor">30" Flat-Panel HD Monitor</a></h2>
@@ -148,7 +172,7 @@
                 <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
             </div>
           </li>
-          <li class="item odd">
+          <li class="item even">
             <div class="product-image"> <a href="car-detail.html" title="Seagate 250GB HD "> <img class="small-image" src="products-images/p5.jpg" alt="Seagate 250GB HD "> </a> </div>
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.html" title="Seagate 250GB HD ">Seagate 250GB HD </a></h2>
@@ -181,7 +205,7 @@
                 <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
             </div>
           </li>
-          <li class="item odd">
+          <li class="item even">
             <div class="product-image"> <a href="car-detail.html" title="Intel Core 2 Extreme QX9775"> <img class="small-image" src="products-images/p7.jpg" alt="Intel Core 2 Extreme QX9775"> </a> </div>
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.html" title="Intel Core 2 Extreme QX9775">Intel Core 2 Extreme QX9775</a></h2>
@@ -213,7 +237,7 @@
                 <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
             </div>
           </li>
-          <li class="item odd">
+          <li class="item even">
             <div class="product-image"> <a href="car-detail.html" title="Logitech Optical Trackman"> <img class="small-image" src="products-images/p9.jpg" alt="Logitech Optical Trackman"> </a> </div>
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.html" title="Logitech Optical Trackman">Logitech Optical Trackman</a></h2>
@@ -231,7 +255,7 @@
                 <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"><span>Add to Wishlist</span></a> <a title="Add to Compare" class="button link-compare" href="#"><span>Add to Compare</span></a> </span> </div>
             </div>
           </li>
-          <li class="item last even">
+          <li class="item even">
             <div class="product-image"> <a href="car-detail.html" title="Logitech diNovo Edge Keyboard"> <img class="small-image" src="products-images/p10.jpg" alt="Logitech diNovo Edge Keyboard"> </a> </div>
             <div class="product-shop">
               <h2 class="product-name"><a href="car-detail.html" title="Logitech diNovo Edge Keyboard">Logitech diNovo Edge Keyboard</a></h2>
@@ -353,8 +377,9 @@
     </div>
   </footer>
   <!-- End For version 1,2,3,4,6 --> 
-  
 </div>
+<%@include file="/view/include/scripts.jsp"%>
+<script src="${pageContext.servletContext.contextPath}/assets/js/car.js"></script>
 <!-- JavaScript --> 
 <script type="text/javascript" src="js/jquery.min.js"></script> 
 <script type="text/javascript" src="js/bootstrap.min.js"></script> 
