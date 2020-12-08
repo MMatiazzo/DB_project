@@ -12,5 +12,6 @@ import model.Car;
  *
  * @author Guilherme
  */
-interface CarDAO extends DAO<Car, String>{
+public interface CarDAO extends DAO<Car, String>{
+    
 }
