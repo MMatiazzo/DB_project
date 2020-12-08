@@ -5,7 +5,9 @@
  */
 package dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import model.Review;
 
 /**
@@ -13,5 +15,5 @@ import model.Review;
  * @author Guilherme
  */
 public interface ReviewDAO extends DAO<Review, ArrayList<String>>{
-    
+    public List<Review> all(String placa) throws SQLException;
 }

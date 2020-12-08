@@ -45,7 +45,7 @@
     <c:set var='abs' value="${carro.abss}" />
     <c:set var='modelo' value="${carro.modelo}" />
     <c:set var='ar_c' value="${carro.ar_condicionado}" />
-    <c:set var='arirbags' value="${carro.airbags}" />
+    <c:set var='airbags' value="${carro.airbags}" />
     <c:set var='num_lugares' value="${carro.num_lugares}" />
     <c:set var='descricao' value="${carro.descricao}" />
     <c:set var='avatar' value="${carro.avatar}" />
@@ -115,7 +115,7 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="product_tabs_tags">
-                <div class="spec-row" id="summarySpecs">
+                <dfiv class="spec-row" id="summarySpecs">
                     <table width="100%">
                       <tbody>
                         <tr>
@@ -124,7 +124,7 @@
                         </tr>
                         <tr>
                           <td class="label-spec"> ABS. <span class="coln">:</span></td>
-                          <td class="value-spec"> ${abs} </td>
+                          <td class="value-spec"> <c:if test="${abs == true}">SIM</c:if> <c:if test="${abs == false}">NÃO</c:if> </td>
                         </tr>
                         <tr class="odd">
                           <td class="label-spec"> MODELO <span class="coln">:</span></td>
@@ -132,11 +132,11 @@
                         </tr>
                         <tr class="odd">
                           <td class="label-spec"> AR CONDICIONADO <span class="coln">:</span></td>
-                          <td class="value-spec"> ${ar_c} </td>
+                          <td class="value-spec"> <c:if test="${abs == true}">SIM</c:if> <c:if test="${abs == false}">NÃO</c:if> </td>
                         </tr>
                         <tr>
                           <td class="label-spec"> AIRBAGS <span class="coln">:</span></td>
-                          <td class="value-spec"> ${arirbags} </td>
+                          <td class="value-spec"> <c:if test="${abs == true}">SIM</c:if> <c:if test="${abs == false}">NÃO</c:if> </td>
                         </tr>
                         <tr>
                           <td class="label-spec"> NUMERO DE LUGARES <span class="coln">:</span></td>
@@ -149,20 +149,21 @@
               <div class="tab-pane fade" id="reviews_tabs">
                 <div class="woocommerce-Reviews">
                   <div>
-                    <h2 class="woocommerce-Reviews-title">Numero de reviews </h2>
+                    <h2 class="woocommerce-Reviews-title">Reviews </h2>
                     <ol class="commentlist">
-                      <li class="comment">
-                        <div> <img alt="" src="images/member1.png" class="avatar avatar-60 photo">
-                          <div class="comment-text">
-                            <p class="meta"> <strong>Nome do arrombado</strong> <span></span> Data que ele alugou o carro que nem </p>
-                            <div class="description">
-                              <p>Lembrar de colocar essa merda em um forecha pegando todos os reviews sobre esse determinado carro</p>
-                              <p>Escreba aki sua opnião que ngm da a minima sobre um carro que nem existe.</p>
+                        <c:forEach var="review" items="${requestScope.reviewList}">
+                          <li class="comment">
+                            <div> <img alt="" src="${pageContext.request.contextPath}/img/${review.cpf_locador}" class="avatar avatar-60 photo">
+                              <div class="comment-text">
+                                <p class="meta"> <strong>${review.cpf_locatario}</strong> <span></span> ${review.data_review} </p>
+                                <div class="description">
+                                  <p> ${review.descricao} </p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                      <!-- #comment-## -->
+                          </li>
+                          <!-- #comment-## -->
+                        </c:forEach>
                     </ol>
                   </div>
                   <div>

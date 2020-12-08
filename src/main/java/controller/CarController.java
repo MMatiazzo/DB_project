@@ -10,9 +10,11 @@ import com.google.gson.GsonBuilder;
 import dao.CarDAO;
 import dao.DAO;
 import dao.DAOFactory;
+import dao.ReviewDAO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Car;
+import model.Review;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -71,6 +74,7 @@ public class CarController extends HttpServlet {
             throws ServletException, IOException {
 
         DAO<Car, String> dao;
+        DAO<Review, ArrayList<String>> rdao;
         Car car;
         RequestDispatcher dispatcher;
 
@@ -93,6 +97,7 @@ public class CarController extends HttpServlet {
             case "/fluxo/novo_teste": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
+                    
 
                     List<Car> carList = dao.all();
                     request.setAttribute("carList", carList);
@@ -108,8 +113,11 @@ public class CarController extends HttpServlet {
              case "/fluxo/novo_teste2": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
-
+                    rdao = daoFactory.getReviewDAO();
+                    
                     List<Car> carList = dao.all();
+                    List<Review> reviewList = ((ReviewDAO)rdao).all(request.getParameter("placa"));
+                    request.setAttribute("reviewList", reviewList);
                     request.setAttribute("carList", carList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());

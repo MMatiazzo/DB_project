@@ -231,6 +231,7 @@ public class PgCarDAO implements CarDAO {
 
    
 
+    @Override
     public List<Car> all(String order_by) throws SQLException {
         List<Car> carList = new ArrayList<>();
         int i = 0;

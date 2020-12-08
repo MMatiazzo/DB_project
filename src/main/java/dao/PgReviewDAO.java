@@ -43,7 +43,12 @@ public class PgReviewDAO implements ReviewDAO{
 
     private static final String ALL_QUERY
             = "SELECT num_placa_carro, cpf_locador, cpf_locatario, data_review, descricao, nota "
-            + "FROM j2ee.review ";
+            + "FROM j2ee.review;";
+    
+    private static final String SEARCH_BY_PLACA
+            = "SELECT num_placa_carro, cpf_locador, cpf_locatario, data_review, descricao, nota, nome, avatar "
+            + "FROM j2ee.review, j2ee.pessoa "
+            + "WHERE num_placa_carro = ? AND cpf = cpf_locatario;";
 
     public PgReviewDAO(Connection connection) {
         this.connection = connection;
@@ -172,6 +177,34 @@ public class PgReviewDAO implements ReviewDAO{
                 review.setNum_placa_carro(result.getString("num_placa_carro"));
                 review.setCpf_locador(result.getString("cpf_locador"));
                 review.setCpf_locatario(result.getString("cpf_locatario"));
+                review.setData_review(result.getDate("data_review"));
+                review.setDescricao(result.getString("descricao"));
+                review.setNota(result.getInt("nota"));
+
+                reviewList.add(review);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgReviewDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+            throw new SQLException("Erro ao listar Reviews.");
+        }
+
+        return reviewList;
+    }
+    
+    
+    @Override
+    public List<Review> all(String placa) throws SQLException {
+        List<Review> reviewList = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(SEARCH_BY_PLACA)){
+                statement.setString(1, placa);
+                ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Review review = new Review();
+                review.setNum_placa_carro(result.getString("num_placa_carro"));
+                review.setCpf_locador(result.getString("avatar"));
+                review.setCpf_locatario(result.getString("nome"));
                 review.setData_review(result.getDate("data_review"));
                 review.setDescricao(result.getString("descricao"));
                 review.setNota(result.getInt("nota"));
