@@ -47,7 +47,7 @@ public class PgCarDAO implements CarDAO {
             + "WHERE placa = ?;";
 
     private static final String ALL_QUERY
-            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, num_lugares, airbags, abss, ar_condicionado "
             + "FROM j2ee.car;";
     
     private static final String[] ALL_QUERY_ORDER_BY
@@ -211,6 +211,12 @@ public class PgCarDAO implements CarDAO {
                 car.setPreco(result.getDouble("preco"));
                 car.setDisponibilidade(result.getBoolean("disponibilidade"));
                 car.setDescricao(result.getString("descricao"));
+                car.setNum_lugares(result.getInt("num_lugares"));
+                car.setAirbags(result.getBoolean("airbags"));
+                car.setAbss(result.getBoolean("abss"));
+                car.setAr_condicionado(result.getBoolean("ar_condicionado"));
+                
+                
                 
                 carList.add(car);
             }

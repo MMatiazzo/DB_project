@@ -48,6 +48,7 @@
     <c:set var='arirbags' value="${carro.airbags}" />
     <c:set var='num_lugares' value="${carro.num_lugares}" />
     <c:set var='descricao' value="${carro.descricao}" />
+    <c:set var='avatar' value="${carro.avatar}" />
     </c:if>
     </c:forEach>
   <div class="page-heading">
@@ -78,14 +79,14 @@
                   <div class="new-label new-top-left">Hot</div>
                   <div class="sale-label sale-top-left">-15%</div>
                   <div class="product-image">
-                    <div class="product-full"> <img id="product-zoom1" src="products-images/p46.jpg" data-zoom-image="products-images/p46.jpg" alt="product-image"/> </div>
+                    <div class="product-full"><img id="product-zoom1" src="${pageContext.request.contextPath}/img/<c:if test="${avatar == null}">default_avatar.png</c:if><c:if test="${avatar != null}">${avatar}</c:if>" data-zoom-image="${pageContext.request.contextPath}/img/<c:if test="${avatar == null}">default_avatar.png</c:if><c:if test="${avatar != null}">${avatar}</c:if>" alt="product-image"/> </div>
                   </div>
                 </div>
                 <!--End For version 1,2,6--> 
                 <!-- For version 3 -->
                 <div class="product-shop col-lg- col-sm-7 col-xs-12">
                   <div class="product-name">
-                    <h1>Gorgeous Mercedes-Benz E-Class All-Terrain Luxury </h1>
+                    <h1>${modelo} </h1>
                   </div>
                   <div class="price-block">
                     <div class="price-box">

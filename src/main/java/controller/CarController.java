@@ -116,6 +116,7 @@ public class CarController extends HttpServlet {
                 }
 
                 dispatcher = request.getRequestDispatcher("/fluxo/car-detail.jsp");
+                dispatcher.forward(request, response);
                 break;
              }
              
