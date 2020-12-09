@@ -45,6 +45,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/car/update",
             "/car/delete",
             "/car/read",
+            "/fluxo/search",
             "/fluxo/novo_teste",
             "/fluxo/order_by",
             "/fluxo/novo_teste2",
@@ -213,6 +214,22 @@ public class CarController extends HttpServlet {
                 }
                 break;
             }
+            
+            case "/fluxo/search": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getCarDAO();
+
+                    
+                    List<Car> carList = ((CarDAO)dao).search(request.getParameter("search_by"));
+                    request.setAttribute("carList", carList);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/fluxo/grid.jsp");
+                dispatcher.forward(request, response);
+                break;
+            }
         }
     }
 
@@ -377,6 +394,7 @@ public class CarController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/car");
                 break;
             }
+                
         }
     }
 

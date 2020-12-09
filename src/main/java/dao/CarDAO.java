@@ -16,5 +16,6 @@ import model.Car;
  */
 public interface CarDAO extends DAO<Car, String>{
     public List<Car> all(String order_by) throws SQLException;
+    public List<Car> search(String search_by) throws SQLException;
     public List<Car> all(String modelo, int ano, double preco) throws SQLException;
 }
