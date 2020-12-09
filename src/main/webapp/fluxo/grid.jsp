@@ -86,7 +86,7 @@
             <div class="product-shop">
               <h2 class="product-name"><a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
               <div class="desc std">
-              <c:if test="${carro.disponibilidade == true}"> <div class="new-label"> Used </div> </c:if>
+              <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
                 <br>
                 <br>
                 <p> ${carro.descricao} </p>
@@ -108,67 +108,44 @@
         <!--	///*///======    End article  ========= //*/// --> 
       </div>
       <aside class="col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated"> 
-      <div class="section-filter">
-            <div class="b-filter__inner bg-grey">
-              <h2>Find your right car</h2>
-              <form class="b-filter">
+              <h2>Pesquisa Guiada</h2>
+              <form class="b-filter" action="http://localhost:8080/bdapp/fluxo/novo_teste?${request.getParameter("modelo_s")}&${request.getParameter("ano_s")}&${request.getParameter("preco_s")}" method="get">
                 <div class="btn-group bootstrap-select" style="width: 100%;">
-                  <select class="selectpicker" data-width="100%" tabindex="-98">
-                    <option>Select Make</option>
-                    <option>Make 1</option>
-                    <option>Make 2</option>
-                    <option>Make 3</option>
+                  <select class="selectpicker" data-width="100%" tabindex="-98" name="modelo_s">
+                    <option >Modelo</option>
+                    <option >Gol</option>
+                    <option  >Uno</option>
+                    <option  >Palio</option>
+                    <option  >Celta</option>
+                    <option  >Voyage</option>
                   </select>
                 </div>
                 <div class="btn-group bootstrap-select" style="width: 100%;">
-                  <select class="selectpicker" data-width="100%" tabindex="-98">
-                    <option>Select Car Status</option>
-                    <option>Status 1</option>
-                    <option>Status 2</option>
-                    <option>Status 3</option>
+                  <select class="selectpicker" data-width="100%" tabindex="-98" name="ano_s">
+                    <option  >Ano</option>
+                    <option  >2015</option>
+                    <option  >2016</option>
+                    <option  >2017</option>
+                    <option  >2018</option>
+                    <option  >2019</option>
+                    <option  >2020</option>
                   </select>
                 </div>
                 <div class="btn-group bootstrap-select" style="width: 100%;">
-                  <select class="selectpicker" data-width="100%" tabindex="-98">
-                    <option>Select Model</option>
-                    <option>Model 1</option>
-                    <option>Model 2</option>
-                    <option>Model 3</option>
+                  <select class="selectpicker" data-width="100%" tabindex="-98" name="preco_s">
+                    <option  >Preço Até</option>
+                    <option  >20</option>
+                    <option  >10000</option>
+                    <option  >20000</option>
+                    <option  >30000</option>
+                    <option  >40000</option>
+                    <option  >80000</option>
                   </select>
                 </div>
-                <div class="btn-group bootstrap-select" style="width: 100%;">
-                  <select class="selectpicker" data-width="100%" tabindex="-98">
-                    <option>Select All Locations</option>
-                    <option>Location 1</option>
-                    <option>Location 2</option>
-                    <option>Location 3</option>
-                  </select>
-                </div>
-                <div class="btn-group bootstrap-select" style="width: 100%;">
-                  <select class="selectpicker" data-width="100%" tabindex="-98">
-                    <option>Select Year</option>
-                    <option>2017</option>
-                    <option>2016</option>
-                    <option>2015</option>
-                  </select>
-                </div>
-                <div class="ui-filter-slider">
-                  <div class="sidebar-widget-body m-t-10">
-                    <div class="price-range-holder"> <span class="min-max"> <span class="pull-left">$200.00</span> <span class="pull-right">$800.00</span> </span>
-                      <input type="text" class="price-slider" value="" style="display:block" >
-                    </div>
-                    <!-- /.price-range-holder --> 
-                  </div>
-                </div>
-                <div>
                   <div class="b-filter__btns">
-                    <button class="btn btn-lg btn-primary">search vehicle</button>
+                      <input type="submit" value="filtrar" />
                   </div>
-                </div>
-              </form>
-            </div>
-          </div>      
-      
+              </form>     
       </aside>
       <!--col-right sidebar--> 
     </div>
@@ -189,6 +166,16 @@
 </div>
 <%@include file="/view/include/scripts.jsp"%>
 <script src="${pageContext.servletContext.contextPath}/assets/js/car.js"></script>
+<script>
+    const change_url = () => {
+  var id = $('#record option:selected').val();
+  var submit = $("#submit_url");
+  if (id != '')
+    submit.attr('href', "/formpostflight.html?flight_id=" + id);
+  else
+    submit.attr('href', "#");
+};
+</script>
 <!-- JavaScript --> 
 <script type="text/javascript" src="js/jquery.min.js"></script> 
 <script type="text/javascript" src="js/bootstrap.min.js"></script> 

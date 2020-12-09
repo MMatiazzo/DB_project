@@ -60,6 +60,11 @@ public class PgCarDAO implements CarDAO {
             "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
             + "FROM j2ee.car " 
             + "ORDER BY ano ASC;"};
+    
+     private static final String[] ALL_QUERY_FILTERED
+            = {"SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            + "FROM j2ee.car " 
+            + "WHERE modelo = ? ano = ? preco = ?;"};
 
     public PgCarDAO(Connection connection) {
         this.connection = connection;
