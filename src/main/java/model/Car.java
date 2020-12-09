@@ -22,7 +22,16 @@ public class Car {
     private String cpf_locador;
     private String avatar;
     private double preco;
+    private int ano;
+    
+    public int getAno() {
+        return ano;
+    }
 
+    public void setAno (int ano) {
+        this.ano = ano;
+    }
+    
     /**
      * @return the placa
      */

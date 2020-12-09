@@ -61,10 +61,10 @@ public class PgCarDAO implements CarDAO {
             + "FROM j2ee.car " 
             + "ORDER BY ano ASC;"};
     
-     private static final String[] ALL_QUERY_FILTERED
-            = {"SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+     private static final String ALL_QUERY_FILTERED
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, ano "
             + "FROM j2ee.car " 
-            + "WHERE modelo = ? ano = ? preco = ?;"};
+            + "WHERE modelo = ? AND ano = ? AND preco <= ?;";
 
     public PgCarDAO(Connection connection) {
         this.connection = connection;
@@ -268,6 +268,40 @@ public class PgCarDAO implements CarDAO {
                 car.setPreco(result.getDouble("preco"));
                 car.setDisponibilidade(result.getBoolean("disponibilidade"));
                 car.setDescricao(result.getString("descricao"));
+                
+                carList.add(car);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgCarDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+            throw new SQLException("Erro ao listar carros.");
+        }
+
+        return carList;
+    }
+    
+    public List<Car> all(String modelo, int ano, double preco) throws SQLException {
+        List<Car> carList = new ArrayList<>();
+        
+        try (PreparedStatement statement = connection.prepareStatement(ALL_QUERY_FILTERED)) {
+            System.out.println(modelo);
+            System.out.println(ano);
+            System.out.println(preco);
+            
+            statement.setString(1, modelo);
+            statement.setInt(2, ano);
+            statement.setDouble(3, preco);
+            
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Car car = new Car();
+                car.setPlaca(result.getString("placa"));
+                car.setModelo(result.getString("modelo"));
+                car.setAvatar(result.getString("avatar"));
+                car.setPreco(result.getDouble("preco"));
+                car.setDisponibilidade(result.getBoolean("disponibilidade"));
+                car.setDescricao(result.getString("descricao"));
+                car.setAno(result.getInt("ano"));
                 
                 carList.add(car);
             }

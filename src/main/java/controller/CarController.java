@@ -47,7 +47,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/car/read",
             "/fluxo/novo_teste",
             "/fluxo/order_by",
-            "/fluxo/novo_teste2"
+            "/fluxo/novo_teste2",
+            "/fluxo/filterOption"
         })
 public class CarController extends HttpServlet {
 
@@ -134,6 +135,24 @@ public class CarController extends HttpServlet {
                     String order_by = request.getParameter("order_by");
 
                     List<Car> carList = ((CarDAO)dao).all(order_by);
+                    request.setAttribute("carList", carList);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/fluxo/grid.jsp");
+                dispatcher.forward(request, response);
+                break;
+            }
+              
+              case "/fluxo/filterOption": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getCarDAO();
+                    String modelo = request.getParameter("modelo_s");
+                    int ano = Integer.parseInt(request.getParameter("ano_s"));
+                    double preco = Double.parseDouble(request.getParameter("preco_s"));
+
+                    List<Car> carList = ((CarDAO)dao).all(modelo, ano, preco);
                     request.setAttribute("carList", carList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());

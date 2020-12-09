@@ -84,7 +84,7 @@
                  <li class="item even">
             <div class="product-image"> <a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
             <div class="product-shop">
-              <h2 class="product-name"><a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense">HTC Rhyme Sense</a></h2>
+              <h2 class="product-name"><a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
               <div class="desc std">
               <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
                 <br>
@@ -109,7 +109,7 @@
       </div>
       <aside class="col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated"> 
               <h2>Pesquisa Guiada</h2>
-              <form class="b-filter" action="http://localhost:8080/bdapp/fluxo/novo_teste?${request.getParameter("modelo_s")}&${request.getParameter("ano_s")}&${request.getParameter("preco_s")}" method="get">
+              <form class="b-filter" action="${pageContext.servletContext.contextPath}/fluxo/filterOption?${request.getParameter("modelo_s")}&${request.getParameter("ano_s")}&${request.getParameter("preco_s")}" method="get">
                 <div class="btn-group bootstrap-select" style="width: 100%;">
                   <select class="selectpicker" data-width="100%" tabindex="-98" name="modelo_s">
                     <option >Modelo</option>

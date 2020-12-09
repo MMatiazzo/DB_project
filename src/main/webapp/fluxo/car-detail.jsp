@@ -103,19 +103,20 @@
           </div>
           <!--product-essential-->
           <div class="product-collateral container">
-            <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
-              <li class="active"> <a href="#product_tabs_description" data-toggle="tab"> Vehicle Overview </a> </li>
-              <li><a href="#product_tabs_tags" data-toggle="tab">Technical Specification</a></li>
-               <li> <a href="#reviews_tabs" data-toggle="tab">Reviews</a> </li>
-            </ul>
             <div id="productTabContent" class="tab-content">
+                <h2 class="woocommerce-Reviews-title"> Descrição do veículo</h2>
+                <br/>
               <div class="tab-pane fade in active" id="product_tabs_description">
                 <div class="std">
-                  <p> ${descricao}.</p>
+                  <h4> ${descricao}.</h4>
                 </div>
               </div>
-              <div class="tab-pane fade" id="product_tabs_tags">
-                <dfiv class="spec-row" id="summarySpecs">
+                <br/>
+              <!--<div class="tab-pane fade" id="product_tabs_tags">-->
+              <div>
+                  <h2 class="woocommerce-Reviews-title"> Veículo overview </h2>
+              </div>
+                <div class="spec-row" id="summarySpecs">
                     <table width="100%">
                       <tbody>
                         <tr>
@@ -144,9 +145,10 @@
                         </tr>
                       </tbody>
                     </table>
-                  </div>
+                  <!--</div>-->
               </div>
-              <div class="tab-pane fade" id="reviews_tabs">
+              <br/>
+              <br/>
                 <div class="woocommerce-Reviews">
                   <div>
                     <h2 class="woocommerce-Reviews-title">Reviews </h2>
@@ -183,7 +185,6 @@
                   </div>
                   <div class="clear"></div>
                 </div>
-              </div>
               <div class="tab-pane fade" id="product_tabs_custom1">
                 <div class="product-tabs-content-inner clearfix">
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue.</p>
