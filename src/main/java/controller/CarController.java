@@ -46,9 +46,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/car/delete",
             "/car/read",
             "/fluxo/search",
-            "/fluxo/novo_teste",
+            "/fluxo/grid",
             "/fluxo/order_by",
-            "/fluxo/novo_teste2",
+            "/fluxo/detail",
             "/fluxo/filterOption"
         })
 public class CarController extends HttpServlet {
@@ -96,7 +96,7 @@ public class CarController extends HttpServlet {
                 break;
             }
             
-            case "/fluxo/novo_teste": {
+            case "/fluxo/grid": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
                     
@@ -112,7 +112,7 @@ public class CarController extends HttpServlet {
                 break;
             }
             
-             case "/fluxo/novo_teste2": {
+             case "/fluxo/detail": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
                     rdao = daoFactory.getReviewDAO();

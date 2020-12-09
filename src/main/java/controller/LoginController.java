@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
                 session = request.getSession(false);
 
                 if (session != null && session.getAttribute("usuario") != null) {
-                    dispatcher = request.getRequestDispatcher("/welcome.jsp");
+                    dispatcher = request.getRequestDispatcher("/fluxo/grid");
                 } else {
                     dispatcher = request.getRequestDispatcher("/index.jsp");
                 }

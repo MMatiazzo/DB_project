@@ -10,12 +10,12 @@
 <html>
     <head>
         <%@include file="/view/include/head.jsp" %>
-        <title>Pessoas: cadastro</title>
+        <title>Cadastro de usuário</title>
     </head>
     <body>
 
         <div class="container">
-            <h2 class="text-center">Inserção de um nova Pessoa</h2>
+            <h2 class="text-center">Inserção de um novo usuário</h2>
 
             <form
                 class="form"

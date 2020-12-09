@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib tagdir="/WEB-INF/tags/session" prefix="session"%>
+<session:my_user context="${pageContext.servletContext.contextPath}"/>
 ﻿<!DOCTYPE html>
 <html lang="en">
 
@@ -82,9 +84,9 @@
           <ol class="products-list" id="products-list">
        <c:forEach var="carro" items="${requestScope.carList}">
                  <li class="item even">
-            <div class="product-image"> <a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+            <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
             <div class="product-shop">
-              <h2 class="product-name"><a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
+              <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
               <div class="desc std">
               <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
                 <br>

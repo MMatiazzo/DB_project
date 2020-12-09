@@ -22,8 +22,8 @@
                     <div class="fl-nav-links">
                        <h3>My Acount</h3>
                       <ul class="links">
-                        <li><a href="fluxo/login.html" title="My Account">Login</a></li>
-                        <li><a href="fluxo/login.html" title="Wishlist">Register</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/fluxo/perfil.jsp" title="Profile">Profile</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/logout" title="Logout">Logout</a></li>
                         </ul>
                     </div>
                   </div>
