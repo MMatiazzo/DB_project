@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.DAO;
 import dao.DAOFactory;
+import dao.ReviewDAO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -44,7 +45,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/review/create",
             "/review/update",
             "/review/delete",
-            "/review/read"
+            "/review/read",
+            "/fluxo/car_details"
         })
 public class ReviewController extends HttpServlet {
 
