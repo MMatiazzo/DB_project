@@ -76,3 +76,11 @@ CREATE TABLE j2ee.pagamento(
 	CONSTRAINT fk_pagamento_cpf_locatario FOREIGN KEY(cpf_locatario)
 		REFERENCES j2ee.locatario(cpf_pessoa)
 );
+
+CREATE TABLE j2ee.carteira(
+	cpf char(11) NOT NULL,
+	saldo FLOAT,
+	CONSTRAINT pk_cpf_carteira PRIMARY KEY (cpf),
+	CONSTRAINT fk_cpf_carteira FOREIGN KEY (cpf)
+		REFERENCES j2ee.pessoa(cpf)
+);
