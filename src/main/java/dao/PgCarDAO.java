@@ -61,10 +61,15 @@ public class PgCarDAO implements CarDAO {
             + "FROM j2ee.car " 
             + "ORDER BY ano ASC;"};
     
-     private static final String[] ALL_QUERY_FILTERED
-            = {"SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+     private static final String ALL_QUERY_FILTERED
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
             + "FROM j2ee.car " 
-            + "WHERE modelo = ? ano = ? preco = ?;"};
+            + "WHERE modelo = ? ano = ? preco = ?;";
+     
+     private static final String SEARCH_QUERY
+            = "SELECT * FROM j2ee.car " +
+              "WHERE modelo LIKE ? " +
+              "OR descricao LIKE ? ";
 
     public PgCarDAO(Connection connection) {
         this.connection = connection;
@@ -259,6 +264,52 @@ public class PgCarDAO implements CarDAO {
         try (PreparedStatement statement = connection.prepareStatement(ALL_QUERY_ORDER_BY[i])) {
             System.out.println(order_by);
             
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Car car = new Car();
+                car.setPlaca(result.getString("placa"));
+                car.setModelo(result.getString("modelo"));
+                car.setAvatar(result.getString("avatar"));
+                car.setPreco(result.getDouble("preco"));
+                car.setDisponibilidade(result.getBoolean("disponibilidade"));
+                car.setDescricao(result.getString("descricao"));
+                
+                carList.add(car);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgCarDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+            throw new SQLException("Erro ao listar carros.");
+        }
+
+        return carList;
+    }
+    
+    
+    
+    public List<Car> search(String search_by) throws SQLException {
+        List<Car> carList = new ArrayList<>();
+        String[] splited = search_by.split("\\s+");
+        String query = SEARCH_QUERY;
+        int words = splited.length;
+        
+        for(int i = 0; i < words; i++){
+            splited[i] = "%" + splited[i] + "%";
+            
+            if(i > 0)
+                query += "AND (modelo LIKE ? " +
+                         "OR descricao LIKE ?) "; 
+        }
+        
+        
+        
+  
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            for(int i = 0; i <= words; i+=2){
+                statement.setString(i+1, splited[i]);
+                statement.setString(i+2, splited[i]);
+            }
+                
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Car car = new Car();
