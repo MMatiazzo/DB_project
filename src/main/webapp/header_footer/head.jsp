@@ -23,6 +23,7 @@
                        <h3>My Acount</h3>
                       <ul class="links">
                         <li><a href="${pageContext.servletContext.contextPath}/fluxo/perfil.jsp" title="Profile">Profile</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/carteira" title="Logout">Carteira</a> $ 700</li>
                         <li><a href="${pageContext.servletContext.contextPath}/logout" title="Logout">Logout</a></li>
                         </ul>
                     </div>
@@ -47,42 +48,6 @@
                   </div>
                   <div class="nav-inner"> 
                     <!-- BEGIN NAV -->
-                    <ul id="nav" class="hidden-xs">
-                      <li class="active"> <a class="level-top" href="http://localhost:8080/bdapp/fluxo/grid"><span>Home</span></a></li>
-                      <li class="level0 parent drop-menu"> <a class="level-top" href="#"><span>Listing‎</span></a>
-                        <ul class="level1">
-                          <li class="level1 first"><a href="fluxo/grid.jsp"><span>Car Grid</span></a></li>
-                          <li class="level1 nav-10-2"> <a href="fluxo/list.html"> <span>Car List</span> </a> </li>
-                          <li class="level1 nav-10-3"> <a href="fluxo/grid.jsp"> <span>Accessories Grid</span> </a> </li>
-                          <li class="level1 nav-10-4"> <a href="fluxo/list1.html"> <span>Accessories List</span> </a> </li>
-                          <li class="level1 first parent"><a href="fluxo/car-detail.html"><span>Car Detail</span></a> </li>
-                          <li class="level1 first parent"><a href="fluxo/accessories-detail.html"><span>Accessories Detail</span></a> </li>
-                        </ul>
-                      </li>
-                      <li class="level0 parent drop-menu"><a href="#"><span>Pages</span> </a> 
-                        <!--sub sub category-->
-                        <ul class="level1">
-                          <li class="level1"> <a href="fluxo/about-us.html"> <span>About us</span> </a> </li>
-                          <li class="level1 nav-10-4"> <a href="fluxo/shopping-cart.html"> <span>Cart Page</span> </a> </li>
-                          <li class="level1 first parent"><a href="fluxo/checkout.html"><span>Checkout</span></a> 
-                            <!--sub sub category-->
-                            <ul class="level2 right-sub">
-                              <li class="level2 nav-2-1-1 first"><a href="fluxo/checkout-method.html"><span>Method</span></a></li>
-                              <li class="level2 nav-2-1-5 last"><a href="fluxo/checkout-billing-info.html"><span>Billing Info</span></a></li>
-                            </ul>
-                            <!--sub sub category--> 
-                          </li>
-                          <li class="level1 nav-10-4"> <a href="fluxo/wishlist.html"> <span>Wishlist</span> </a> </li>
-                          <li class="level1"> <a href="fluxo/dashboard.html"> <span>Dashboard</span> </a> </li>
-                          <li class="level1"> <a href="fluxo/multiple-addresses.html"> <span>Multiple Addresses</span> </a> </li>
-                          <li class="level1"><a href="fluxo/contact-us.html"><span>Contact us</span></a> </li>
-                          <li class="level1"><a href="fluxo/404error.html"><span>404 Error Page</span></a> </li>
-                          <li class="level1"><a href="fluxo/login.html"><span>Login Page</span></a> </li>
-                          <li class="level1"><a href="fluxo/quickview.html"><span>Quick View</span></a> </li>
-                          <li class="level1"><a href="fluxo/newsletter.html"><span>Newsletter</span></a> </li>
-                        </ul>
-                      </li>
-                    </ul>
                     <!--nav--> 
                   </div>
                 </nav>
