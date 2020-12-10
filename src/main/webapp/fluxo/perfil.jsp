@@ -35,7 +35,7 @@
 <link href="https://fonts.googleapis.com/css?family=Saira+Condensed:300,400,500,600,700,800" rel="stylesheet">
 </head>
 <body>
-<!--    <c:forEach var="carro" items="${requestScope.carList}" >
+    <c:forEach var="carro" items="${requestScope.carList}" >
     <c:if test="${carro.placa == param.placa}">
     <c:set var='placa' value="${carro.placa}" />
     <c:set var='valor' value="${carro.preco}" />
@@ -47,7 +47,7 @@
     <c:set var='descricao' value="${carro.descricao}" />
     <c:set var='avatar' value="${carro.avatar}" />
     </c:if>
-    </c:forEach>-->
+    </c:forEach>
 <div id="page">
   <header>
     <div class="container">
@@ -65,7 +65,7 @@
       <!--container--> 
     </div>
     <div class="page-title">
-      <h2>PRODUCT Detail</h2>
+      <h2>Perfil</h2>
     </div>
   </div>
   <!-- BEGIN Main Container -->
@@ -92,9 +92,15 @@
                 <!-- For version 3 -->
                 <div class="product-shop col-lg- col-sm-7 col-xs-12">
                   <div class="product-name">
-                    <h1>${nome} </h1>
+                    <h1>NOME </h1>
                   </div>
-                    <button class="button " title="Add to Cart" type="button"><span>  Editar  </span></button>
+                    <button class="button " title="Add to Cart" type="button" display="inline"><span>  Editar  </span></button>
+                    <button class="button " title="Add to Cart" type="button"><span>  Creditar carteira  </span></button>
+                    <button class="button " title="Add to Cart" type="button"><span>  Postar carro  </span></button>
+                    <div class="woocommerce-Reviews">
+                        <h2>Creditos Restantes: $700</h2>
+                    </div>
+                    
                 </div>
                 <!--product-shop--> 
                 <!--Detail page static block for version 3-->
@@ -104,14 +110,6 @@
           <!--product-essential-->
           <div class="product-collateral container">
             <div id="productTabContent" class="tab-content">
-                <h2 class="woocommerce-Reviews-title"> Valor carteira </h2>
-                <br/>
-              <div class="tab-pane fade in active" id="product_tabs_description">
-                <div class="std">
-                  <h4> ${descricao}.</h4>
-                </div>
-              </div>
-                <br/>
               <!--<div class="tab-pane fade" id="product_tabs_tags">-->
               <div>
                   <div>

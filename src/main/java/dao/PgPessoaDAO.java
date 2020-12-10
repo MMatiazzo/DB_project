@@ -68,6 +68,10 @@ public class PgPessoaDAO implements PessoaDAO {
                                 "SELECT cpf, login, nome, nascimento, avatar " +
                                 "FROM j2ee.pessoa " +
                                 "WHERE login = ?;";
+     
+     private static final String PROFILE_QUERY =
+                                "SELECT car.modelo, pessoa.nome,  " +
+                                "FROM j2ee.pessoa, j2ee.car, j2ee.carteira WHERE car.cpf_locador = ? AND pessoa.cpf = ?;";
     
     public PgPessoaDAO(Connection connection) {
         this.connection = connection;
