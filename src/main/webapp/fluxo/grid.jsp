@@ -40,7 +40,7 @@
   <header>
     <div class="container">
       <head>
-      <%@include file="../header_footer/head.jsp"%>
+      <%@include file="/header_footer/head.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
   </header>
@@ -160,7 +160,7 @@
  <footer> 
     <div class="container">
       <head>
-      <%@include file="../header_footer/foot.jsp"%>
+      <%@include file="/header_footer/foot.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
   </footer>
@@ -179,17 +179,17 @@
 };
 </script>
 <!-- JavaScript --> 
-<script type="text/javascript" src="js/jquery.min.js"></script> 
-<script type="text/javascript" src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-slider.min.js"></script> 
-<script src="js/bootstrap-select.min.js"></script> 
-<script type="text/javascript" src="js/parallax.js"></script> 
-<script type="text/javascript" src="js/revslider.js"></script> 
-<script type="text/javascript" src="js/common.js"></script> 
-<script type="text/javascript" src="js/jquery.bxslider.min.js"></script> 
-<script type="text/javascript" src="js/owl.carousel.min.js"></script> 
-<script type="text/javascript" src="js/jquery.mobile-menu.min.js"></script> 
-<script src="js/countdown.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-slider.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-select.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/parallax.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/revslider.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/common.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.bxslider.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/owl.carousel.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.mobile-menu.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/countdown.js"></script> 
 <script>
         jQuery(document).ready(function(){
             jQuery('#rev_slider_4').show().revolution({

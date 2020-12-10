@@ -12,8 +12,8 @@
       <div class="row">
         <div id="header">
           <div class="header-container">
-            <div class="header-logo"> <a href="index-2.html" title="Car HTML" class="logo">
-              <div><img src="images/logo.png" alt="Car Store"></div>
+            <div class="header-logo"> <a href="${pageContext.servletContext.contextPath}/fluxo/grid/" title="Car HTML" class="logo">
+              <div><img src="${pageContext.servletContext.contextPath}/images/logo.png" alt="Car Store"></div>
               </a> </div>
             <div class="header__nav">
               <div class="fl-header-right">
@@ -48,7 +48,7 @@
                   <div class="nav-inner"> 
                     <!-- BEGIN NAV -->
                     <ul id="nav" class="hidden-xs">
-                      <li class="active"> <a class="level-top" href="http://localhost:8080/bdapp/fluxo/novo_teste"><span>Home</span></a></li>
+                      <li class="active"> <a class="level-top" href="http://localhost:8080/bdapp/fluxo/grid"><span>Home</span></a></li>
                       <li class="level0 parent drop-menu"> <a class="level-top" href="#"><span>Listing‎</span></a>
                         <ul class="level1">
                           <li class="level1 first"><a href="fluxo/grid.jsp"><span>Car Grid</span></a></li>
