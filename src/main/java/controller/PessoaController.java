@@ -110,7 +110,7 @@ public class PessoaController extends HttpServlet {
                     dispatcher.forward(request, response);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/pessoa");
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                 }
                 break;
             }
@@ -253,7 +253,7 @@ public class PessoaController extends HttpServlet {
                         dao.update(pessoa);
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/pessoa");
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
 
                 } catch (ParseException ex) {
                     Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);

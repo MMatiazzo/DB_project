@@ -20,39 +20,29 @@
 <link rel="shortcut icon" href="#" type="image/x-icon">
 
 <!-- CSS Style -->
-<link rel="stylesheet" type="text/css" href="stylesheet/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/font-awesome.css" media="all">
-<link rel="stylesheet" type="text/css" href="stylesheet/bootstrap-select.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/revslider.css" >
-<link rel="stylesheet" type="text/css" href="stylesheet/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/owl.theme.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/jquery.bxslider.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/jquery.mobile-menu.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/style.css" media="all">
-<link rel="stylesheet" type="text/css" href="stylesheet/responsive.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/font-awesome.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/bootstrap-select.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/revslider.css" >
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/owl.theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/jquery.bxslider.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/jquery.mobile-menu.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/style.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/responsive.css" media="all">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Saira+Condensed:300,400,500,600,700,800" rel="stylesheet">
 </head>
 <body>
-    <c:forEach var="carro" items="${requestScope.carList}" >
-    <c:if test="${carro.placa == param.placa}">
-    <c:set var='placa' value="${carro.placa}" />
-    <c:set var='valor' value="${carro.preco}" />
-    <c:set var='abs' value="${carro.abss}" />
-    <c:set var='modelo' value="${carro.modelo}" />
-    <c:set var='ar_c' value="${carro.ar_condicionado}" />
-    <c:set var='airbags' value="${carro.airbags}" />
-    <c:set var='num_lugares' value="${carro.num_lugares}" />
-    <c:set var='descricao' value="${carro.descricao}" />
-    <c:set var='avatar' value="${carro.avatar}" />
-    </c:if>
-    </c:forEach>
+    <c:set var='nome_p' value="${sessionScope.usuario.nome}" />
+    <c:set var='avatar_p' value="${sessionScope.usuario.avatar}" />
+    <c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
 <div id="page">
   <header>
     <div class="container">
       <head>
-      <%@include file="../header_footer/head.jsp"%>
+      <%@include file="/header_footer/head.jsp"%>
       <title>[BD 2020] Carros</title>
       </head>
     </div>
@@ -85,18 +75,18 @@
                   <div class="new-label new-top-left">Hot</div>
                   <div class="sale-label sale-top-left">-15%</div>
                   <div class="product-image">
-                    <div class="product-full"><img id="product-zoom1" src="${pageContext.request.contextPath}/img/<c:if test="${avatar == null}">default_avatar.png</c:if><c:if test="${avatar != null}">${avatar}</c:if>" data-zoom-image="${pageContext.request.contextPath}/img/<c:if test="${avatar == null}">default_avatar.png</c:if><c:if test="${avatar != null}">${avatar}</c:if>" alt="product-image"/> </div>
+                    <div class="product-full"><img id="product-zoom1" src="${pageContext.request.contextPath}/img/<c:if test="${avatar_p == null}">default_avatar.png</c:if><c:if test="${avatar_p != null}">${avatar_p}</c:if>" data-zoom-image="${pageContext.request.contextPath}/img/<c:if test="${avatar_p == null}">default_avatar.png</c:if><c:if test="${avatar_p != null}">${avatar_p}</c:if>" alt="product-image"/> </div>
                   </div>
                 </div>
                 <!--End For version 1,2,6--> 
                 <!-- For version 3 -->
                 <div class="product-shop col-lg- col-sm-7 col-xs-12">
                   <div class="product-name">
-                    <h1>NOME </h1>
+                    <h1>${nome_p} </h1>
                   </div>
-                    <button class="button " title="Add to Cart" type="button" display="inline"><span>  Editar  </span></button>
+                    <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button>
                     <button class="button " title="Add to Cart" type="button"><span>  Creditar carteira  </span></button>
-                    <button class="button " title="Add to Cart" type="button"><span>  Postar carro  </span></button>
+                    <button class="button " title="Add to Cart" type="button"><a href="${pageContext.servletContext.contextPath}/car/create?cpf=${cpf_p}">  Postar carro  </a> </button>
                     <div class="woocommerce-Reviews">
                         <h2>Creditos Restantes: $700</h2>
                     </div>
@@ -112,33 +102,39 @@
             <div id="productTabContent" class="tab-content">
               <!--<div class="tab-pane fade" id="product_tabs_tags">-->
               <div>
+                  <c:forEach var="locador" items="${requestScope.locadorList}">
+                  <c:if test="${cpf_p == locador.cpf_pessoa}">
                   <div>
                     <h2 class="woocommerce-Reviews-title"> Lista de carros postados: </h2>
                   </div>
                   <div class="category-products">
                     <ol class="products-list" id="products-list">
                         <c:forEach var="carro" items="${requestScope.carList}">
-                            <li class="item even">
-                                <div class="product-image"> <a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
-                                <div class="product-shop">
-                                <h2 class="product-name"><a href="novo_teste2?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
-                                <div class="desc std">
-                                <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
-                                <br>
-                                <br>
-                                <p> ${carro.descricao} </p>
-                                </div>
-                                <div class="price-box">
-                                <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
-                                </div>
-                                <div class="actions">
-                                <button class="button" title="Editar" type="button"><span>Editar</span></button>
-                                </div>
-                                </div>
+                            <c:if test="${cpf_p == carro.cpf_locador}">
+                                <li class="item even">
+                                    <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+                                    <div class="product-shop">
+                                    <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
+                                    <div class="desc std">
+                                    <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
+                                    <br>
+                                    <br>
+                                    <p> ${carro.descricao} </p>
+                                    </div>
+                                    <div class="price-box">
+                                    <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
+                                    </div>
+                                    <div class="actions">
+                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/update?placa=${carro.placa}">Editar</a></button>
+                                    </div>
+                                    </div>
                                 </li>
-                                </c:forEach>
+                            </c:if>
+                        </c:forEach>
                     </ol>
                 </div>
+                 </c:if>
+                  </c:forEach>
               </div>
               <br/>
               <br/>
@@ -203,7 +199,7 @@
  <footer> 
     <div class="container">
       <head>
-      <%@include file="../header_footer/foot.jsp"%>
+      <%@include file="/header_footer/foot.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
   </footer>
@@ -212,17 +208,17 @@
 <div id="fade"></div>
 
 <!-- JavaScript --> 
-<script type="text/javascript" src="js/jquery.min.js"></script> 
-<script type="text/javascript" src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-slider.min.js"></script> 
-<script src="js/bootstrap-select.min.js"></script> 
-<script type="text/javascript" src="js/parallax.js"></script> 
-<script type="text/javascript" src="js/revslider.js"></script> 
-<script type="text/javascript" src="js/common.js"></script> 
-<script type="text/javascript" src="js/jquery.bxslider.min.js"></script> 
-<script type="text/javascript" src="js/owl.carousel.min.js"></script> 
-<script src="js/cloud-zoom.js"></script> 
-<script type="text/javascript" src="js/jquery.mobile-menu.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-slider.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-select.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/parallax.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/revslider.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/common.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.bxslider.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/owl.carousel.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/cloud-zoom.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.mobile-menu.min.js"></script> 
 <script type="text/javascript">
     function HideMe()
     {

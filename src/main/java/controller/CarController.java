@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Car;
+import model.Locador;
 import model.Review;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -49,7 +50,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/fluxo/grid",
             "/fluxo/order_by",
             "/fluxo/detail",
-            "/fluxo/filterOption"
+            "/fluxo/filterOption",
+            "/fluxo/profile"
         })
 public class CarController extends HttpServlet {
 
@@ -76,6 +78,7 @@ public class CarController extends HttpServlet {
             throws ServletException, IOException {
 
         DAO<Car, String> dao;
+        DAO<Locador, String> daoL;
         DAO<Review, ArrayList<String>> rdao;
         Car car;
         RequestDispatcher dispatcher;
@@ -108,6 +111,25 @@ public class CarController extends HttpServlet {
                 }
 
                 dispatcher = request.getRequestDispatcher("/fluxo/grid.jsp");
+                dispatcher.forward(request, response);
+                break;
+            }
+            
+            case "/fluxo/profile": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getCarDAO();
+                    daoL = daoFactory.getLocadorDAO();
+                    
+
+                    List<Car> carList = dao.all();
+                    List<Locador> locadorList = daoL.all();
+                    request.setAttribute("carList", carList);
+                    request.setAttribute("locadorList", locadorList);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/fluxo/perfil.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
@@ -181,7 +203,7 @@ public class CarController extends HttpServlet {
                     dispatcher.forward(request, response);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/car");
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                 }
                 break;
             }
@@ -314,6 +336,12 @@ public class CarController extends HttpServlet {
                                 case "cpf_locador":
                                     car.setCpf_locador(fieldValue);
                                     break;
+                                 case "preco":
+                                    car.setPreco(Double.parseDouble(fieldValue));
+                                    break;
+                                case "ano":
+                                    car.setPreco(Integer.parseInt(fieldValue));
+                                    break;
                                 
                             }
                         } else {
@@ -346,7 +374,7 @@ public class CarController extends HttpServlet {
                         dao.update(car);
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/car");
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                     
                 } catch (FileUploadException ex) {
                     Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
