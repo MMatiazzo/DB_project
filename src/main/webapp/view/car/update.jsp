@@ -64,9 +64,19 @@
                     <input id="carro-disponibilidade" class="form-control" type="checkbox" name="disponibilidade" checked="${carro.disponibilidade}"/>
                 </div>
                 
+                
                 <div class="form-group">
-                    <label for="carro-cpf-locador" class="control-label">CPF do Locador</label>
-                    <input id="carro-cpf-locador" class="form-control" type="text" name="cpf_locador" value="${carro.cpf_locador}" required/>
+                    <label for="carro-preco" class="control-label">Preco</label>
+                    <input id="carro-preco" class="form-control" type="text" name="preco" required/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="carro-ano" class="control-label">Ano</label>
+                    <input id="carro-ano" class="form-control" type="text" name="ano" required/>
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden"  id="carro-cpf-locador" class="form-control" type="text" name="cpf_locador" value="${carro.cpf_locador}" required/>
                 </div>
 
 

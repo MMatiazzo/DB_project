@@ -67,9 +67,21 @@
                 </div>
                 
                 <div class="form-group">
+                    <label for="carro-preco" class="control-label">Preco</label>
+                    <input id="carro-preco" class="form-control" type="text" name="preco" required/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="carro-ano" class="control-label">Ano</label>
+                    <input id="carro-ano" class="form-control" type="text" name="ano" required/>
+                </div>
+                
+<!--                <div class="form-group">
                     <label for="carro-cpf-locador" class="control-label">CPF do Locador</label>
                     <input id="carro-cpf-locador" class="form-control" type="text" name="cpf_locador" required/>
-                </div>          
+                </div>                -->
+
+                 <input type="hidden" id="carro-cpf-locador" class="form-control" name="cpf_locador" value="${param.cpf}">
 
                 <div class="form-group">
                     <label for="carro-avatar">Foto do carro</label>

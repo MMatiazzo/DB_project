@@ -47,17 +47,17 @@ public class PgCarDAO implements CarDAO {
             + "WHERE placa = ?;";
 
     private static final String ALL_QUERY
-            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, num_lugares, airbags, abss, ar_condicionado, preco, ano "
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, num_lugares, airbags, abss, ar_condicionado, preco, ano, cpf_locador "
             + "FROM j2ee.car;";
     
     private static final String[] ALL_QUERY_ORDER_BY
-            = {"SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            = {"SELECT placa, modelo, avatar, disponibilidade, preco, descricao, ano "
             + "FROM j2ee.car " 
             + "ORDER BY modelo ASC;",
-            "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, ano "
             + "FROM j2ee.car " 
             + "ORDER BY preco ASC;",
-            "SELECT placa, modelo, avatar, disponibilidade, preco, descricao "
+            "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, ano "
             + "FROM j2ee.car " 
             + "ORDER BY ano ASC;"};
     
@@ -233,9 +233,8 @@ public class PgCarDAO implements CarDAO {
                 car.setAirbags(result.getBoolean("airbags"));
                 car.setAbss(result.getBoolean("abss"));
                 car.setAr_condicionado(result.getBoolean("ar_condicionado"));
-                
-                
-                
+                car.setCpf_locador(result.getString("cpf_locador"));
+                car.setAno(result.getInt("ano"));
                 carList.add(car);
             }
         } catch (SQLException ex) {
@@ -294,6 +293,7 @@ public class PgCarDAO implements CarDAO {
         return carList;
     }
     
+    @Override
     public List<Car> all(String modelo, int ano, double preco) throws SQLException {
         List<Car> carList = new ArrayList<>();
         
@@ -328,6 +328,7 @@ public class PgCarDAO implements CarDAO {
         return carList;
     }
     
+    @Override
     public List<Car> search(String search_by) throws SQLException {
         List<Car> carList = new ArrayList<>();
         String[] splited = search_by.split("\\s+");
