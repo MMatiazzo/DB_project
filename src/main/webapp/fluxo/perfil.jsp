@@ -20,16 +20,16 @@
 <link rel="shortcut icon" href="#" type="image/x-icon">
 
 <!-- CSS Style -->
-<link rel="stylesheet" type="text/css" href="stylesheet/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/font-awesome.css" media="all">
-<link rel="stylesheet" type="text/css" href="stylesheet/bootstrap-select.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/revslider.css" >
-<link rel="stylesheet" type="text/css" href="stylesheet/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/owl.theme.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/jquery.bxslider.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/jquery.mobile-menu.css">
-<link rel="stylesheet" type="text/css" href="stylesheet/style.css" media="all">
-<link rel="stylesheet" type="text/css" href="stylesheet/responsive.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/font-awesome.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/bootstrap-select.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/revslider.css" >
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/owl.theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/jquery.bxslider.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/jquery.mobile-menu.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/style.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/stylesheet/responsive.css" media="all">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700,800' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Saira+Condensed:300,400,500,600,700,800" rel="stylesheet">
@@ -52,7 +52,7 @@
   <header>
     <div class="container">
       <head>
-      <%@include file="../header_footer/head.jsp"%>
+      <%@include file="/header_footer/head.jsp"%>
       <title>[BD 2020] Carros</title>
       </head>
     </div>
@@ -203,7 +203,7 @@
  <footer> 
     <div class="container">
       <head>
-      <%@include file="../header_footer/foot.jsp"%>
+      <%@include file="/header_footer/foot.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
   </footer>
@@ -212,17 +212,17 @@
 <div id="fade"></div>
 
 <!-- JavaScript --> 
-<script type="text/javascript" src="js/jquery.min.js"></script> 
-<script type="text/javascript" src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-slider.min.js"></script> 
-<script src="js/bootstrap-select.min.js"></script> 
-<script type="text/javascript" src="js/parallax.js"></script> 
-<script type="text/javascript" src="js/revslider.js"></script> 
-<script type="text/javascript" src="js/common.js"></script> 
-<script type="text/javascript" src="js/jquery.bxslider.min.js"></script> 
-<script type="text/javascript" src="js/owl.carousel.min.js"></script> 
-<script src="js/cloud-zoom.js"></script> 
-<script type="text/javascript" src="js/jquery.mobile-menu.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-slider.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-select.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/parallax.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/revslider.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/common.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.bxslider.min.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/owl.carousel.min.js"></script> 
+<script src="${pageContext.servletContext.contextPath}/js/cloud-zoom.js"></script> 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.mobile-menu.min.js"></script> 
 <script type="text/javascript">
     function HideMe()
     {

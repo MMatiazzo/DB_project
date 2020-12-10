@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label for="carro-cpf-locador" class="control-label">CPF do Locador</label>
                     <input id="carro-cpf-locador" class="form-control" type="text" name="cpf_locador" required/>
-                </div>                
+                </div>          
 
                 <div class="form-group">
                     <label for="carro-avatar">Foto do carro</label>

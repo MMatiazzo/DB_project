@@ -46,6 +46,11 @@ public class PgDAOFactory extends DAOFactory {
     public PagamentoDAO getPagamentoDAO() {
         return new PgPagamentoDAO(this.connection);
     }
+    
+    @Override
+    public CarteiraDAO getCarteiraDAO() {
+        return new PgCarteiraDAO(this.connection);
+    }
    
 
 }

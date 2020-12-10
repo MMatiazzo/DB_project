@@ -71,6 +71,24 @@
                            name="avatar"
                            accept="image/*"/>
                 </div>
+                
+                <div class="form-group">
+                    <label for="locatario-comp_renda">Comprovante de Renda</label>
+                    <input type="file"
+                           class="form-control" id="locatario-comp-residencia"
+                           name="comp_renda"
+                           accept="image/*"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locatario-endereco" class="control-label">Endereço</label>
+                    <input id="locatario-endereco" class="form-control" type="text" name="endereco" required/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locatario-habilitacao" class="control-label">Habilitação</label>
+                    <input id="locatario-habilitacao" class="form-control" type="text" name="habilitacao" required/>
+                </div>
 
                 <div class="text-center">
                     <button class="btn btn-lg btn-primary" type="submit">Salvar</button>

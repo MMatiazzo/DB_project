@@ -96,7 +96,7 @@
                       <p class="special-price"> <span class="price-label">Special Price</span> <span id="product-price-48" class="price">${valor}</span> </p>
                     </div>
                   </div>
-                    <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>  $ALUGAR  </span></button>
+                    <button class="button" title="Alugar" type="button"><span>  $ALUGAR  </span></button>
                 </div>
                 <!--product-shop--> 
                 <!--Detail page static block for version 3-->

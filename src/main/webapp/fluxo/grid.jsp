@@ -97,7 +97,7 @@
                 <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
               </div>
               <div class="actions">
-                <button class="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Alugar</span></button>
+                <button class="button" title="Alugar" type="button"><span>Alugar</span></button>
             </div>
             </div>
           </li>

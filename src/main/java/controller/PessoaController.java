@@ -29,6 +29,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Carteira;
+import model.Locador;
+import model.Locatario;
 import model.Pessoa;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -166,7 +169,14 @@ public class PessoaController extends HttpServlet {
             throws ServletException, IOException {
 
         DAO<Pessoa, String> dao;
+        DAO<Carteira, String> cdao;
+        DAO<Locatario, String> ltdao;
+        DAO<Locador, String> lddao;
         Pessoa pessoa = new Pessoa();
+        Carteira carteira = new Carteira();
+        Locatario locatario = new Locatario();
+        Locador locador = new Locador();
+                
         HttpSession session = request.getSession();
 
         String servletPath = request.getServletPath();
@@ -206,6 +216,9 @@ public class PessoaController extends HttpServlet {
                             switch (fieldName) {
                                 case "cpf":
                                     pessoa.setCpf(fieldValue);
+                                    carteira.setCpf(fieldValue);
+                                    carteira.setSaldo(0);
+                                    locatario.setCpf_pessoa(fieldValue);
                                     break;
                                 case "login":
                                     pessoa.setLogin(fieldValue);
@@ -220,34 +233,49 @@ public class PessoaController extends HttpServlet {
                                     java.util.Date dataNascimento = new SimpleDateFormat("yyyy-mm-dd").parse(fieldValue);
                                     pessoa.setNascimento(new Date(dataNascimento.getTime()));
                                     break;
+                                //Exclusivo locatario
+                                case "endereco":
+                                    locatario.setEndereco(fieldValue);
+                                    break;
+                                case "habilitacao":
+                                    locatario.setHabilitacao(fieldValue);
+                                    break;
                             }
                         } else {
                             
                             String fieldName = item.getFieldName();
                             String fileName = item.getName();
-                            if (fieldName.equals("avatar") && !fileName.isBlank()) {
+                            if (!fileName.isBlank()) {
                                 // Dados adicionais (não usado nesta aplicação)
                                 String contentType = item.getContentType();
                                 boolean isInMemory = item.isInMemory();
                                 long sizeInBytes = item.getSize();
-
                                 // Pega o caminho absoluto da aplicação
                                 String appPath = request.getServletContext().getRealPath("");
                                 // Grava novo arquivo na pasta img no caminho absoluto
                                 String savePath = appPath + File.separator + SAVE_DIR + File.separator + fileName;
                                 File uploadedFile = new File(savePath);
                                 item.write(uploadedFile);
-
-                                pessoa.setAvatar(fileName);
+                                
+                                if(fieldName.equals("avatar")){
+                                    pessoa.setAvatar(fileName);
+                                } else if(fieldName.equals("comp_renda")){
+                                    locatario.setComp_renda(fileName);
+                                }
                             }
                             
                         }
                     }
 
                     dao = daoFactory.getPessoaDAO();
-
+                    cdao = daoFactory.getCarteiraDAO();
+                    ltdao = daoFactory.getLocatarioDAO();
+                    
                     if (servletPath.equals("/pessoa/create")) {
                         dao.create(pessoa);
+                        ltdao.create(locatario);
+                        cdao.create(carteira);
+                        
                     } else {
                         servletPath += "?cpf=" + String.valueOf(pessoa.getCpf());
                         dao.update(pessoa);

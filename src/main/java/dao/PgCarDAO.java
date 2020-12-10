@@ -24,22 +24,22 @@ public class PgCarDAO implements CarDAO {
     private final Connection connection;
 
     private static final String CREATE_QUERY
-            = "INSERT INTO j2ee.car(placa, abss, modelo, tipo, ar_condicionado, airbags, num_lugares, descricao, disponibilidade, cpf_locador, avatar) "
-            + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            = "INSERT INTO j2ee.car(placa, abss, modelo, tipo, ar_condicionado, airbags, num_lugares, descricao, disponibilidade, cpf_locador, avatar, preco, ano) "
+            + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String READ_QUERY
-            = "SELECT placa, abss, modelo, tipo, ar_condicionado, airbags, num_lugares, descricao, disponibilidade, cpf_locador, avatar "
+            = "SELECT placa, abss, modelo, tipo, ar_condicionado, airbags, num_lugares, descricao, disponibilidade, cpf_locador, avatar, preco, ano "
             + "FROM j2ee.car "
             + "WHERE placa = ?;";
 
     private static final String UPDATE_QUERY
             = "UPDATE j2ee.car "
-            + "SET abss = ?, modelo = ?,  tipo = ?, ar_condicionado = ?, airbags = ?, num_lugares = ?, descricao = ?, disponibilidade = ?, cpf_locador = ? "
+            + "SET abss = ?, modelo = ?,  tipo = ?, ar_condicionado = ?, airbags = ?, num_lugares = ?, descricao = ?, disponibilidade = ?, cpf_locador = ?, preco = ?, ano = ? "
             + "WHERE placa = ?;";
 
     private static final String UPDATE_WITH_AVATAR_QUERY
             = "UPDATE j2ee.car "
-            + "SET abss = ?, modelo = ?,  tipo = ?, ar_condicionado = ?, airbags = ?, num_lugares = ?, descricao = ?, disponibilidade = ?, cpf_locador = ?, avatar = ? "
+            + "SET abss = ?, modelo = ?,  tipo = ?, ar_condicionado = ?, airbags = ?, num_lugares = ?, descricao = ?, disponibilidade = ?, cpf_locador = ?, preco = ?, ano = ?, avatar = ? "
             + "WHERE placa = ?;";
 
     private static final String DELETE_QUERY
@@ -47,7 +47,7 @@ public class PgCarDAO implements CarDAO {
             + "WHERE placa = ?;";
 
     private static final String ALL_QUERY
-            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, num_lugares, airbags, abss, ar_condicionado "
+            = "SELECT placa, modelo, avatar, disponibilidade, preco, descricao, num_lugares, airbags, abss, ar_condicionado, preco, ano "
             + "FROM j2ee.car;";
     
     private static final String[] ALL_QUERY_ORDER_BY
@@ -90,6 +90,8 @@ public class PgCarDAO implements CarDAO {
             statement.setBoolean(9, car.isDisponibilidade());
             statement.setString(10, car.getCpf_locador());
             statement.setString(11, car.getAvatar());
+            statement.setDouble(12, car.getPreco());
+            statement.setInt(13, car.getAno());
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -123,6 +125,8 @@ public class PgCarDAO implements CarDAO {
                     car.setDisponibilidade(result.getBoolean("disponibilidade"));
                     car.setCpf_locador(result.getString("cpf_locador"));
                     car.setAvatar(result.getString("avatar"));
+                    car.setPreco(result.getDouble("preco"));
+                    car.setAno(result.getInt("ano"));
                 } else {
                     throw new SQLException("Erro ao visualizar: Carro não encontrado.");
                 }
@@ -159,12 +163,16 @@ public class PgCarDAO implements CarDAO {
             statement.setString(7, car.getDescricao());
             statement.setBoolean(8, car.isDisponibilidade());
             statement.setString(9, car.getCpf_locador());
+            statement.setDouble(10, car.getPreco());
+            statement.setInt(11, car.getAno());
+            
+            
             
             if (car.getAvatar() == null || car.getAvatar().isBlank()){
-                statement.setString(10, car.getPlaca());
+                statement.setString(12, car.getPlaca());
             } else {
-                statement.setString(10, car.getAvatar());
-                statement.setString(11, car.getPlaca());
+                statement.setString(12, car.getAvatar());
+                statement.setString(13, car.getPlaca());
             }
 
             
@@ -273,6 +281,7 @@ public class PgCarDAO implements CarDAO {
                 car.setPreco(result.getDouble("preco"));
                 car.setDisponibilidade(result.getBoolean("disponibilidade"));
                 car.setDescricao(result.getString("descricao"));
+                car.setAno(result.getInt("ano"));
                 
                 carList.add(car);
             }
