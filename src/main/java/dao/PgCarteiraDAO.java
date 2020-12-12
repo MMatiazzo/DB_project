@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Car;
 import model.Carteira;
 
 /**
@@ -49,6 +50,14 @@ public class PgCarteiraDAO implements CarteiraDAO{
             = "SELECT cpf, saldo "
             + "FROM j2ee.carteira " 
             + "ORDER BY saldo DESC;";
+    
+    private static final String RENT_CAR
+             = "UPDATE j2ee.carteira "
+            + "SET saldo = ? "
+            + "WHERE cpf = ?; "
+            + "UPDATE j2ee.carteira "
+            + "SET saldo = ? "
+            + "WHERE cpf = ?;";
 
 
     public PgCarteiraDAO(Connection connection) {
@@ -109,6 +118,31 @@ public class PgCarteiraDAO implements CarteiraDAO{
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setDouble(1, carteira.getSaldo());
             statement.setString(2, carteira.getCpf());
+
+            if (statement.executeUpdate() < 1) {
+                throw new SQLException("Erro ao editar: carteira não encontrada.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PgCarteiraDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+            if (ex.getMessage().equals("Erro ao editar: carteira não encontrada.")) {
+                throw ex;
+            } else if (ex.getMessage().contains("not-null")) {
+                throw new SQLException("Erro ao editar carteira: pelo menos um campo está em branco.");
+            } else {
+                throw new SQLException("Erro ao editar carteira.");
+            }
+        }
+    }
+    
+    @Override
+    public void update(Carteira carteira, Carteira carteira2) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(RENT_CAR)) {
+            statement.setDouble(1, carteira.getSaldo());
+            statement.setString(2, carteira.getCpf());
+            statement.setDouble(3, carteira2.getSaldo());
+            statement.setString(4, carteira2.getCpf());
+            
 
             if (statement.executeUpdate() < 1) {
                 throw new SQLException("Erro ao editar: carteira não encontrada.");

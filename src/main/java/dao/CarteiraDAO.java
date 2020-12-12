@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.SQLException;
 import model.Carteira;
 
 /**
@@ -12,5 +13,5 @@ import model.Carteira;
  * @author Guilherme
  */
 public interface CarteiraDAO extends DAO<Carteira, String>{
-    
+    public void update(Carteira carteira, Carteira carteira2) throws SQLException;
 }

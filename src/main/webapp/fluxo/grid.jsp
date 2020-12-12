@@ -36,6 +36,7 @@
 <link href="https://fonts.googleapis.com/css?family=Saira+Condensed:300,400,500,600,700,800" rel="stylesheet">
 </head>
 <body>
+<c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
 <div id="page">
   <header>
     <div class="container">
@@ -97,8 +98,26 @@
                 <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
               </div>
               <div class="actions">
-                <c:if test="${carro.disponibilidade == true}"> <button class="button" title="Alugar" type="button"><span>Alugar</span></button> </c:if>
-                <button class="button" title="Vizualizar-Locador" type="button"><a href="${pageContext.servletContext.contextPath}/fluxo/locdetail?cpf_locador=${carro.cpf_locador}"> Visitar Perfil Locador</a></button>
+                <c:if test="${carro.disponibilidade == true}"> 
+                    <form action="${pageContext.servletContext.contextPath}/carteira/alugar" method="post">
+                        <input type="hidden" name="cpf_locador" value="${carro.cpf_locador}" />
+                        <input type="hidden" name="cpf_locatario" value="${cpf_p}" />
+                        <input type="hidden" name="placa" value="${carro.placa}" />
+                        <input type="hidden" name="disponibilidade" value="${carro.disponibilidade}" />
+                        <input type="hidden" name="modelo" value="${carro.modelo}" />
+                        <input type="hidden" name="airbags" value="${carro.airbags}" />
+                        <input type="hidden" name="cpf_locador" value="${carro.cpf_locador}" />
+                        <input type="hidden" name="preco" value="${carro.preco}" />
+                        <input type="hidden" name="descricao" value="${carro.descricao}" />
+                        <input type="hidden" name="tipo" value="${carro.tipo}" />
+                        <input type="hidden" name="ano" value="${carro.ano}" />
+                        <input type="hidden" name="abss" value="${carro.abss}" />
+                        <input type="hidden" name="ar_condicionado" value="${carro.ar_condicionado}" />
+                        <input type="hidden" name="num_lugares" value="${carro.num_lugares}" />
+                        <input class="button" title="Alugar" value="ALUGAR" type="submit" />
+                    </form>
+                    </c:if>
+                <button class="button" title="Vizualizar-Locador" type="submit"><a href="${pageContext.servletContext.contextPath}/fluxo/locdetail?cpf_locador=${carro.cpf_locador}"> Visitar Perfil Locador</a></button>
             </div>
             </div>
           </li>
