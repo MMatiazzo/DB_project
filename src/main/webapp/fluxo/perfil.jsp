@@ -38,6 +38,7 @@
     <c:set var='nome_p' value="${sessionScope.usuario.nome}" />
     <c:set var='avatar_p' value="${sessionScope.usuario.avatar}" />
     <c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
+    <c:set var='saldo_c' value="${sessionScope.carteira.saldo}" />
 <div id="page">
   <header>
     <div class="container">
@@ -85,10 +86,10 @@
                     <h1>${nome_p} </h1>
                   </div>
                     <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button><br/><br/>
-                    <button class="button newbutton" title="Add to Cart" type="button"><span>  Creditar carteira  </span></button><br/><br/>
+                    <button class="button newbutton" title="Creditar" type="button"><a href="${pageContext.servletContext.contextPath}/carteira/update"><span>  Creditar carteira  </span></a></button><br/><br/>
                     <button class="button " title="Add to Cart" type="button"><a href="${pageContext.servletContext.contextPath}/car/create?cpf=${cpf_p}">  Postar carro  </a> </button>
                     <div class="woocommerce-Reviews">
-                        <h2>Creditos Restantes: $700</h2>
+                        <h2>Creditos Restantes: $${saldo_c}</h2>
                     </div>
                     
                 </div>
