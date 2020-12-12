@@ -52,7 +52,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
             "/fluxo/order_by",
             "/fluxo/detail",
             "/fluxo/filterOption",
-            "/fluxo/profile"
+            "/fluxo/profile",
+            "/fluxo/locdetail",
         })
 public class CarController extends HttpServlet {
 
@@ -136,7 +137,7 @@ public class CarController extends HttpServlet {
                 break;
             }
             
-            case "/fluxo/profile_locador": {
+            case "/fluxo/locdetail": {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
                     daoL = daoFactory.getLocadorDAO();

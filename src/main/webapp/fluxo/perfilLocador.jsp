@@ -31,9 +31,11 @@
 <body>
     <c:set var='cpf_p' value="${param.cpf_locador}" />
     <c:forEach var="pessoa" items="${requestScope.pessoaList}">
-    <c:if test="${pessoa.cpf == cpf_l}">
+    <c:if test="${pessoa.cpf == cpf_p}">
+        <h1>${pessoa.nome}</h1>
+        <h1>${pessoa.avatar}</h1>
         <c:set var='nome_pessoa' value="${pessoa.nome}" />
-        <c:set var='avatar' value="${pessoa.avatar}" />
+        <c:set var='avatar_p' value="${pessoa.avatar}" />
     </c:if>
     </c:forEach>
 <div id="page">
@@ -80,7 +82,7 @@
                 <!-- For version 3 -->
                 <div class="product-shop col-lg- col-sm-7 col-xs-12">
                   <div class="product-name">
-                    <h1>${nome_p} </h1>
+                    <h1>${nome_pessoa} </h1>
                   </div>
                 </div>
                 <!--product-shop--> 
@@ -126,49 +128,6 @@
               </div>
               <br/>
               <br/>
-              <div>
-                <div class="woocommerce-Reviews">
-                  <div>
-                    <h2 class="woocommerce-Reviews-title">Reviews </h2>
-                    <ol class="commentlist">
-                        <c:forEach var="review" items="${requestScope.reviewList}">
-                          <li class="comment">
-                            <div> <img alt="" src="${pageContext.request.contextPath}/img/${review.cpf_locador}" class="avatar avatar-60 photo">
-                              <div class="comment-text">
-                                <p class="meta"> <strong>${review.cpf_locatario}</strong> <span></span> ${review.data_review} </p>
-                                <div class="description">
-                                  <p> ${review.descricao} </p>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <!-- #comment-## -->
-                        </c:forEach>
-                    </ol>
-                  </div>
-                  <div>
-                    <div>
-                      <div class="comment-respond"> <span class="comment-reply-title">Add a review </span>
-                        <form action="#" method="post" class="comment-form" novalidate>
-                          <p class="comment-form-comment">
-                            <textarea id="comment" name="comment" cols="45" rows="8" required></textarea>
-                          </p>
-                          <p class="form-submit">
-                            <input name="submit" type="submit" id="submit" class="submit" value="Submit">
-                          </p>
-                        </form>
-                      </div>
-                      <!-- #respond --> 
-                    </div>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-            </div>
-              <div class="tab-pane fade" id="product_tabs_custom1">
-                <div class="product-tabs-content-inner clearfix">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue.</p>
-                </div>
-              </div>
             </div>
           </div>
           <!-- end related product --> 

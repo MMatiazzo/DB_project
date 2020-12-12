@@ -56,7 +56,7 @@ public class PgPessoaDAO implements PessoaDAO {
                                 "WHERE cpf = ?;";
      
      private static final String ALL_QUERY =
-                                "SELECT cpf, login " +
+                                "SELECT cpf, login, nome, avatar " +
                                 "FROM j2ee.pessoa ";
      
      private static final String AUTHENTICATE_QUERY =
@@ -160,6 +160,8 @@ public class PgPessoaDAO implements PessoaDAO {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setCpf(result.getString("cpf"));
                 pessoa.setLogin(result.getString("login"));
+                pessoa.setNome(result.getString("nome"));
+                pessoa.setAvatar(result.getString("avatar"));
 
                 pessoaList.add(pessoa);
             }

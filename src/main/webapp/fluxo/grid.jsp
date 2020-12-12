@@ -73,7 +73,7 @@
                   <ul>
                     <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=modelo&order=asc">Name</a></li>
                     <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=preco&order=asc">Price</a></li>
-                    <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=avatar&order=asc">Position</a></li>
+                    <li><a href="${pageContext.servletContext.contextPath}/fluxo/order_by?order_by=ano&order=asc">Ano</a></li>
                   </ul>
                 </li>
               </ul>
@@ -86,7 +86,7 @@
                  <li class="item even">
             <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
             <div class="product-shop">
-              <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
+              <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo} <br/> Ano: ${carro.ano}</a></h2>
               <div class="desc std">
               <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
                 <br>
@@ -97,8 +97,8 @@
                 <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
               </div>
               <div class="actions">
-                <button class="button" title="Alugar" type="button"><span>Alugar</span></button>
-                <button class="button" title="Alugar" type="button"><a href="${pageContext.servletContext.contextPath}/fluxo/profile_locador?cpf_locador=${carro.cpf_locador}"> Visitar Perfil Locador</a></button>
+                <c:if test="${carro.disponibilidade == true}"> <button class="button" title="Alugar" type="button"><span>Alugar</span></button> </c:if>
+                <button class="button" title="Vizualizar-Locador" type="button"><a href="${pageContext.servletContext.contextPath}/fluxo/locdetail?cpf_locador=${carro.cpf_locador}"> Visitar Perfil Locador</a></button>
             </div>
             </div>
           </li>
