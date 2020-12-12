@@ -1,9 +1,3 @@
-<%-- 
-    Document   : perfil
-    Created on : 9 de dez. de 2020, 20:46:43
-    Author     : mathe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -35,9 +29,13 @@
 <link href="https://fonts.googleapis.com/css?family=Saira+Condensed:300,400,500,600,700,800" rel="stylesheet">
 </head>
 <body>
-    <c:set var='nome_p' value="${sessionScope.usuario.nome}" />
-    <c:set var='avatar_p' value="${sessionScope.usuario.avatar}" />
-    <c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
+    <c:set var='cpf_p' value="${param.cpf_locador}" />
+    <c:forEach var="pessoa" items="${requestScope.pessoaList}">
+    <c:if test="${pessoa.cpf == cpf_l}">
+        <c:set var='nome_pessoa' value="${pessoa.nome}" />
+        <c:set var='avatar' value="${pessoa.avatar}" />
+    </c:if>
+    </c:forEach>
 <div id="page">
   <header>
     <div class="container">
@@ -84,14 +82,6 @@
                   <div class="product-name">
                     <h1>${nome_p} </h1>
                   </div>
-                    <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button>
-                    <input id="creditos"  type="text" name="creditar-carteira"/>
-                    <button class="button newbutton" title="Add to Cart" type="button"><span>  Creditar carteira  </span></button>
-                    <button class="button " title="Add to Cart" type="button"><a href="${pageContext.servletContext.contextPath}/car/create?cpf=${cpf_p}">  Postar carro  </a> </button>
-                    <div class="woocommerce-Reviews">
-                        <h2>Creditos Restantes: $700</h2>
-                    </div>
-                    
                 </div>
                 <!--product-shop--> 
                 <!--Detail page static block for version 3-->
@@ -124,10 +114,6 @@
                                     </div>
                                     <div class="price-box">
                                     <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
-                                    </div>
-                                    <div class="actions">
-                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/update?placa=${carro.placa}">Editar</a></button>
-                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/delete?placa=${carro.placa}">Excluir</a></button>
                                     </div>
                                     </div>
                                 </li>

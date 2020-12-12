@@ -22,23 +22,9 @@
                 action="${pageContext.servletContext.contextPath}/review/create"
                 enctype="multipart/form-data"
                 method="POST">
-
-                <div class="form-group">
-                    <label class="control-label" for="review-num-placa-carro">Placa do carro</label>
-                    <input id="review-num-placa-carro" class="form-control" type="text" name="num_placa_carro" required autofocus/>
-
-                    <p class="help-block"></p>
-                </div>
-
-                <div class="form-group">
-                    <label for="review-cpf-locador" class="control-label">CPF do Locador</label>
-                    <input id="review-cpf-locador" class="form-control" type="text" name="cpf_locador" required/>
-                </div>
-                
-                <div class="form-group">
-                    <label for="review-cpf-locatario" class="control-label">CPF do Locatario</label>
-                    <input id="review-cpf-locatario" class="form-control" type="text" name="cpf_locatario" required/>
-                </div>
+                <input type="hidden" name="num_placa_carro" value="${param.placa_carro}">
+                <input type="hidden" name="cpf_locador" value="${param.cpf_locador}">
+                <input type="hidden" name="cpf_locatario" value="${param.cpf_locatario}">
                 
                 <div class="form-group">
                     <label for="review-descricao" class="control-label">Descricao</label>
@@ -56,7 +42,6 @@
                            placeholder="dd/mm/yyyy"
                            pattern="\d{2}/\d{2}/\d{4}" required/>
                 </div>
-                
 
                 <div class="text-center">
                     <button class="btn btn-lg btn-primary" type="submit">Salvar</button>

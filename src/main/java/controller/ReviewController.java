@@ -234,6 +234,7 @@ public class ReviewController extends HttpServlet {
                     dao = daoFactory.getReviewDAO();
 
                     if (servletPath.equals("/review/create")) {
+                        System.out.println("cheguei até aki");
                         dao.create(review);
                     } else {
                         servletPath += "?num_placa_carro=" + review.getNum_placa_carro() + "&cpf_locador="
@@ -241,7 +242,7 @@ public class ReviewController extends HttpServlet {
                         dao.update(review);
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/review");
+                    response.sendRedirect(request.getContextPath() + "/fluxo/detail?placa="+review.getNum_placa_carro());
 
                 } catch (ParseException ex) {
                     Logger.getLogger(ReviewController.class.getName()).log(Level.SEVERE, "Controller", ex);

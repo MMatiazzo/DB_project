@@ -40,6 +40,7 @@
       </head>
     </div>
   </header>
+   <c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
     <c:forEach var="carro" items="${requestScope.carList}">
     <c:if test="${carro.placa == param.placa}">
     <c:set var='placa' value="${carro.placa}" />
@@ -51,6 +52,7 @@
     <c:set var='num_lugares' value="${carro.num_lugares}" />
     <c:set var='descricao' value="${carro.descricao}" />
     <c:set var='avatar' value="${carro.avatar}" />
+    <c:set var='cpf_c' value="${carro.cpf_locador}" />
     </c:if>
     </c:forEach>
   <div class="page-heading">
@@ -97,6 +99,7 @@
                     </div>
                   </div>
                     <button class="button" title="Alugar" type="button"><span>  $ALUGAR  </span></button>
+                    <button class="button" title="Alugar" type="button"><span>  PERFIL LOCADOR  </span></button>
                 </div>
                 <!--product-shop--> 
                 <!--Detail page static block for version 3-->
@@ -153,7 +156,7 @@
               <br/>
                 <div class="woocommerce-Reviews">
                   <div>
-                    <h2 class="woocommerce-Reviews-title">Reviews </h2>
+                        <h2 class="woocommerce-Reviews-title">Reviews </h2>
                     <ol class="commentlist">
                         <c:forEach var="review" items="${requestScope.reviewList}">
                           <li class="comment">
@@ -171,9 +174,10 @@
                     </ol>
                   </div>
                   <div>
-                    <div>
+                      <c:if test="${cpf_p != cpf_c}">
+<!--                    <div>
                       <div class="comment-respond"> <span class="comment-reply-title">Add a review </span>
-                        <form action="#" method="post" class="comment-form" novalidate>
+                        <form action="${pageContext.servletContext.contextPath}/review/create?placa_carro=${placa}&cpf_locador=${cpf_c}&cpf_locatario=${cpf_p}" method="post" class="comment-form" novalidate>
                           <p class="comment-form-comment">
                             <textarea id="comment" name="comment" cols="45" rows="8" required></textarea>
                           </p>
@@ -182,16 +186,13 @@
                           </p>
                         </form>
                       </div>
-                      <!-- #respond --> 
-                    </div>
+                       #respond  
+                    </div>-->
+                    <button class="button " title="Add Review" type="button"><a href="${pageContext.servletContext.contextPath}/review/create?placa_carro=${placa}&cpf_locador=${cpf_c}&cpf_locatario=${cpf_p}">  Adicionar Descricao  </a> </button>
+                    </c:if>
                   </div>
                   <div class="clear"></div>
                 </div>
-              <div class="tab-pane fade" id="product_tabs_custom1">
-                <div class="product-tabs-content-inner clearfix">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue.</p>
-                </div>
-              </div>
             </div>
           </div>
           <!-- end related product --> 

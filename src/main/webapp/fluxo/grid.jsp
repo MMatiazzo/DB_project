@@ -98,6 +98,7 @@
               </div>
               <div class="actions">
                 <button class="button" title="Alugar" type="button"><span>Alugar</span></button>
+                <button class="button" title="Alugar" type="button"><a href="${pageContext.servletContext.contextPath}/fluxo/profile_locador?cpf_locador=${carro.cpf_locador}"> Visitar Perfil Locador</a></button>
             </div>
             </div>
           </li>

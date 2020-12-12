@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Car;
 import model.Locador;
+import model.Pessoa;
 import model.Review;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -79,6 +80,7 @@ public class CarController extends HttpServlet {
 
         DAO<Car, String> dao;
         DAO<Locador, String> daoL;
+        DAO<Pessoa, String> daoP;
         DAO<Review, ArrayList<String>> rdao;
         Car car;
         RequestDispatcher dispatcher;
@@ -130,6 +132,28 @@ public class CarController extends HttpServlet {
                 }
 
                 dispatcher = request.getRequestDispatcher("/fluxo/perfil.jsp");
+                dispatcher.forward(request, response);
+                break;
+            }
+            
+            case "/fluxo/profile_locador": {
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getCarDAO();
+                    daoL = daoFactory.getLocadorDAO();
+                    daoP = daoFactory.getPessoaDAO();
+                    
+
+                    List<Car> carList = dao.all();
+                    List<Locador> locadorList = daoL.all();
+                    List<Pessoa> pessoaList = daoP.all();
+                    request.setAttribute("carList", carList);
+                    request.setAttribute("locadorList", locadorList);
+                    request.setAttribute("pessoaList", pessoaList);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/fluxo/perfilLocador.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
@@ -216,7 +240,7 @@ public class CarController extends HttpServlet {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                response.sendRedirect(request.getContextPath() + "/car");
+                response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                 break;
             }
             
@@ -340,7 +364,7 @@ public class CarController extends HttpServlet {
                                     car.setPreco(Double.parseDouble(fieldValue));
                                     break;
                                 case "ano":
-                                    car.setPreco(Integer.parseInt(fieldValue));
+                                    car.setAno(Integer.parseInt(fieldValue));
                                     break;
                                 
                             }
@@ -419,7 +443,7 @@ public class CarController extends HttpServlet {
                     session.setAttribute("rollbackError", ex.getMessage());
                 }
 
-                response.sendRedirect(request.getContextPath() + "/car");
+                response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                 break;
             }
                 
