@@ -23,7 +23,7 @@
                        <h3>My Acount</h3>
                       <ul class="links">
                         <li><a href="${pageContext.servletContext.contextPath}/fluxo/profile" title="Profile">Profile</a></li>
-                        <li><a href="${pageContext.servletContext.contextPath}/carteira" title="Logout">Carteira</a> $ 700</li>
+                        <li><a href="${pageContext.servletContext.contextPath}/carteira/update" title="Carteira">Carteira</a> $${sessionScope.carteira.saldo}</li>
                         <li><a href="${pageContext.servletContext.contextPath}/logout" title="Logout">Logout</a></li>
                         </ul>
                     </div>

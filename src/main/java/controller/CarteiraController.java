@@ -9,12 +9,12 @@ import dao.DAO;
 import dao.DAOFactory;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Carteira;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import static sun.font.CreatedFontTracker.MAX_FILE_SIZE;
 
 /**
  *
@@ -42,7 +40,15 @@ public class CarteiraController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+
+        RequestDispatcher dispatcher; 
+        
+        switch (request.getServletPath()) {
+            case "/carteira/update":
+                dispatcher = request.getRequestDispatcher("/view/carteira/update.jsp");
+                dispatcher.forward(request, response);
+                break;
+        }
     }
 
     /**
@@ -93,7 +99,7 @@ public class CarteiraController extends HttpServlet {
                                 case "cpf":
                                     carteira.setCpf(fieldValue);
                                     break;
-                                case "saldo":
+                                case "valor":
                                     carteira.setSaldo(Double.parseDouble(fieldValue));
                                     break;
                             }
@@ -102,25 +108,17 @@ public class CarteiraController extends HttpServlet {
 
                     dao = daoFactory.getCarteiraDAO();
 
-                    if (servletPath.equals("/car/create")) {
-                        dao.create(carteira);
-                    } else {
-                        servletPath += "?cpf=&saldo=?" + String.valueOf(carteira.getCpf());
+                        servletPath += "?cpf=" + String.valueOf(carteira.getCpf());
                         dao.update(carteira);
-                    }
 
                     response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                     
-                } catch (FileUploadException ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
-                    session.setAttribute("error", "Erro ao fazer upload do arquivo.");
-                    response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(CarteiraController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", ex.getMessage());
                     response.sendRedirect(request.getContextPath() + servletPath);
                 } catch (Exception ex) {
-                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    Logger.getLogger(CarteiraController.class.getName()).log(Level.SEVERE, "Controller", ex);
                     session.setAttribute("error", "Erro ao gravar arquivo no servidor.");
                     response.sendRedirect(request.getContextPath() + servletPath);
                 }

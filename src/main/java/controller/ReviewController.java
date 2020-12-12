@@ -234,7 +234,6 @@ public class ReviewController extends HttpServlet {
                     dao = daoFactory.getReviewDAO();
 
                     if (servletPath.equals("/review/create")) {
-                        System.out.println("cheguei até aki");
                         dao.create(review);
                     } else {
                         servletPath += "?num_placa_carro=" + review.getNum_placa_carro() + "&cpf_locador="
