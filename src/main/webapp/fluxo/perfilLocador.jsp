@@ -32,8 +32,6 @@
     <c:set var='cpf_p' value="${param.cpf_locador}" />
     <c:forEach var="pessoa" items="${requestScope.pessoaList}">
     <c:if test="${pessoa.cpf == cpf_p}">
-        <h1>${pessoa.nome}</h1>
-        <h1>${pessoa.avatar}</h1>
         <c:set var='nome_pessoa' value="${pessoa.nome}" />
         <c:set var='avatar_p' value="${pessoa.avatar}" />
     </c:if>
