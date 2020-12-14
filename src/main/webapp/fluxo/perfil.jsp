@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="actions">
                                     <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/update?placa=${carro.placa}">Editar</a></button>
-                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/delete?placa=${carro.placa}">Excluir</a></button>
+                                    <button class="button" title="Excluir" type="button"><a href="${pageContext.servletContext.contextPath}/car/delete?placa=${carro.placa}">Excluir</a></button>
                                     </div>
                                     </div>
                                 </li>
@@ -179,7 +179,12 @@
                                     <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
                                     </div>
                                     <div class="actions">
-                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/update?placa=${carro.placa}">Devolver</a></button>
+                                    <form action="${pageContext.servletContext.contextPath}/carteira/devolver" method="post">
+                                        <input type="hidden" name="placa" value="${carro.placa}"/>
+                                        <input type="hidden" name="cpf_locador" value="${carro.cpf_locador}"/>
+                                        <input type="hidden" name="cpf_locatario" value="${sessionScope.usuario.cpf}"/>
+                                        <input class="button" title="Devolver" type="submit">Devolver</button>
+                                    </form>
                                     </div>
                                     </div>
                                 </li>
