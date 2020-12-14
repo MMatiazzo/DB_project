@@ -9,10 +9,8 @@ import dao.DAO;
 import dao.DAOFactory;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,7 +89,7 @@ public class PagamentoController extends HttpServlet {
             }
             
              case "/pagamento/delete": {
-                 pagamentos = new ArrayList<String>();
+                 pagamentos = new ArrayList<>();
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getPagamentoDAO();
                     pagamentos.add(request.getParameter("data_pagamento"));
@@ -115,11 +113,9 @@ public class PagamentoController extends HttpServlet {
                     pagamentos.add(request.getParameter("num_placa_carro"));
                     pagamentos.add(request.getParameter("cpf_locador"));
                     pagamentos.add(request.getParameter("cpf_locatario"));
-//                    pagamentos.add(request.getParameter("data_entrega"));
-//                    pagamentos.add(request.getParameter("valor"));
-//                    pagamentos.add(request.getParameter("data_devolucao"));
+                    pagamentos.add(request.getParameter("valor"));
+                    pagamentos.add(request.getParameter("data_devolucao"));
                     pagamento = dao.read(pagamentos);
-                    request.setAttribute("pagamento", pagamento);
 
                     dispatcher = request.getRequestDispatcher("/view/pagamento/update.jsp");
                     dispatcher.forward(request, response);
@@ -200,13 +196,9 @@ public class PagamentoController extends HttpServlet {
                                 case "valor":
                                     pagamento.setValor(Integer.parseInt(fieldValue));
                                     break;
-                                case "data_entrega":
-                                    java.util.Date dataEntrega = new SimpleDateFormat("yyyy-mm-dd").parse(fieldValue);
-                                    pagamento.setData_entrega(new Date(dataEntrega.getTime()));
-                                    break;
                                 case "data_devolucao":
-                                    java.util.Date dataDevolucao = new SimpleDateFormat("yyyy-mm-dd").parse(fieldValue);
-                                    pagamento.setData_devolucao(new Date(dataDevolucao.getTime()));
+                                    Date today = new Date(System.currentTimeMillis());
+                                    pagamento.setData_devolucao(today);
                                     break;
                             }
                         }
@@ -246,7 +238,7 @@ public class PagamentoController extends HttpServlet {
             
             case "/pagamento/delete": {
 //                     String[] pagamento = request.getParameterValues("delete");
-                     pagamentos = new ArrayList<String>();
+                     pagamentos = new ArrayList<>();
                      String[] pagamentos_string = request.getParameterValues("delete");
                      for(int i = 0; i < pagamentos_string.length ;i++){
                          pagamentos.add(i,  pagamentos_string[i]);

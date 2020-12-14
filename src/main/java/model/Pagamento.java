@@ -17,7 +17,6 @@ public class Pagamento {
     private String cpf_locador;
     private String cpf_locatario;
     private double valor;
-    private Date data_entrega;
     private Date data_devolucao;
 
     /**
@@ -88,20 +87,6 @@ public class Pagamento {
      */
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    /**
-     * @return the data_entrega
-     */
-    public Date getData_entrega() {
-        return data_entrega;
-    }
-
-    /**
-     * @param data_entrega the data_entrega to set
-     */
-    public void setData_entrega(Date data_entrega) {
-        this.data_entrega = data_entrega;
     }
 
     /**
