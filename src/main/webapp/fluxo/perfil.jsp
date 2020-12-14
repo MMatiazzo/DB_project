@@ -39,6 +39,7 @@
     <c:set var='avatar_p' value="${sessionScope.usuario.avatar}" />
     <c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
     <c:set var='saldo_c' value="${sessionScope.carteira.saldo}" />
+    <c:set var='trigger_1' value="1" />
 <div id="page">
   <header>
     <div class="container">
@@ -85,9 +86,19 @@
                   <div class="product-name">
                     <h1>${nome_p} </h1>
                   </div>
-                    <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button><br/><br/>
+                   <c:forEach var="locador" items="${requestScope.locadorList}">
+                  <c:if test="${cpf_p == locador.cpf_pessoa}">
+                      <c:set var='trigger_1' value="0" />
+                  </c:if>
+                   </c:forEach>
+                   <c:if test="${trigger_1 == 1}">
+                  <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/locador/create?cpf=${cpf_p}">  Se tornar um Locador  </a></button><br/><br/>
+                   </c:if>
+                  <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button><br/><br/>
                     <button class="button newbutton" title="Creditar" type="button"><a href="${pageContext.servletContext.contextPath}/carteira/update"><span>  Creditar carteira  </span></a></button><br/><br/>
+                    <c:if test="${trigger_1 == 0}">
                     <button class="button " title="Add to Cart" type="button"><a href="${pageContext.servletContext.contextPath}/car/create?cpf=${cpf_p}">  Postar carro  </a> </button>
+                    </c:if>
                     <div class="woocommerce-Reviews">
                         <h2>Creditos Restantes: $${saldo_c}</h2>
                     </div>

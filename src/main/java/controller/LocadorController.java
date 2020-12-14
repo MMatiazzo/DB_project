@@ -210,7 +210,7 @@ public class LocadorController extends HttpServlet {
                         dao.update(locador);
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/locador");
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                     
                 } catch (FileUploadException ex) {
                     Logger.getLogger(LocadorController.class.getName()).log(Level.SEVERE, "Controller", ex);

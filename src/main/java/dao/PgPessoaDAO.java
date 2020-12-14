@@ -263,7 +263,7 @@ public class PgPessoaDAO implements PessoaDAO {
             try (ResultSet result = statement.executeQuery()) {
                 if (result.next()) {
                     Pessoa pessoa = new Pessoa();
-                    pessoa.setCpf(result.getString("id"));
+                    pessoa.setCpf(result.getString("cpf"));
                     pessoa.setNome(result.getString("nome"));
                     pessoa.setNascimento(result.getDate("nascimento"));
                     pessoa.setAvatar(result.getString("avatar"));

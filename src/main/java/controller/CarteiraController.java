@@ -171,8 +171,8 @@ public class CarteiraController extends HttpServlet {
 
                     dao = daoFactory.getCarteiraDAO();
 
-                        servletPath += "?cpf=" + String.valueOf(carteira1.getCpf());
-                        dao.update(carteira1);
+                    servletPath += "?cpf=" + String.valueOf(carteira1.getCpf());
+                    dao.update(carteira1);
 
                     response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                     
