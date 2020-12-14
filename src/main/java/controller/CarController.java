@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Car;
 import model.Locador;
+import model.Pagamento;
 import model.Pessoa;
 import model.Review;
 import org.apache.commons.fileupload.FileItem;
@@ -83,6 +84,7 @@ public class CarController extends HttpServlet {
         DAO<Locador, String> daoL;
         DAO<Pessoa, String> daoP;
         DAO<Review, ArrayList<String>> rdao;
+        DAO<Pagamento, ArrayList<String>> daoPag;
         Car car;
         RequestDispatcher dispatcher;
 
@@ -122,12 +124,14 @@ public class CarController extends HttpServlet {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
                     daoL = daoFactory.getLocadorDAO();
-                    
+                    daoPag = daoFactory.getPagamentoDAO();
 
                     List<Car> carList = dao.all();
                     List<Locador> locadorList = daoL.all();
+                    List<Pagamento> pagamentoList = daoPag.all();
                     request.setAttribute("carList", carList);
                     request.setAttribute("locadorList", locadorList);
+                    request.setAttribute("pagamentoList", pagamentoList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }

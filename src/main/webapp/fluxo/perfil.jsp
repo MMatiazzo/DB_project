@@ -162,7 +162,9 @@
                 <div class="category-products">
                     <ol class="products-list" id="products-list">
               <c:forEach var="carro" items="${requestScope.carList}">
-                            <c:if test="${cpf_p == carro.cpf_locador}">
+                  <c:forEach var="pagamento" items="${requestScope.pagamentoList}">
+                       <c:if test="${carro.placa == pagamento.num_placa_carro}">
+                            <c:if test="${cpf_p == pagamento.cpf_locatario}">
                                 <li class="item even">
                                     <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
                                     <div class="product-shop">
@@ -182,6 +184,8 @@
                                     </div>
                                 </li>
                             </c:if>
+                       </c:if>
+                          </c:forEach>
                         </c:forEach>
                                 </ol>
                 </div>
