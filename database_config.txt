@@ -46,14 +46,14 @@ CREATE TABLE j2ee.car(
 
 CREATE TABLE j2ee.review(
 	data_review date NOT NULL,
-	num_placa_carro char(7) NOT NULL,
+	num_placa_carro char(7) NOT NULL, 
 	cpf_locador char(11) NOT NULL,
 	cpf_locatario char(11) NOT NULL,
 	descricao character varying(150) NOT NULL,
 	nota int NOT NULL,
 	CONSTRAINT pk_review PRIMARY KEY(num_placa_carro, cpf_locador, cpf_locatario),
 	CONSTRAINT fk_review_num_placa_carro FOREIGN KEY(num_placa_carro)
-		REFERENCES j2ee.car(placa),
+		REFERENCES j2ee.car(placa) ON DELETE CASCADE,
 	CONSTRAINT fk_review_cpf_locador FOREIGN KEY(cpf_locador) 
 		REFERENCES j2ee.locador(cpf_pessoa),
 	CONSTRAINT fk_review_cpf_locatario FOREIGN KEY(cpf_locatario)
@@ -70,7 +70,7 @@ CREATE TABLE j2ee.pagamento(
 	data_devolucao date,
 	CONSTRAINT pk_pagamento PRIMARY KEY(identificador, data_pagamento, num_placa_carro, cpf_locador, cpf_locatario),
 	CONSTRAINT fk_pagamento_num_placa_carro FOREIGN KEY(num_placa_carro)
-		REFERENCES j2ee.car(placa),
+		REFERENCES j2ee.car(placa) ON DELETE CASCADE,
 	CONSTRAINT fk_pagamento_cpf_locador FOREIGN KEY(cpf_locador) 
 		REFERENCES j2ee.locador(cpf_pessoa),
 	CONSTRAINT fk_pagamento_cpf_locatario FOREIGN KEY(cpf_locatario)
