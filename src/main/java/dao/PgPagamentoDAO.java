@@ -28,17 +28,17 @@ public class PgPagamentoDAO implements PagamentoDAO{
     private final Connection connection;
     
     private static final String CREATE_QUERY =
-                                "INSERT INTO j2ee.pagamento(data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_entrega, data_devolucao) " +
-                                "VALUES(?, ?, ?, ?, ?, ?, ?);";
+                                "INSERT INTO j2ee.pagamento(data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_devolucao) " +
+                                "VALUES(?, ?, ?, ?, ?, ?);";
 
     private static final String READ_QUERY =
-                                "SELECT data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_entrega, data_devolucao " +
+                                "SELECT data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_devolucao " +
                                 "FROM j2ee.pagamento " +
                                 "WHERE data_pagamento = ? AND num_placa_carro = ? AND cpf_locador = ? AND cpf_locatario = ?;";
 
     private static final String UPDATE_QUERY =
                                 "UPDATE j2ee.pagamento " +
-                                "SET valor = ?, data_entrega = ? , data_devolucao = ? " +
+                                "SET valor = ?, data_devolucao = ? " +
                                 "WHERE data_pagamento = ? AND num_placa_carro = ? AND cpf_locador = ? AND cpf_locatario = ?;";
     
     private static final String DELETE_QUERY =
@@ -46,7 +46,7 @@ public class PgPagamentoDAO implements PagamentoDAO{
                                 "WHERE data_pagamento = ? AND num_placa_carro = ? AND cpf_locador = ? AND cpf_locatario = ?;";
 
     private static final String ALL_QUERY =
-                                "SELECT data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_entrega, data_devolucao " +
+                                "SELECT data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_devolucao " +
                                 "FROM j2ee.pagamento;";
     
     public PgPagamentoDAO(Connection connection) {
@@ -61,8 +61,7 @@ public class PgPagamentoDAO implements PagamentoDAO{
             statement.setString(3, pagamento.getCpf_locador());
             statement.setString(4, pagamento.getCpf_locatario());
             statement.setDouble(5, pagamento.getValor());
-            statement.setDate(6, pagamento.getData_entrega());
-            statement.setDate(7, pagamento.getData_devolucao());
+            statement.setDate(6, pagamento.getData_devolucao());
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -96,7 +95,6 @@ public class PgPagamentoDAO implements PagamentoDAO{
                     pag.setCpf_locador(result.getString("cpf_locador"));
                     pag.setCpf_locatario(result.getString("cpf_locatario"));
                     pag.setValor(result.getDouble("valor"));
-                    pag.setData_entrega(result.getDate("data_entrega"));
                     pag.setData_devolucao(result.getDate("data_devolucao"));
                 } else {
                     throw new SQLException("Erro ao visualizar: pagamento não encontrado.");
@@ -125,12 +123,11 @@ public class PgPagamentoDAO implements PagamentoDAO{
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setDouble(1, pagamento.getValor());
-            statement.setDate(2, pagamento.getData_entrega());
-            statement.setDate(3, pagamento.getData_devolucao());
-            statement.setDate(4, pagamento.getData_pagamento());
-            statement.setString(5, pagamento.getNum_placa_carro());
-            statement.setString(6, pagamento.getCpf_locador());
-            statement.setString(7, pagamento.getCpf_locatario());
+            statement.setDate(2, pagamento.getData_devolucao());
+            statement.setDate(3, pagamento.getData_pagamento());
+            statement.setString(4, pagamento.getNum_placa_carro());
+            statement.setString(5, pagamento.getCpf_locador());
+            statement.setString(6, pagamento.getCpf_locatario());
             
 
             if (statement.executeUpdate() < 1) {
@@ -190,7 +187,6 @@ public class PgPagamentoDAO implements PagamentoDAO{
                 pagamento.setData_pagamento(result.getDate("data_pagamento"));
                 pagamento.setCpf_locador(result.getString("cpf_locador"));
                 pagamento.setCpf_locatario(result.getString("cpf_locatario"));
-                pagamento.setData_entrega(result.getDate("data_entrega"));
                 pagamento.setData_devolucao(result.getDate("data_devolucao"));
                 pagamento.setValor(result.getDouble("valor"));
 

@@ -5,13 +5,13 @@
  */
 package controller;
 
-import dao.CarDAO;
-import dao.CarteiraDAO;
 import dao.DAO;
 import dao.DAOFactory;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Car;
 import model.Carteira;
+import model.Pagamento;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -68,8 +69,10 @@ public class CarteiraController extends HttpServlet {
             throws ServletException, IOException {
         DAO<Carteira, String> dao;
         DAO<Car, String> dao2;
+        DAO<Pagamento, ArrayList<String>> pagdao;
         Carteira carteira1 = new Carteira();
         Carteira carteira2 = new Carteira();
+        Pagamento pagamento = new Pagamento();
         HttpSession session = request.getSession();
 
         String servletPath = request.getServletPath();
@@ -93,12 +96,14 @@ public class CarteiraController extends HttpServlet {
                     Car carro = new Car();
                     dao = daoFactory.getCarteiraDAO();
                     dao2 = daoFactory.getCarDAO();
+                    pagdao = daoFactory.getPagamentoDAO();
                     
                     carteira1 = dao.read(request.getParameter("cpf_locador"));
                     carteira2 = dao.read(request.getParameter("cpf_locatario"));
 
                     carteira1.setSaldo(carteira1.getSaldo() + Double.parseDouble(request.getParameter("preco")));
                     carteira2.setSaldo(carteira2.getSaldo() - Double.parseDouble(request.getParameter("preco")));
+                    
                     carro.setCpf_locador(request.getParameter("cpf_locador"));
                     carro.setAbss(Boolean.parseBoolean(request.getParameter("abss")));
                     carro.setNum_lugares(Integer.parseInt(request.getParameter("num_lugares")));
@@ -112,10 +117,19 @@ public class CarteiraController extends HttpServlet {
                     carro.setCpf_locador(request.getParameter("cpf_locador"));
                     carro.setAno(Integer.parseInt(request.getParameter("ano")));
                     carro.setPreco(Double.parseDouble(request.getParameter("preco")));
+                    
+                    pagamento.setCpf_locador(request.getParameter("cpf_locador"));
+                    pagamento.setCpf_locatario(request.getParameter("cpf_locatario"));
+                    pagamento.setData_devolucao(null);
+                    pagamento.setData_pagamento(new Date(System.currentTimeMillis()));
+                    pagamento.setNum_placa_carro(request.getParameter("placa"));
+                    pagamento.setValor(Double.parseDouble(request.getParameter("preco")));
+                    
                     servletPath += "?cpf_locador=" + String.valueOf(carteira1.getCpf()) + "&saldo_locador=" + 700 + "&cpf_locatario=" + String.valueOf(carteira2.getCpf()) +"&saldo_locatario=" + 200;
-                    ((CarteiraDAO) dao).update(carteira1);
-                    ((CarteiraDAO) dao).update(carteira2);
+                    dao.update(carteira1);
+                    dao.update(carteira2);
                     dao2.update(carro);
+                    pagdao.create(pagamento);
                     
 
                     response.sendRedirect(request.getContextPath() + "/fluxo/grid");

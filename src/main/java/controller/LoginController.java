@@ -90,7 +90,7 @@ public class LoginController extends HttpServlet {
         PessoaDAO dao;
         CarteiraDAO cdao;
         Pessoa pessoa = new Pessoa();
-        Carteira carteira = new Carteira();
+        Carteira carteira;
         HttpSession session = request.getSession();
 
         switch (request.getServletPath()) {
@@ -102,13 +102,13 @@ public class LoginController extends HttpServlet {
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getPessoaDAO();
                     cdao = daoFactory.getCarteiraDAO();
-
                     dao.authenticate(pessoa);
                     
                     carteira = cdao.read(pessoa.getCpf());
                     session.setAttribute("usuario", pessoa);
                     session.setAttribute("carteira", carteira);
                 } catch (ClassNotFoundException | IOException | SQLException | SecurityException ex) {
+                    System.out.println(ex.getMessage());
                     session.setAttribute("error", ex.getMessage());
                 }
 
