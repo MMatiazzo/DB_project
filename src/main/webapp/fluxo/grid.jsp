@@ -165,7 +165,7 @@
                   </select>
                 </div>
                   <div class="b-filter__btns">
-                      <input type="submit" value="filtrar" />
+                      <input class="button" type="submit" value="filtrar" />
                   </div>
               </form>     
       </aside>

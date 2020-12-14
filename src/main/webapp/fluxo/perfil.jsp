@@ -41,6 +41,7 @@
     <c:set var='avatar_p' value="${sessionScope.usuario.avatar}" />
     <c:set var='cpf_p' value="${sessionScope.usuario.cpf}" />
     <c:set var='saldo_c' value="${sessionScope.carteira.saldo}" />
+    <c:set var='trigger_1' value="1" />
 <div id="page">
   <header>
     <div class="container">
@@ -87,9 +88,19 @@
                   <div class="product-name">
                     <h1>${nome_p} </h1>
                   </div>
-                    <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button><br/><br/>
+                   <c:forEach var="locador" items="${requestScope.locadorList}">
+                  <c:if test="${cpf_p == locador.cpf_pessoa}">
+                      <c:set var='trigger_1' value="0" />
+                  </c:if>
+                   </c:forEach>
+                   <c:if test="${trigger_1 == 1}">
+                  <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/locador/create?cpf=${cpf_p}">  Se tornar um Locador  </a></button><br/><br/>
+                   </c:if>
+                  <button class="button " title="Add to Cart" type="button" display="inline"><a href="${pageContext.servletContext.contextPath}/pessoa/update?cpf=${cpf_p}">  Editar  </a></button><br/><br/>
                     <button class="button newbutton" title="Creditar" type="button"><a href="${pageContext.servletContext.contextPath}/carteira/update"><span>  Creditar carteira  </span></a></button><br/><br/>
+                    <c:if test="${trigger_1 == 0}">
                     <button class="button " title="Add to Cart" type="button"><a href="${pageContext.servletContext.contextPath}/car/create?cpf=${cpf_p}">  Postar carro  </a> </button>
+                    </c:if>
                     <div class="woocommerce-Reviews">
                         <h2>Creditos Restantes: $${saldo_c}</h2>
                     </div>
@@ -117,7 +128,7 @@
                                 <li class="item even">
                                     <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
                                     <div class="product-shop">
-                                    <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
+                                        <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo} <br/> Ano: ${carro.ano}</a></h2>
                                     <div class="desc std">
                                     <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
                                     <br>
@@ -143,6 +154,43 @@
               <br/>
               <br/>
             </div>
+               <div class="product-collateral container">
+            <div id="productTabContent" class="tab-content">
+              <div>
+                    <h2 class="woocommerce-Reviews-title"> Lista de carros Alugados: </h2>
+                  </div>
+                <div class="category-products">
+                    <ol class="products-list" id="products-list">
+              <c:forEach var="carro" items="${requestScope.carList}">
+                  <c:forEach var="pagamento" items="${requestScope.pagamentoList}">
+                       <c:if test="${carro.placa == pagamento.num_placa_carro}">
+                            <c:if test="${cpf_p == pagamento.cpf_locatario}">
+                                <li class="item even">
+                                    <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+                                    <div class="product-shop">
+                                        <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo} <br/> Ano: ${carro.ano}</a></h2>
+                                    <div class="desc std">
+                                    <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
+                                    <br>
+                                    <br>
+                                    <p> ${carro.descricao} </p>
+                                    </div>
+                                    <div class="price-box">
+                                    <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
+                                    </div>
+                                    <div class="actions">
+                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/update?placa=${carro.placa}">Devolver</a></button>
+                                    </div>
+                                    </div>
+                                </li>
+                            </c:if>
+                       </c:if>
+                          </c:forEach>
+                        </c:forEach>
+                                </ol>
+                </div>
+            </div>
+                   </div>
           </div>
           <!-- end related product --> 
         </div>

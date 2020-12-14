@@ -23,12 +23,13 @@
                 enctype="multipart/form-data"
                 method="POST">
 
-                <div class="form-group">
+<!--                <div class="form-group">
                     <label class="control-label" for="locador-cpf-pessoa">CPF</label>
                     <input id="locador-cpf-pessoa" class="form-control" type="text" name="cpf_pessoa" required autofocus/>
 
                     <p class="help-block"></p>
-                </div>
+                </div>-->
+                <input type="hidden" name="cpf_pessoa" value="${param.cpf}">
 
 
                 <div class="form-group">
