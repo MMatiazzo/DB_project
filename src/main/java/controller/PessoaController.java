@@ -270,6 +270,7 @@ public class PessoaController extends HttpServlet {
                     dao = daoFactory.getPessoaDAO();
                     cdao = daoFactory.getCarteiraDAO();
                     ltdao = daoFactory.getLocatarioDAO();
+                    String redirectPath = "/";
                     
                     if (servletPath.equals("/pessoa/create")) {
                         dao.create(pessoa);
@@ -278,10 +279,13 @@ public class PessoaController extends HttpServlet {
                         
                     } else {
                         servletPath += "?cpf=" + String.valueOf(pessoa.getCpf());
+                        redirectPath = "/fluxo/profile";
                         dao.update(pessoa);
+                        
+                        
                     }
 
-                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
+                    response.sendRedirect(request.getContextPath() + redirectPath);
 
                 } catch (ParseException ex) {
                     Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, "Controller", ex);

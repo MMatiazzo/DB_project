@@ -131,6 +131,62 @@ public class CarteiraController extends HttpServlet {
                 }
                 break;
             }
+            
+            case "/carteira/update": {
+                // Se fosse um form simples, usaria request.getParameter()
+                // String login = request.getParameter("login");
+
+                // Manipulação de form com enctype="multipart/form-data"
+                // Create a factory for disk-based file items
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                // Set the directory used to temporarily store files that are larger than the configured size threshold
+                factory.setRepository(new File("/tmp"));
+                // Create a new file upload handler
+                ServletFileUpload upload = new ServletFileUpload(factory);
+
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    // Parse the request
+                    List<FileItem> items = upload.parseRequest(request);
+
+                    // Process the uploaded items
+                    Iterator<FileItem> iter = items.iterator();
+                    while (iter.hasNext()) {
+                        FileItem item = iter.next();
+
+                        // Process a regular form field
+                        if (item.isFormField()) {
+                            String fieldName = item.getFieldName();
+                            String fieldValue = item.getString();
+
+                            switch (fieldName) {
+                                case "cpf":
+                                    carteira1.setCpf(fieldValue);
+                                    break;
+                                case "valor":
+                                    carteira1.setSaldo(Double.parseDouble(fieldValue));
+                                    break;
+                            }
+                        } 
+                    }
+
+                    dao = daoFactory.getCarteiraDAO();
+
+                        servletPath += "?cpf=" + String.valueOf(carteira1.getCpf());
+                        dao.update(carteira1);
+
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
+                    
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    Logger.getLogger(CarteiraController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    session.setAttribute("error", ex.getMessage());
+                    response.sendRedirect(request.getContextPath() + servletPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(CarteiraController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    session.setAttribute("error", "Erro ao gravar arquivo no servidor.");
+                    response.sendRedirect(request.getContextPath() + servletPath);
+                }
+                break;
+            }
     }
 
     /**
