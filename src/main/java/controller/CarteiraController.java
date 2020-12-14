@@ -71,7 +71,7 @@ public class CarteiraController extends HttpServlet {
         DAO<Car, String> dao2;
         DAO<Pagamento, ArrayList<String>> pagdao;
         Carteira carteira1 = new Carteira();
-        Carteira carteira2 = new Carteira();
+        Carteira carteira2;
         Pagamento pagamento = new Pagamento();
         HttpSession session = request.getSession();
 
@@ -128,6 +128,7 @@ public class CarteiraController extends HttpServlet {
                     servletPath += "?cpf_locador=" + String.valueOf(carteira1.getCpf()) + "&saldo_locador=" + 700 + "&cpf_locatario=" + String.valueOf(carteira2.getCpf()) +"&saldo_locatario=" + 200;
                     dao.update(carteira1);
                     dao.update(carteira2);
+                    session.setAttribute("carteira", carteira2);
                     dao2.update(carro);
                     pagdao.create(pagamento);
                     
@@ -145,6 +146,56 @@ public class CarteiraController extends HttpServlet {
                 }
                 break;
             }
+            
+            case "/carteira/devolver": {
+                // Se fosse um form simples, usaria request.getParameter()
+                // String login = request.getParameter("login");
+
+                // Manipulação de form com enctype="multipart/form-data"
+                // Create a factory for disk-based file items
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                // Set the directory used to temporarily store files that are larger than the configured size threshold
+                factory.setRepository(new File("/tmp"));
+                // Create a new file upload handler
+                ServletFileUpload upload = new ServletFileUpload(factory);
+
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    // Parse the request
+                    Car carro;
+                    ArrayList<String> keys = new ArrayList<>();
+                    dao2 = daoFactory.getCarDAO();
+                    pagdao = daoFactory.getPagamentoDAO();
+                    
+                    
+                    keys.add(request.getParameter("placa"));
+                    keys.add(request.getParameter("cpf_locador"));
+                    keys.add(request.getParameter("cpf_locatario"));
+                    
+                    pagamento = pagdao.read(keys);
+                    pagamento.setData_devolucao(new Date(System.currentTimeMillis()));                    
+
+                    carro = dao2.read(request.getParameter("placa"));
+                    carro.setDisponibilidade(true);
+                    
+                    
+                    servletPath += "?cpf_locador=" + String.valueOf(pagamento.getCpf_locador());
+                    pagdao.update(pagamento);
+                    dao2.update(carro);
+
+                    response.sendRedirect(request.getContextPath() + "/fluxo/profile");
+                    
+                }  catch (ClassNotFoundException | IOException | SQLException ex) {
+                    Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    session.setAttribute("error", ex.getMessage());
+                    response.sendRedirect(request.getContextPath() + servletPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(CarteiraController.class.getName()).log(Level.SEVERE, "Controller", ex);
+                    session.setAttribute("error", "Erro ao gravar arquivo no servidor.");
+                    response.sendRedirect(request.getContextPath() + servletPath);
+                }
+                break;
+            }
+           
             
             case "/carteira/update": {
                 // Se fosse um form simples, usaria request.getParameter()

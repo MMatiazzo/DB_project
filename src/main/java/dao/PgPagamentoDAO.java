@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Pagamento;
@@ -34,7 +33,7 @@ public class PgPagamentoDAO implements PagamentoDAO{
     private static final String READ_QUERY =
                                 "SELECT data_pagamento, num_placa_carro, cpf_locador, cpf_locatario, valor, data_devolucao " +
                                 "FROM j2ee.pagamento " +
-                                "WHERE data_pagamento = ? AND num_placa_carro = ? AND cpf_locador = ? AND cpf_locatario = ?;";
+                                "WHERE num_placa_carro = ? AND cpf_locador = ? AND cpf_locatario = ?;";
 
     private static final String UPDATE_QUERY =
                                 "UPDATE j2ee.pagamento " +
@@ -78,19 +77,15 @@ public class PgPagamentoDAO implements PagamentoDAO{
     @Override
     public Pagamento read(ArrayList<String> pagamentos) throws SQLException {
 
-       java.util.Date dataPagamento;
-
-       Pagamento pag = new Pagamento();
-
+        Pagamento pag = new Pagamento();
+        
         try (PreparedStatement statement = connection.prepareStatement(READ_QUERY)) {
-            dataPagamento = new SimpleDateFormat("yyyy-mm-dd").parse(pagamentos.get(0));
-            statement.setDate(1, new Date(dataPagamento.getTime()));
-            statement.setString(2, pagamentos.get(1));
-            statement.setString(3, pagamentos.get(2));
-            statement.setString(4, pagamentos.get(3));
+            statement.setString(1, pagamentos.get(1));
+            statement.setString(2, pagamentos.get(2));
+            statement.setString(3, pagamentos.get(3));
             try (ResultSet result = statement.executeQuery()) {
                 if (result.next()) {
-                    pag.setData_pagamento(new Date(dataPagamento.getTime()));
+                    pag.setData_pagamento(result.getDate("data_pagamento"));
                     pag.setNum_placa_carro(result.getString("num_placa_carro"));
                     pag.setCpf_locador(result.getString("cpf_locador"));
                     pag.setCpf_locatario(result.getString("cpf_locatario"));
@@ -108,8 +103,6 @@ public class PgPagamentoDAO implements PagamentoDAO{
             } else {
                 throw new SQLException("Erro ao visualizar pagamento.");
             }
-        } catch (ParseException ex) {
-            Logger.getLogger(PgPagamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return pag;
