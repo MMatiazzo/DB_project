@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib tagdir="/WEB-INF/tags/session" prefix="session"%>
+<session:my_user context="${pageContext.servletContext.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -126,7 +128,7 @@
                                 <li class="item even">
                                     <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
                                     <div class="product-shop">
-                                    <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo}</a></h2>
+                                        <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo} <br/> Ano: ${carro.ano}</a></h2>
                                     <div class="desc std">
                                     <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
                                     <br>
@@ -152,6 +154,39 @@
               <br/>
               <br/>
             </div>
+               <div class="product-collateral container">
+            <div id="productTabContent" class="tab-content">
+              <div>
+                    <h2 class="woocommerce-Reviews-title"> Lista de carros Alugados: </h2>
+                  </div>
+                <div class="category-products">
+                    <ol class="products-list" id="products-list">
+              <c:forEach var="carro" items="${requestScope.carList}">
+                            <c:if test="${cpf_p == carro.cpf_locador}">
+                                <li class="item even">
+                                    <div class="product-image"> <a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense"> <img class="small-image" src="${pageContext.request.contextPath}/img/<c:if test="${carro.avatar == null}">default_avatar.png</c:if><c:if test="${carro.avatar != null}">${carro.avatar}</c:if>" alt="HTC Rhyme Sense"> </a> </div>
+                                    <div class="product-shop">
+                                        <h2 class="product-name"><a href="${pageContext.servletContext.contextPath}/fluxo/detail?placa=${carro.placa}" title="HTC Rhyme Sense">${carro.modelo} <br/> Ano: ${carro.ano}</a></h2>
+                                    <div class="desc std">
+                                    <c:if test="${carro.disponibilidade == false}"> <div class="new-label"> Used </div> </c:if>
+                                    <br>
+                                    <br>
+                                    <p> ${carro.descricao} </p>
+                                    </div>
+                                    <div class="price-box">
+                                    <p class="special-price"> <span class="price-label"></span> <span id="product-price-212" class="price"> $${carro.preco} </span> </p>
+                                    </div>
+                                    <div class="actions">
+                                    <button class="button" title="Editar" type="button"><a href="${pageContext.servletContext.contextPath}/car/update?placa=${carro.placa}">Devolver</a></button>
+                                    </div>
+                                    </div>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                                </ol>
+                </div>
+            </div>
+                   </div>
           </div>
           <!-- end related product --> 
         </div>
