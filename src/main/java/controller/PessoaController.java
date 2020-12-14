@@ -281,8 +281,7 @@ public class PessoaController extends HttpServlet {
                         servletPath += "?cpf=" + String.valueOf(pessoa.getCpf());
                         redirectPath = "/fluxo/profile";
                         dao.update(pessoa);
-                        
-                        
+                        session.setAttribute("usuario", dao.read(pessoa.getCpf())); 
                     }
 
                     response.sendRedirect(request.getContextPath() + redirectPath);

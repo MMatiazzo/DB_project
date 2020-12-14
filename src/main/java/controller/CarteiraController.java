@@ -163,7 +163,7 @@ public class CarteiraController extends HttpServlet {
                                     carteira1.setCpf(fieldValue);
                                     break;
                                 case "valor":
-                                    carteira1.setSaldo(Double.parseDouble(fieldValue));
+                                    carteira1.setSaldo(Double.parseDouble(fieldValue) +((Carteira)(session.getAttribute("carteira"))).getSaldo());
                                     break;
                             }
                         } 
@@ -173,7 +173,7 @@ public class CarteiraController extends HttpServlet {
 
                         servletPath += "?cpf=" + String.valueOf(carteira1.getCpf());
                         dao.update(carteira1);
-
+                        session.setAttribute("carteira", carteira1);
                     response.sendRedirect(request.getContextPath() + "/fluxo/profile");
                     
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
