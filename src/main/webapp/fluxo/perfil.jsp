@@ -163,6 +163,7 @@
                     <ol class="products-list" id="products-list">
               <c:forEach var="carro" items="${requestScope.carList}">
                   <c:forEach var="pagamento" items="${requestScope.pagamentoList}">
+                       <c:if test="${null == pagamento.data_devolucao}">
                        <c:if test="${carro.placa == pagamento.num_placa_carro}">
                             <c:if test="${cpf_p == pagamento.cpf_locatario}">
                                 <li class="item even">
@@ -183,13 +184,14 @@
                                         <input type="hidden" name="placa" value="${carro.placa}"/>
                                         <input type="hidden" name="cpf_locador" value="${carro.cpf_locador}"/>
                                         <input type="hidden" name="cpf_locatario" value="${sessionScope.usuario.cpf}"/>
-                                        <input class="button" title="Devolver" type="submit">Devolver</button>
+                                        <input class="button" title="Devolver" type="submit" value="Devolver"> 
                                     </form>
                                     </div>
                                     </div>
                                 </li>
                             </c:if>
                        </c:if>
+                </c:if>
                           </c:forEach>
                         </c:forEach>
                                 </ol>

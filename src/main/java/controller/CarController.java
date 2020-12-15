@@ -339,7 +339,7 @@ public class CarController extends HttpServlet {
                                     car.setPlaca(fieldValue);
                                     break;
                                 case "abss":
-                                    car.setAbss(Boolean.parseBoolean(fieldValue));
+                                    car.setAbss(fieldValue.equals("on"));
                                     break;
                                 case "modelo":
                                     car.setModelo(fieldValue);
@@ -348,10 +348,10 @@ public class CarController extends HttpServlet {
                                     car.setTipo(fieldValue);
                                     break;
                                 case "ar_condicionado":
-                                    car.setAr_condicionado(Boolean.parseBoolean(fieldValue));
+                                    car.setAr_condicionado(fieldValue.equals("on"));
                                     break;
                                 case "airbags":
-                                    car.setAirbags(Boolean.parseBoolean(fieldValue));
+                                    car.setAirbags(fieldValue.equals("on"));
                                     break;
                                 case "num_lugares":
                                     car.setNum_lugares(Integer.parseInt(fieldValue));
@@ -360,7 +360,8 @@ public class CarController extends HttpServlet {
                                     car.setDescricao(fieldValue);
                                     break;
                                 case "disponibilidade":
-                                    car.setDisponibilidade(Boolean.parseBoolean(fieldValue));
+                                    System.out.println(fieldValue);
+                                    car.setDisponibilidade(fieldValue.equals("on"));
                                     break;
                                 case "cpf_locador":
                                     car.setCpf_locador(fieldValue);

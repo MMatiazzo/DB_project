@@ -44,6 +44,7 @@
     <c:forEach var="carro" items="${requestScope.carList}">
     <c:if test="${carro.placa == param.placa}">
     <c:set var='placa' value="${carro.placa}" />
+    <c:set var='preco' value="${carro.preco}" />
     <c:set var='valor' value="${carro.preco}" />
     <c:set var='abs' value="${carro.abss}" />
     <c:set var='modelo' value="${carro.modelo}" />
@@ -53,6 +54,9 @@
     <c:set var='descricao' value="${carro.descricao}" />
     <c:set var='avatar' value="${carro.avatar}" />
     <c:set var='cpf_c' value="${carro.cpf_locador}" />
+    <c:set var='disponibilidade' value="${carro.disponibilidade}" />
+    <c:set var='tipo' value="${carro.tipo}" />
+    <c:set var='ano' value="${carro.ano}" />
     </c:if>
     </c:forEach>
   <div class="page-heading">
@@ -76,7 +80,6 @@
           <!--product-next-prev-->
           <div class="product-essential container">
             <div class="row">
-              <form action="#" method="post" id="product_addtocart_form">
                 <!--End For version 1, 2, 6 --> 
                 <!-- For version 3 -->
                 <div class="product-img-box col-lg-5 col-sm-5 col-xs-12">
@@ -98,12 +101,27 @@
                       <p class="special-price"> <span class="price-label">Special Price</span> <span id="product-price-48" class="price">${valor}</span> </p>
                     </div>
                   </div>
-                    <button class="button" title="Alugar" type="button"><span>  $ALUGAR  </span></button>
-                    <button class="button" title="Alugar" type="button"><span>  PERFIL LOCADOR  </span></button>
-                </div>
+                    <!--<button class="button" title="Vizualizar-Locador" type="submit"><a href="${pageContext.servletContext.contextPath}/fluxo/locdetail?cpf_locador=${cpf_locador}"> Visitar Perfil Locador</a></button>-->
+                
+                    <form action="${pageContext.servletContext.contextPath}/carteira/alugar" method="post" >
+                        <input type="hidden" name="cpf_locador" value="${cpf_c}" />
+                        <input type="hidden" name="cpf_locatario" value="${cpf_p}" />
+                        <input type="hidden" name="placa" value="${placa}" />
+                        <input type="hidden" name="disponibilidade" value="${disponibilidade}" />
+                        <input type="hidden" name="modelo" value="${modelo}" />
+                        <input type="hidden" name="airbags" value="${airbags}" />
+                        <input type="hidden" name="preco" value="${preco}" />
+                        <input type="hidden" name="descricao" value="${descricao}" />
+                        <input type="hidden" name="tipo" value="${tipo}" />
+                        <input type="hidden" name="ano" value="${ano}" />
+                        <input type="hidden" name="abss" value="${abs}" />
+                        <input type="hidden" name="ar_condicionado" value="${ar_c}" />
+                        <input type="hidden" name="num_lugares" value="${num_lugares}" />
+                        <input class="button" title="Alugar" value="ALUGAR" type="submit" />
+                    </form>
+               </div>
                 <!--product-shop--> 
                 <!--Detail page static block for version 3-->
-              </form>
             </div>
           </div>
           <!--product-essential-->

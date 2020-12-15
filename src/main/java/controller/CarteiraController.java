@@ -39,6 +39,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
         urlPatterns = {
             "/carteira/update",
             "/carteira/alugar",
+            "/carteira/devolver",
         })
 public class CarteiraController extends HttpServlet {
 
@@ -80,6 +81,7 @@ public class CarteiraController extends HttpServlet {
         switch (request.getServletPath()) {
             
             case "/carteira/alugar": {
+                System.out.println("ALOOOOOOOOOO\n\n\n");
                 // Se fosse um form simples, usaria request.getParameter()
                 // String login = request.getParameter("login");
 

@@ -80,9 +80,9 @@ public class PgPagamentoDAO implements PagamentoDAO{
         Pagamento pag = new Pagamento();
         
         try (PreparedStatement statement = connection.prepareStatement(READ_QUERY)) {
-            statement.setString(1, pagamentos.get(1));
-            statement.setString(2, pagamentos.get(2));
-            statement.setString(3, pagamentos.get(3));
+            statement.setString(1, pagamentos.get(0));
+            statement.setString(2, pagamentos.get(1));
+            statement.setString(3, pagamentos.get(2));
             try (ResultSet result = statement.executeQuery()) {
                 if (result.next()) {
                     pag.setData_pagamento(result.getDate("data_pagamento"));
