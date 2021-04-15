@@ -118,6 +118,7 @@
                     </form>
                     </c:if>
                 <button class="button" title="Vizualizar-Locador" type="submit"><a href="${pageContext.servletContext.contextPath}/fluxo/locdetail?cpf_locador=${carro.cpf_locador}"> Visitar Perfil Locador</a></button>
+                <button class="button" title="Vizualizar-Locador" type="submit"><a href="${pageContext.servletContext.contextPath}/view/estatistica/teste.jsp?cpf_locador=${carro.cpf_locador}"> Estatística</a></button>
             </div>
             </div>
           </li>

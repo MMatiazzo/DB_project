@@ -51,6 +51,12 @@ public class PgDAOFactory extends DAOFactory {
     public CarteiraDAO getCarteiraDAO() {
         return new PgCarteiraDAO(this.connection);
     }
-   
 
+    @Override
+    public EstatisticaDAO getEstatisticaDAO() {
+        return new PgEstatisticaDAO(this.connection);
+
+    }
+   
+    
 }
