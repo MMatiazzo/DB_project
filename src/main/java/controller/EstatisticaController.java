@@ -68,7 +68,7 @@ public class EstatisticaController extends HttpServlet {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                dispatcher = request.getRequestDispatcher("/view/estatistica/teste.jsp");
+                dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
                 dispatcher.forward(request, response);
                 break;
         }

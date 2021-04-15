@@ -28,6 +28,11 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "FROM j2ee.car "
             + "GROUP BY cpf_locador;";
     
+    private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
+            = "SELECT modelo, ano, SUM(1) as quantidade "
+            + "FROM j2ee.car "
+            + "GROUP BY modelo, ano;";
+    
     
     public PgEstatisticaDAO(Connection connection) {
         this.connection = connection;
@@ -42,11 +47,18 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
     public Estatistica read(Integer id) throws SQLException {
         Estatistica estatistica = new Estatistica();
         
+        ArrayList<Integer> valores = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<>();
+        
         String query = null;
         
         switch(id){
             case 1: // Carros por pessoa
                 query = READ_QUERY_CARS_PER_PERSON;
+            break;
+            
+            case 2:
+                query = READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO;
             break;
         }
         
@@ -54,8 +66,11 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
-                    estatistica.addValor(result.getInt("sum"));
+                    valores.add(result.getInt("quantidade"));
+                    labels.add(result.getString("ano"));
+                    
                 }
+                estatistica.setValores(valores);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PgEstatisticaDAO.class.getName()).log(Level.SEVERE, "DAO", ex);

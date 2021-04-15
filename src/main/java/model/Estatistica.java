@@ -13,9 +13,11 @@ import java.util.ArrayList;
  */
 public class Estatistica {
     private ArrayList<Integer> valores;
+    private ArrayList<String> labels;
 
     public Estatistica() {
         this.valores = new ArrayList<>();
+        this.labels = new ArrayList<>();
     }
 
     /**
@@ -32,7 +34,17 @@ public class Estatistica {
         this.valores = valores;
     }
     
-    public void addValor(Integer valor) {
-        this.valores.add(valor);
+    /**
+     * @return the labels
+     */
+    public ArrayList<String> getLabels() {
+        return labels;
+    }
+
+    /**
+     * @param labels the labels to set
+     */
+    public void setLabels(ArrayList<String> labels) {
+        this.labels = labels;
     }
 }
