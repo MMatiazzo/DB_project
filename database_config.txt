@@ -1,3 +1,5 @@
+-- DROP SCHEMA j2ee CASCADE
+
 CREATE SCHEMA j2ee;
 
 CREATE TABLE j2ee.pessoa(
@@ -39,10 +41,14 @@ CREATE TABLE j2ee.car(
 	disponibilidade boolean NOT NULL,
 	cpf_locador char(11) NOT NULL,
 	avatar character varying(150),
+	preco float,
+	ano int,
 	CONSTRAINT pk_placa PRIMARY KEY(placa),
 	CONSTRAINT fk_cpf_locador FOREIGN KEY(cpf_locador)
 		REFERENCES j2ee.locador(cpf_pessoa)
 );
+
+-- DROP TABLE j2ee.car
 
 CREATE TABLE j2ee.review(
 	data_review date NOT NULL,
@@ -61,14 +67,13 @@ CREATE TABLE j2ee.review(
 );
 
 CREATE TABLE j2ee.pagamento(
-	identificador SERIAL,
 	data_pagamento date NOT NULL,
 	num_placa_carro char(7) NOT NULL,
 	cpf_locador char(11) NOT NULL,
 	cpf_locatario char(11) NOT NULL,
 	valor float NOT NULL,
 	data_devolucao date,
-	CONSTRAINT pk_pagamento PRIMARY KEY(identificador, data_pagamento, num_placa_carro, cpf_locador, cpf_locatario),
+	CONSTRAINT pk_pagamento PRIMARY KEY(data_pagamento, num_placa_carro, cpf_locador, cpf_locatario),
 	CONSTRAINT fk_pagamento_num_placa_carro FOREIGN KEY(num_placa_carro)
 		REFERENCES j2ee.car(placa) ON DELETE CASCADE,
 	CONSTRAINT fk_pagamento_cpf_locador FOREIGN KEY(cpf_locador) 
