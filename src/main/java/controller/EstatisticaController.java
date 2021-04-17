@@ -24,7 +24,8 @@ import model.Estatistica;
 @WebServlet(
         name = "EstatisticaController", 
         urlPatterns = {
-            "/estatistica/carros_por_pessoa"
+            "/estatistica/carros_por_pessoa",
+            "/estatistica/media_preco_por_modelo"
         })
 public class EstatisticaController extends HttpServlet {
 
@@ -46,7 +47,10 @@ public class EstatisticaController extends HttpServlet {
         
         RequestDispatcher dispatcher;
         
-        String data;
+        String chart_data;
+        String chart_labels;
+        String chart_type;
+        String chart_title;
         
         
         switch (request.getServletPath()) {
@@ -55,15 +59,26 @@ public class EstatisticaController extends HttpServlet {
                     dao = daoFactory.getEstatisticaDAO();
 
                     estatistica = dao.read(1);
+                    chart_title = "'Carros por Locador'";
+                    chart_type = "'bar'";
+                    chart_labels = "";
+                    chart_data = "[";
                     
-                    data = "[";
                     for(Integer integer : estatistica.getValores()){
-                        data += integer + ",";
+                        chart_data += integer + ",";
                     }
-                    data = data.substring(0, data.length() - 1) + "]";
+                    
+                    chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
+                    
+                    for(String label : estatistica.getLabels()){
+                        chart_labels += "'" + label + "'" + ",";
+                    }
                     
                     
-                    request.setAttribute("chartData", data);
+                    request.setAttribute("chartType", chart_type);
+                    request.setAttribute("chartTitle", chart_title);
+                    request.setAttribute("chartData", chart_data);
+                    request.setAttribute("chartLabels", chart_labels);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
@@ -71,6 +86,41 @@ public class EstatisticaController extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
                 dispatcher.forward(request, response);
                 break;
+                
+            case "/estatistica/media_preco_por_modelo":
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getEstatisticaDAO();
+
+                    estatistica = dao.read(2);
+                    
+                    chart_type = "'bar'";
+                    chart_title = "'Media de preços por modelo de carro'";
+                    chart_data = "[";
+                    chart_labels = "";
+                    
+                    for(Double preco : estatistica.getPrecos()){
+                        chart_data += preco + ",";
+                    }
+                    chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
+                    
+                    for(String label : estatistica.getLabels()){
+                        chart_labels += "'" + label + "'" + ",";
+                    }
+                    
+                    
+                    request.setAttribute("chartType", chart_type);
+                    request.setAttribute("chartTitle", chart_title);
+                    request.setAttribute("chartData", chart_data);
+                    request.setAttribute("chartLabels", chart_labels);
+                    
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
+                dispatcher.forward(request, response);
+                break;
+
         }
     }
 

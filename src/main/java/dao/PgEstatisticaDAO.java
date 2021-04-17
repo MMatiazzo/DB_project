@@ -24,14 +24,21 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
     private final Connection connection;
     
     private static final String READ_QUERY_CARS_PER_PERSON
-            = "SELECT cpf_locador ,SUM(1) "
-            + "FROM j2ee.car "
-            + "GROUP BY cpf_locador;";
+            = "SELECT nome,SUM(1) AS quantidade "
+            + "FROM j2ee.car AS tabaux "
+            + "LEFT JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux2 ON tabaux.cpf_locador = tabaux2.cpf "
+            + "GROUP BY nome; ";
     
     private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
             = "SELECT modelo, ano, SUM(1) as quantidade "
             + "FROM j2ee.car "
             + "GROUP BY modelo, ano;";
+    
+    
+    private static final String READ_QUERY_MEDIA_PRECOS_POR_MODELO
+            = "SELECT tabaux.modelo AS modelo, ((SUM(preco) * 1.0 )/ tabaux2.quantidade) AS media FROM j2ee.car tabaux "
+            + "INNER JOIN (SELECT modelo, SUM(1) AS quantidade FROM j2ee.car GROUP BY modelo) AS tabaux2 ON tabaux2.modelo = tabaux.modelo "
+            + "GROUP BY tabaux.modelo, tabaux2.quantidade;";
     
     
     public PgEstatisticaDAO(Connection connection) {
@@ -48,6 +55,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
         Estatistica estatistica = new Estatistica();
         
         ArrayList<Integer> valores = new ArrayList<>();
+        ArrayList<Double> precos = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         
         String query = null;
@@ -58,7 +66,11 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             break;
             
             case 2:
-                query = READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO;
+                query = READ_QUERY_MEDIA_PRECOS_POR_MODELO;
+            break;
+            
+            case 3:
+                query = READ_QUERY_MEDIA_PRECOS_POR_MODELO;
             break;
         }
         
@@ -66,11 +78,29 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
-                    valores.add(result.getInt("quantidade"));
-                    labels.add(result.getString("ano"));
+                        
+                    switch(id) {
+                        case 1:
+                            valores.add(result.getInt("quantidade"));
+                            labels.add(result.getString("nome"));
+                            break;
+                        case 2:
+                            precos.add(result.getDouble("media"));
+                            labels.add(result.getString("modelo"));
+                            break;
+                            
+                    }
                     
                 }
-                estatistica.setValores(valores);
+                
+                switch(id) {
+                    case 1:
+                        estatistica.setValores(valores);
+                        estatistica.setLabels(labels);
+                    case 2:
+                        estatistica.setPrecos(precos);
+                        estatistica.setLabels(labels);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(PgEstatisticaDAO.class.getName()).log(Level.SEVERE, "DAO", ex);

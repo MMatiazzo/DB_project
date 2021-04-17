@@ -13,10 +13,12 @@ import java.util.ArrayList;
  */
 public class Estatistica {
     private ArrayList<Integer> valores;
+    private ArrayList<Double> precos;
     private ArrayList<String> labels;
 
     public Estatistica() {
         this.valores = new ArrayList<>();
+        this.precos = new ArrayList<>();
         this.labels = new ArrayList<>();
     }
 
@@ -46,5 +48,19 @@ public class Estatistica {
      */
     public void setLabels(ArrayList<String> labels) {
         this.labels = labels;
+    }
+
+    /**
+     * @return the precos
+     */
+    public ArrayList<Double> getPrecos() {
+        return precos;
+    }
+
+    /**
+     * @param precos the precos to set
+     */
+    public void setPrecos(ArrayList<Double> precos) {
+        this.precos = precos;
     }
 }
