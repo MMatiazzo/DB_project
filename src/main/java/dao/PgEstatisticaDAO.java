@@ -29,16 +29,29 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "LEFT JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux2 ON tabaux.cpf_locador = tabaux2.cpf "
             + "GROUP BY nome; ";
     
-    private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
-            = "SELECT modelo, ano, SUM(1) as quantidade "
-            + "FROM j2ee.car "
-            + "GROUP BY modelo, ano;";
-    
-    
     private static final String READ_QUERY_MEDIA_PRECOS_POR_MODELO
             = "SELECT tabaux.modelo AS modelo, ((SUM(preco) * 1.0 )/ tabaux2.quantidade) AS media FROM j2ee.car tabaux "
             + "INNER JOIN (SELECT modelo, SUM(1) AS quantidade FROM j2ee.car GROUP BY modelo) AS tabaux2 ON tabaux2.modelo = tabaux.modelo "
             + "GROUP BY tabaux.modelo, tabaux2.quantidade;";
+    
+    private static final String READ_QUERY_MONTANTE_RECEBIDO_GASTO
+            = "SELECT nome, (CASE WHEN tabaux.valor_ganho IS NULL THEN 0 ELSE tabaux.valor_ganho END "
+            + "- CASE WHEN tabaux2.valor_gasto IS NULL THEN 0 ELSE tabaux2.valor_gasto END) AS sobrou "
+            + "FROM j2ee.pessoa AS tab "
+            + "LEFT JOIN ( SELECT cpf_locador , SUM(valor) AS valor_ganho "
+            + "FROM j2ee.pagamento GROUP BY cpf_locador ) AS tabaux ON tabaux.cpf_locador = tab.cpf "
+            + "LEFT JOIN (SELECT cpf_locatario, SUM(valor) AS valor_gasto "
+            + "FROM j2ee.pagamento GROUP BY cpf_locatario) tabaux2 ON tabaux2.cpf_locatario = tab.cpf;";
+    
+    private static final String READ_QUERY_CARROS_ADICIONADOS_MENSALMENTE
+            = "SELECT to_char(data_pagamento, 'Mon') AS mes, SUM(1) AS carros_adicionados "
+            + "FROM j2ee.pagamento "
+            + "GROUP BY to_char(data_pagamento, 'Mon');";
+    
+    private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
+            = "SELECT modelo, ano, SUM(1) as quantidade "
+            + "FROM j2ee.car "
+            + "GROUP BY modelo, ano;";
     
     
     public PgEstatisticaDAO(Connection connection) {
@@ -70,8 +83,11 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             break;
             
             case 3:
-                query = READ_QUERY_MEDIA_PRECOS_POR_MODELO;
+                query = READ_QUERY_MONTANTE_RECEBIDO_GASTO;
             break;
+            
+            case 4: 
+                query = READ_QUERY_CARROS_ADICIONADOS_MENSALMENTE;
         }
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -89,6 +105,15 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                             labels.add(result.getString("modelo"));
                             break;
                             
+                        case 3:
+                            precos.add(result.getDouble("sobrou"));
+                            labels.add(result.getString("nome"));
+                            break;
+                        
+                        case 4:
+                            valores.add(result.getInt("carros_adicionados"));
+                            labels.add(result.getString("mes"));
+
                     }
                     
                 }
@@ -97,9 +122,23 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                     case 1:
                         estatistica.setValores(valores);
                         estatistica.setLabels(labels);
+                        break;
+                        
                     case 2:
                         estatistica.setPrecos(precos);
                         estatistica.setLabels(labels);
+                        break;
+                        
+                    case 3:
+                        estatistica.setPrecos(precos);
+                        estatistica.setLabels(labels);
+                        break;
+                    
+                    case 4:
+                        estatistica.setValores(valores);
+                        estatistica.setLabels(labels);
+                        break;
+                       
                 }
             }
         } catch (SQLException ex) {

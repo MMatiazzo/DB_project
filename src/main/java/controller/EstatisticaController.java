@@ -25,7 +25,9 @@ import model.Estatistica;
         name = "EstatisticaController", 
         urlPatterns = {
             "/estatistica/carros_por_pessoa",
-            "/estatistica/media_preco_por_modelo"
+            "/estatistica/media_preco_por_modelo",
+            "/estatistica/montate_gasto_recebido",
+            "/estatistica/carros_adicionados_mes"
         })
 public class EstatisticaController extends HttpServlet {
 
@@ -51,6 +53,7 @@ public class EstatisticaController extends HttpServlet {
         String chart_labels;
         String chart_type;
         String chart_title;
+        String chart_index_axis;
         
         
         switch (request.getServletPath()) {
@@ -59,6 +62,7 @@ public class EstatisticaController extends HttpServlet {
                     dao = daoFactory.getEstatisticaDAO();
 
                     estatistica = dao.read(1);
+                    chart_index_axis = "'x'";
                     chart_title = "'Carros por Locador'";
                     chart_type = "'bar'";
                     chart_labels = "";
@@ -79,6 +83,7 @@ public class EstatisticaController extends HttpServlet {
                     request.setAttribute("chartTitle", chart_title);
                     request.setAttribute("chartData", chart_data);
                     request.setAttribute("chartLabels", chart_labels);
+                    request.setAttribute("chartIndexAxis", chart_index_axis);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
@@ -93,6 +98,7 @@ public class EstatisticaController extends HttpServlet {
 
                     estatistica = dao.read(2);
                     
+                    chart_index_axis = "'x'";
                     chart_type = "'bar'";
                     chart_title = "'Media de preços por modelo de carro'";
                     chart_data = "[";
@@ -112,6 +118,7 @@ public class EstatisticaController extends HttpServlet {
                     request.setAttribute("chartTitle", chart_title);
                     request.setAttribute("chartData", chart_data);
                     request.setAttribute("chartLabels", chart_labels);
+                    request.setAttribute("chartIndexAxis", chart_index_axis);
                     
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
@@ -120,6 +127,81 @@ public class EstatisticaController extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
                 dispatcher.forward(request, response);
                 break;
+                
+                
+                case "/estatistica/montate_gasto_recebido":
+                    try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                        dao = daoFactory.getEstatisticaDAO();
+
+                        estatistica = dao.read(3);
+
+                        chart_index_axis = "'y'";
+                        chart_type = "'bar'";
+                        chart_title = "'Montante Gasto ou recebido por pessoa'";
+                        chart_data = "[";
+                        chart_labels = "";
+
+                        for(Double preco : estatistica.getPrecos()){
+                            chart_data += preco + ",";
+                        }
+                        chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
+
+                        for(String label : estatistica.getLabels()){
+                            chart_labels += "'" + label + "'" + ",";
+                        }
+
+
+                        request.setAttribute("chartType", chart_type);
+                        request.setAttribute("chartTitle", chart_title);
+                        request.setAttribute("chartData", chart_data);
+                        request.setAttribute("chartLabels", chart_labels);
+                        request.setAttribute("chartIndexAxis", chart_index_axis);
+
+                    } catch (ClassNotFoundException | IOException | SQLException ex) {
+                        request.getSession().setAttribute("error", ex.getMessage());
+                    }
+
+                    dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                
+                case "/estatistica/carros_adicionados_mes":
+                    try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                        dao = daoFactory.getEstatisticaDAO();
+
+                        estatistica = dao.read(4);
+
+                        chart_index_axis = "'x'";
+                        chart_type = "'bar'";
+                        chart_title = "'Carros Adicionados Mensamente'";
+                        chart_data = "[";
+                        chart_labels = "";
+
+                        for(Integer integer : estatistica.getValores()){
+                            chart_data += integer + ",";
+                        }
+                        
+                        chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
+
+                        for(String label : estatistica.getLabels()){
+                            chart_labels += "'" + label + "'" + ",";
+                        }
+
+
+                        request.setAttribute("chartType", chart_type);
+                        request.setAttribute("chartTitle", chart_title);
+                        request.setAttribute("chartData", chart_data);
+                        request.setAttribute("chartLabels", chart_labels);
+                        request.setAttribute("chartIndexAxis", chart_index_axis);
+
+                    } catch (ClassNotFoundException | IOException | SQLException ex) {
+                        request.getSession().setAttribute("error", ex.getMessage());
+                    }
+
+                    dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                
 
         }
     }

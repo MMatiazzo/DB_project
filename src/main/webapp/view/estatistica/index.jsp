@@ -12,7 +12,7 @@
         <title>Estatísticas</title>
     </head>
     <body>
-        <h1> ${chartData}</h1>
+        <h1> ${chartIndexAxis}</h1>
         <div>
             <canvas id="myChart" style="max-width:1000px;max-height:500px"></canvas>
         </div> 
@@ -24,8 +24,8 @@
           labels: labels,
           datasets: [{
             label: "${param.cpf_locador}",
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(255, 66, 132)',
+            borderColor: 'rgb(255, 55, 132)',
             data: ${chartData}
           }],
         };
@@ -33,6 +33,7 @@
             type: ${chartType},// ${chartType}
             data,
             options: {
+                indexAxis: ${chartIndexAxis},
                 responsive: true,
                 plugins:{
                     title: {
