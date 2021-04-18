@@ -43,7 +43,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "LEFT JOIN (SELECT cpf_locatario, SUM(valor) AS valor_gasto "
             + "FROM j2ee.pagamento GROUP BY cpf_locatario) tabaux2 ON tabaux2.cpf_locatario = tab.cpf;";
     
-    private static final String READ_QUERY_CARROS_ADICIONADOS_MENSALMENTE
+    private static final String READ_QUERY_CARROS_ALUGADOS_MENSALMENTE
             = "SELECT to_char(data_pagamento, 'Mon') AS mes, SUM(1) AS carros_adicionados "
             + "FROM j2ee.pagamento "
             + "GROUP BY to_char(data_pagamento, 'Mon');";
@@ -66,28 +66,33 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
     @Override
     public Estatistica read(Integer id) throws SQLException {
         Estatistica estatistica = new Estatistica();
-        
-        ArrayList<Integer> valores = new ArrayList<>();
-        ArrayList<Double> precos = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<ArrayList> colunas = new ArrayList<>();
         
         String query = null;
         
         switch(id){
             case 1: // Carros por pessoa
                 query = READ_QUERY_CARS_PER_PERSON;
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<Integer>());
             break;
             
             case 2:
                 query = READ_QUERY_MEDIA_PRECOS_POR_MODELO;
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<Double>());
             break;
             
             case 3:
                 query = READ_QUERY_MONTANTE_RECEBIDO_GASTO;
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<Double>());
             break;
             
             case 4: 
-                query = READ_QUERY_CARROS_ADICIONADOS_MENSALMENTE;
+                query = READ_QUERY_CARROS_ALUGADOS_MENSALMENTE;
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<Integer>());
         }
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -97,49 +102,29 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                         
                     switch(id) {
                         case 1:
-                            valores.add(result.getInt("quantidade"));
-                            labels.add(result.getString("nome"));
+                            colunas.get(0).add(result.getString("nome"));
+                            colunas.get(1).add(result.getInt("quantidade"));                          
                             break;
                         case 2:
-                            precos.add(result.getDouble("media"));
-                            labels.add(result.getString("modelo"));
+                            colunas.get(0).add(result.getString("modelo"));
+                            colunas.get(1).add(result.getDouble("media"));
                             break;
                             
                         case 3:
-                            precos.add(result.getDouble("sobrou"));
-                            labels.add(result.getString("nome"));
+                            colunas.get(0).add(result.getString("nome"));
+                            colunas.get(1).add(result.getDouble("sobrou"));
                             break;
                         
                         case 4:
-                            valores.add(result.getInt("carros_adicionados"));
-                            labels.add(result.getString("mes"));
+                            colunas.get(0).add(result.getString("mes"));
+                            colunas.get(1).add(result.getInt("carros_adicionados"));
 
                     }
                     
                 }
                 
-                switch(id) {
-                    case 1:
-                        estatistica.setValores(valores);
-                        estatistica.setLabels(labels);
-                        break;
-                        
-                    case 2:
-                        estatistica.setPrecos(precos);
-                        estatistica.setLabels(labels);
-                        break;
-                        
-                    case 3:
-                        estatistica.setPrecos(precos);
-                        estatistica.setLabels(labels);
-                        break;
-                    
-                    case 4:
-                        estatistica.setValores(valores);
-                        estatistica.setLabels(labels);
-                        break;
-                       
-                }
+                estatistica.setColunas(colunas);
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PgEstatisticaDAO.class.getName()).log(Level.SEVERE, "DAO", ex);

@@ -9,6 +9,7 @@ import dao.DAO;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ import model.Estatistica;
             "/estatistica/carros_por_pessoa",
             "/estatistica/media_preco_por_modelo",
             "/estatistica/montate_gasto_recebido",
-            "/estatistica/carros_adicionados_mes"
+            "/estatistica/meses__maior_aluguel"
         })
 public class EstatisticaController extends HttpServlet {
 
@@ -55,6 +56,10 @@ public class EstatisticaController extends HttpServlet {
         String chart_title;
         String chart_index_axis;
         
+        ArrayList<String> labels;
+        ArrayList<Integer> valores;
+        ArrayList<Double> precos;
+        
         
         switch (request.getServletPath()) {
             case "/estatistica/carros_por_pessoa":
@@ -68,13 +73,16 @@ public class EstatisticaController extends HttpServlet {
                     chart_labels = "";
                     chart_data = "[";
                     
-                    for(Integer integer : estatistica.getValores()){
+                    labels = estatistica.getColunas().get(0);
+                    valores = estatistica.getColunas().get(1);
+                    
+                    for(Integer integer : valores){
                         chart_data += integer + ",";
                     }
                     
                     chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
                     
-                    for(String label : estatistica.getLabels()){
+                    for(String label : labels){
                         chart_labels += "'" + label + "'" + ",";
                     }
                     
@@ -104,12 +112,15 @@ public class EstatisticaController extends HttpServlet {
                     chart_data = "[";
                     chart_labels = "";
                     
-                    for(Double preco : estatistica.getPrecos()){
+                    labels = estatistica.getColunas().get(0);
+                    precos = estatistica.getColunas().get(1);
+                    
+                    for(Double preco : precos){
                         chart_data += preco + ",";
                     }
                     chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
                     
-                    for(String label : estatistica.getLabels()){
+                    for(String label : labels){
                         chart_labels += "'" + label + "'" + ",";
                     }
                     
@@ -140,13 +151,16 @@ public class EstatisticaController extends HttpServlet {
                         chart_title = "'Montante Gasto ou recebido por pessoa'";
                         chart_data = "[";
                         chart_labels = "";
+                        
+                        labels = estatistica.getColunas().get(0);
+                        precos = estatistica.getColunas().get(1);
 
-                        for(Double preco : estatistica.getPrecos()){
+                        for(Double preco : precos){
                             chart_data += preco + ",";
                         }
                         chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
 
-                        for(String label : estatistica.getLabels()){
+                        for(String label : labels){
                             chart_labels += "'" + label + "'" + ",";
                         }
 
@@ -165,25 +179,29 @@ public class EstatisticaController extends HttpServlet {
                     dispatcher.forward(request, response);
                     break;
                 
-                case "/estatistica/carros_adicionados_mes":
+                case "/estatistica/meses__maior_aluguel":
                     try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                         dao = daoFactory.getEstatisticaDAO();
 
                         estatistica = dao.read(4);
 
                         chart_index_axis = "'x'";
-                        chart_type = "'bar'";
+                        chart_type = "'doughnut'";
                         chart_title = "'Carros Adicionados Mensamente'";
                         chart_data = "[";
                         chart_labels = "";
 
-                        for(Integer integer : estatistica.getValores()){
+                        
+                        labels = estatistica.getColunas().get(0);
+                        valores = estatistica.getColunas().get(1);
+                        
+                        for(Integer integer : valores){
                             chart_data += integer + ",";
                         }
                         
                         chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
 
-                        for(String label : estatistica.getLabels()){
+                        for(String label : labels){
                             chart_labels += "'" + label + "'" + ",";
                         }
 

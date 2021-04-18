@@ -12,55 +12,17 @@ import java.util.ArrayList;
  * @author Guilherme
  */
 public class Estatistica {
-    private ArrayList<Integer> valores;
-    private ArrayList<Double> precos;
-    private ArrayList<String> labels;
+    private ArrayList<ArrayList> colunas;
 
     public Estatistica() {
-        this.valores = new ArrayList<>();
-        this.precos = new ArrayList<>();
-        this.labels = new ArrayList<>();
+          this.colunas = new ArrayList<>();
     }
 
-    /**
-     * @return the valores
-     */
-    public ArrayList<Integer> getValores() {
-        return valores;
-    }
-
-    /**
-     * @param valores the valores to set
-     */
-    public void setValores(ArrayList<Integer> valores) {
-        this.valores = valores;
+    public ArrayList<ArrayList> getColunas() {
+        return colunas;
     }
     
-    /**
-     * @return the labels
-     */
-    public ArrayList<String> getLabels() {
-        return labels;
-    }
-
-    /**
-     * @param labels the labels to set
-     */
-    public void setLabels(ArrayList<String> labels) {
-        this.labels = labels;
-    }
-
-    /**
-     * @return the precos
-     */
-    public ArrayList<Double> getPrecos() {
-        return precos;
-    }
-
-    /**
-     * @param precos the precos to set
-     */
-    public void setPrecos(ArrayList<Double> precos) {
-        this.precos = precos;
+    public void setColunas(ArrayList<ArrayList> colunas) {
+        this.colunas = colunas;
     }
 }
