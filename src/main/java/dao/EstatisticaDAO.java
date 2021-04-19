@@ -12,5 +12,4 @@ import model.Estatistica;
  * @author Guilherme
  */
 public interface EstatisticaDAO extends DAO<Estatistica, Integer>{
-    
 }

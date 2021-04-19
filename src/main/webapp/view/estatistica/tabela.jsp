@@ -101,7 +101,6 @@
     <footer> 
         <div class="container">
           <head>
-          <%@include file="/header_footer/foot.jsp"%>
           <title>[BD 2020] Rent Carros</title>
         </div>
     </footer> 

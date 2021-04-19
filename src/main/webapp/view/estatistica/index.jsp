@@ -49,7 +49,6 @@
         </div>
     <footer> 
     <div class="container">
-      <%@include file="/header_footer/foot.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
   </footer>    
@@ -67,7 +66,7 @@
             backgroundColor: colors_teste,
             borderColor: 'rgb(255, 55, 132)',
             data: ${chartData}
-          }],
+          }]
         };
         const config = {
             type: ${chartType},// ${chartType}
