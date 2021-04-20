@@ -100,6 +100,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 query = READ_QUERY_CARROS_ALUGADOS_MENSALMENTE;
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
+            break;
                 
             case 5:
                 query = READ_QUERY_CARROS_MAIS_BEM_AVALIADOS;
@@ -108,6 +109,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
+            break;
         }
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -133,6 +135,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                         case 4:
                             colunas.get(0).add(result.getString("mes"));
                             colunas.get(1).add(result.getInt("carros_adicionados"));
+                            break;
                             
                         case 5:
                             colunas.get(0).add(result.getString("nome"));
@@ -140,6 +143,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                             colunas.get(2).add(result.getString("ano"));
                             colunas.get(3).add(result.getString("num_placa_carro"));
                             colunas.get(4).add(result.getInt("media_review"));
+                            break;
 
                     }
                     

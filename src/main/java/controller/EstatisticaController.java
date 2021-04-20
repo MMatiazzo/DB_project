@@ -28,8 +28,8 @@ import model.Estatistica;
             "/estatistica/carros_por_pessoa",
             "/estatistica/media_preco_por_modelo",
             "/estatistica/montate_gasto_recebido",
-            "/estatistica/meses__maior_aluguel",
-            "/estatistica/carros_avaliados"
+            "/estatistica/meses_maior_aluguel",
+            "/estatistica/carros_avaliados",
             
         })
 public class EstatisticaController extends HttpServlet {
@@ -186,7 +186,7 @@ public class EstatisticaController extends HttpServlet {
                     dispatcher.forward(request, response);
                     break;
                 
-                case "/estatistica/meses__maior_aluguel":
+                case "/estatistica/meses_maior_aluguel":
                     try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                         dao = daoFactory.getEstatisticaDAO();
 
@@ -242,9 +242,9 @@ public class EstatisticaController extends HttpServlet {
                     
                     request.setAttribute("nomeList", nome);
                     request.setAttribute("modeloList", modelo);
-                    request.setAttribute("placaList", ano);
-                    request.setAttribute("mediaList", placa);
-                    request.setAttribute("valoresList", valores);
+                    request.setAttribute("anoList", ano);
+                    request.setAttribute("placaList", placa);
+                    request.setAttribute("mediaList", valores);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }

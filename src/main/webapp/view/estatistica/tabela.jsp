@@ -39,66 +39,70 @@
         </div>
     </header>
 <body>
-    <c:set var='porradeteste' value="${requestScope.tamanhoKKKK}" />
-    <h1>CU</h1>
-    <h1>${requestScope.nomeList}</h1>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-        <table class="table table-striped table-dark">
+        <table class="table table-striped table-dark" style="max-width:1250px; margin-right:auto; margin-left:auto;" >
             <thead>
               <tr>
                 <th scope="col">Posição</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Modelo</th>
+                <th scope="col">Ano</th>
                 <th scope="col">Placa</th>
                 <th scope="col">Media</th>
               </tr>
             </thead>
-             <tbody>
-            <c:forEach var="nome" items="${requestScope.nomeList}">
-                <tr>
-                <th scope="row">1</th>
-                <td>${nome}</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <c:set var='contador' value="${requestScope.tamanhoKKKK + 1}" scope="page"/>
-              </tr>
-            </c:forEach>
-            </tbody>
-<!--            <tbody>
+            <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <td>${nomeList.get(0)}</td>
+                <td>${modeloList.get(0)}</td>
+                <td>${anoList.get(0)}</td>
+                <td>${placaList.get(0)}</td>
+                <td>${mediaList.get(0)}</td>
               </tr>
               <tr>
                 <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
+                <td>${nomeList.get(1)}</td>
+                <td>${modeloList.get(1)}</td>
+                <td>${anoList.get(1)}</td>
+                <td>${placaList.get(1)}</td>
+                <td>${mediaList.get(1)}</td>
               </tr>
               <tr>
                 <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
+                <td>${nomeList.get(2)}</td>
+                <td>${modeloList.get(2)}</td>
+                <td>${anoList.get(2)}</td>
+                <td>${placaList.get(2)}</td>
+                <td>${mediaList.get(2)}</td>
               </tr>
-              
-            </tbody>-->
+              <tr>
+                <th scope="row">4</th>
+                <td>${nomeList.get(2)}</td>
+                <td>${modeloList.get(2)}</td>
+                <td>${anoList.get(2)}</td>
+                <td>${placaList.get(2)}</td>
+                <td>${mediaList.get(2)}</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>${nomeList.get(2)}</td>
+                <td>${modeloList.get(2)}</td>
+                <td>${anoList.get(2)}</td>
+                <td>${placaList.get(2)}</td>
+                <td>${mediaList.get(2)}</td>
+              </tr>
+            </tbody>
         </table>
     <footer> 
         <div class="container">
           <head>
           <%@include file="/header_footer/foot.jsp"%>
-          <title>[BD 2020] Carros</title>
+          <title>[BD 2020] Rent Carros</title>
         </div>
     </footer> 
 </body>

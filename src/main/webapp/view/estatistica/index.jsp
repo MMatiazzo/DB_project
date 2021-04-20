@@ -38,17 +38,17 @@
     <body>
         <header>
             <div class="container">
-            <head>
             <%@include file="/header_footer/head.jsp"%>
             <title>[BD 2020] Carros</title>
             </div>
         </header>
+            <br/>
+            <br/>
         <div>
             <canvas id="myChart" style="max-width:1000px;max-height:500px"></canvas>
-        </div> 
+        </div>
     <footer> 
     <div class="container">
-      <head>
       <%@include file="/header_footer/foot.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
