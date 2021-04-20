@@ -1,7 +1,7 @@
 <%-- 
     Document   : teste
-    Created on : 15 de abr. de 2021, 10:31:26
-    Author     : Guilherme
+    Created on : Apr 19, 2021, 12:30:34 PM
+    Author     : mathe
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,67 +31,79 @@
 <link href="https://fonts.googleapis.com/css?family=Saira+Condensed:300,400,500,600,700,800" rel="stylesheet">
 
 <html>
+    <header>
+        <div class="container">
+        <head>
+        <%@include file="/header_footer/head.jsp"%>
+        <title>[BD 2020] Carros</title>
+        </div>
+    </header>
+<body>
+    <c:set var='porradeteste' value="${requestScope.tamanhoKKKK}" />
+    <h1>CU</h1>
+    <h1>${requestScope.nomeList}</h1>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Estatísticas</title>
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <body>
-        <header>
-            <div class="container">
-            <head>
-            <%@include file="/header_footer/head.jsp"%>
-            <title>[BD 2020] Carros</title>
-            </div>
-        </header>
-        <div>
-            <canvas id="myChart" style="max-width:1000px;max-height:500px"></canvas>
-        </div> 
+        <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Posição</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Placa</th>
+                <th scope="col">Media</th>
+              </tr>
+            </thead>
+             <tbody>
+            <c:forEach var="nome" items="${requestScope.nomeList}">
+                <tr>
+                <th scope="row">1</th>
+                <td>${nome}</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <c:set var='contador' value="${requestScope.tamanhoKKKK + 1}" scope="page"/>
+              </tr>
+            </c:forEach>
+            </tbody>
+<!--            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                <td>@mdo</td>
+              </tr>
+              
+            </tbody>-->
+        </table>
     <footer> 
-    <div class="container">
-      <head>
-      <%@include file="/header_footer/foot.jsp"%>
-      <title>[BD 2020] Carros</title>
-    </div>
-  </footer>    
-    </body>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const colors_teste = ${chartData}.map((value) => value < 0 ? 'rgb(54, 162, 235)' : 'rgb(255, 205, 86)');
-        console.log(colors_teste);
-        
-        const labels = [ ${chartLabels} ];
-        const data = {
-          labels: labels,
-          datasets: [{
-            label: "${param.cpf_locador}",
-            backgroundColor: colors_teste,
-            borderColor: 'rgb(255, 55, 132)',
-            data: ${chartData}
-          }],
-        };
-        const config = {
-            type: ${chartType},// ${chartType}
-            data,
-            options: {
-                indexAxis: ${chartIndexAxis},
-                responsive: true,
-                plugins:{
-                    title: {
-                        display: true,
-                            text: ${chartTitle}
-                    }
-                }
-            }
-        };
-        var myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
-    </script>
+        <div class="container">
+          <head>
+          <%@include file="/header_footer/foot.jsp"%>
+          <title>[BD 2020] Carros</title>
+        </div>
+    </footer> 
+</body>
     
-    
-    
-    <script>
+     <script>
     const change_url = () => {
   var id = $('#record option:selected').val();
   var submit = $("#submit_url");

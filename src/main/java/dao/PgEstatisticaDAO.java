@@ -48,6 +48,13 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "FROM j2ee.pagamento "
             + "GROUP BY to_char(data_pagamento, 'Mon');";
     
+    private static final String READ_QUERY_CARROS_MAIS_BEM_AVALIADOS
+            = "SELECT tabaux3.nome, tabaux2.modelo, tabaux2.ano, tabaux.num_placa_carro, tabaux.total_notas / tabaux.total_review AS media_review "
+            + "FROM ( SELECT num_placa_carro , SUM(nota) AS total_notas , SUM(1) AS total_review FROM j2ee.review GROUP BY num_placa_carro ) AS tabaux "
+            + "INNER JOIN (SELECT modelo, ano, cpf_locador, placa FROM j2ee.car)  AS tabaux2 ON tabaux2.placa = tabaux.num_placa_carro "
+            + "INNER JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux3 ON tabaux3.cpf = tabaux2.cpf_locador "
+            + "WHERE tabaux.total_review > 0;";
+            
     private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
             = "SELECT modelo, ano, SUM(1) as quantidade "
             + "FROM j2ee.car "
@@ -93,6 +100,14 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 query = READ_QUERY_CARROS_ALUGADOS_MENSALMENTE;
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
+                
+            case 5:
+                query = READ_QUERY_CARROS_MAIS_BEM_AVALIADOS;
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<Integer>());
         }
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -118,6 +133,13 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                         case 4:
                             colunas.get(0).add(result.getString("mes"));
                             colunas.get(1).add(result.getInt("carros_adicionados"));
+                            
+                        case 5:
+                            colunas.get(0).add(result.getString("nome"));
+                            colunas.get(1).add(result.getString("modelo"));
+                            colunas.get(2).add(result.getString("ano"));
+                            colunas.get(3).add(result.getString("num_placa_carro"));
+                            colunas.get(4).add(result.getInt("media_review"));
 
                     }
                     

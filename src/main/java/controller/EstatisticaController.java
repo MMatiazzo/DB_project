@@ -28,7 +28,9 @@ import model.Estatistica;
             "/estatistica/carros_por_pessoa",
             "/estatistica/media_preco_por_modelo",
             "/estatistica/montate_gasto_recebido",
-            "/estatistica/meses__maior_aluguel"
+            "/estatistica/meses__maior_aluguel",
+            "/estatistica/carros_avaliados"
+            
         })
 public class EstatisticaController extends HttpServlet {
 
@@ -60,6 +62,10 @@ public class EstatisticaController extends HttpServlet {
         ArrayList<Integer> valores;
         ArrayList<Double> precos;
         
+        ArrayList<String> nome;
+        ArrayList<String> modelo;
+        ArrayList<String> placa;
+        ArrayList<String> ano;
         
         switch (request.getServletPath()) {
             case "/estatistica/carros_por_pessoa":
@@ -67,6 +73,7 @@ public class EstatisticaController extends HttpServlet {
                     dao = daoFactory.getEstatisticaDAO();
 
                     estatistica = dao.read(1);
+                    
                     chart_index_axis = "'x'";
                     chart_title = "'Carros por Locador'";
                     chart_type = "'bar'";
@@ -219,6 +226,33 @@ public class EstatisticaController extends HttpServlet {
                     dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
                     dispatcher.forward(request, response);
                     break;
+                
+                case "/estatistica/carros_avaliados":
+                try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao = daoFactory.getEstatisticaDAO();
+
+                    estatistica = dao.read(5);
+                    
+                    nome = estatistica.getColunas().get(0);
+                    modelo = estatistica.getColunas().get(1);
+                    ano = estatistica.getColunas().get(2);
+                    placa = estatistica.getColunas().get(3);
+                    valores = estatistica.getColunas().get(4);
+                    
+                    
+                    request.setAttribute("nomeList", nome);
+                    request.setAttribute("modeloList", modelo);
+                    request.setAttribute("placaList", ano);
+                    request.setAttribute("mediaList", placa);
+                    request.setAttribute("valoresList", valores);
+                } catch (ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
+
+                dispatcher = request.getRequestDispatcher("/view/estatistica/tabela.jsp");
+                dispatcher.forward(request, response);
+                break;
+
                 
 
         }

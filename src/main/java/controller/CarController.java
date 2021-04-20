@@ -94,6 +94,7 @@ public class CarController extends HttpServlet {
                     dao = daoFactory.getCarDAO();
 
                     List<Car> carList = dao.all();
+                    
                     request.setAttribute("carList", carList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
@@ -108,8 +109,8 @@ public class CarController extends HttpServlet {
                 try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao = daoFactory.getCarDAO();
                     
-
                     List<Car> carList = dao.all();
+                    System.out.println(carList);
                     request.setAttribute("carList", carList);
                 } catch (ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
