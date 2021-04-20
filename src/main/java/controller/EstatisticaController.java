@@ -167,6 +167,8 @@ public class EstatisticaController extends HttpServlet {
                         
                         labels = estatistica.getColunas().get(0);
                         precos = estatistica.getColunas().get(1);
+                        
+//                        Collections.sort(labels, Collections.reverseOrder());
 
                         for(Double preco : precos){
                             chart_data += preco + ",";
@@ -199,7 +201,7 @@ public class EstatisticaController extends HttpServlet {
                         estatistica = dao.read(4);
 
                         chart_index_axis = "'x'";
-                        chart_type = "'doughnut'";
+                        chart_type = "'line'";
                         chart_title = "'Carros Adicionados Mensamente'";
                         chart_data = "[";
                         chart_labels = "";

@@ -27,7 +27,8 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             = "SELECT nome,SUM(1) AS quantidade "
             + "FROM j2ee.car AS tabaux "
             + "LEFT JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux2 ON tabaux.cpf_locador = tabaux2.cpf "
-            + "GROUP BY nome; ";
+            + "GROUP BY nome "
+            + "ORDER BY nome; ";
     
     private static final String READ_QUERY_MEDIA_PRECOS_POR_MODELO
             = "SELECT tabaux.modelo AS modelo, ((SUM(preco) * 1.0 )/ tabaux2.quantidade) AS media FROM j2ee.car tabaux "
@@ -41,7 +42,8 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "LEFT JOIN ( SELECT cpf_locador , SUM(valor) AS valor_ganho "
             + "FROM j2ee.pagamento GROUP BY cpf_locador ) AS tabaux ON tabaux.cpf_locador = tab.cpf "
             + "LEFT JOIN (SELECT cpf_locatario, SUM(valor) AS valor_gasto "
-            + "FROM j2ee.pagamento GROUP BY cpf_locatario) tabaux2 ON tabaux2.cpf_locatario = tab.cpf;";
+            + "FROM j2ee.pagamento GROUP BY cpf_locatario) tabaux2 ON tabaux2.cpf_locatario = tab.cpf "
+            + "ORDER BY nome;";
     
     private static final String READ_QUERY_CARROS_ALUGADOS_MENSALMENTE
             = "SELECT to_char(data_pagamento, 'Mon') AS mes, SUM(1) AS carros_adicionados "
@@ -53,7 +55,8 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "FROM ( SELECT num_placa_carro , SUM(nota) AS total_notas , SUM(1) AS total_review FROM j2ee.review GROUP BY num_placa_carro ) AS tabaux "
             + "INNER JOIN (SELECT modelo, ano, cpf_locador, placa FROM j2ee.car)  AS tabaux2 ON tabaux2.placa = tabaux.num_placa_carro "
             + "INNER JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux3 ON tabaux3.cpf = tabaux2.cpf_locador "
-            + "WHERE tabaux.total_review > 0;";
+            + "WHERE tabaux.total_review > 0 "
+            + "ORDER BY media_review DESC;";
             
     private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
             = "SELECT testenovo.modelo AS modelo, testenovo.ano AS ano, (CASE WHEN teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano THEN teste2.total_de_carros ELSE 0 END) AS quantidade "

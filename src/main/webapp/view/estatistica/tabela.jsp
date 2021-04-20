@@ -82,19 +82,11 @@
               </tr>
               <tr>
                 <th scope="row">4</th>
-                <td>${nomeList.get(2)}</td>
-                <td>${modeloList.get(2)}</td>
-                <td>${anoList.get(2)}</td>
-                <td>${placaList.get(2)}</td>
-                <td>${mediaList.get(2)}</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>${nomeList.get(2)}</td>
-                <td>${modeloList.get(2)}</td>
-                <td>${anoList.get(2)}</td>
-                <td>${placaList.get(2)}</td>
-                <td>${mediaList.get(2)}</td>
+                <td>${nomeList.get(3)}</td>
+                <td>${modeloList.get(3)}</td>
+                <td>${anoList.get(3)}</td>
+                <td>${placaList.get(3)}</td>
+                <td>${mediaList.get(3)}</td>
               </tr>
             </tbody>
         </table>
