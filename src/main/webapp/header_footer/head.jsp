@@ -25,6 +25,12 @@
                         <li><a href="${pageContext.servletContext.contextPath}/fluxo/profile" title="Profile">Profile</a></li>
                         <li><a href="${pageContext.servletContext.contextPath}/carteira/update" title="Carteira">Carteira</a> $${sessionScope.carteira.saldo}</li>
                         <li><a href="${pageContext.servletContext.contextPath}/logout" title="Logout">Logout</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/estatistica/carros_por_pessoa" title="Estatistica">Carros por usuário</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/estatistica/media_preco_por_modelo" title="Estatistica">Media de preço por modelo</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/estatistica/montante_gasto_recebido" title="Estatistica">Montante gasto ou recebido por usuário</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/estatistica/meses_maior_aluguel" title="Estatistica">Meses de maior aluguel</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/estatistica/quantidade_carros_modelo_ano" title="Estatistica">Carros por modelo e ano</a></li>
+
                         </ul>
                     </div>
                   </div>
