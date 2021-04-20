@@ -43,6 +43,7 @@ CREATE TABLE j2ee.car(
 	avatar character varying(150),
 	preco float,
 	ano int,
+	creat_at date default current_date,
 	CONSTRAINT pk_placa PRIMARY KEY(placa),
 	CONSTRAINT fk_cpf_locador FOREIGN KEY(cpf_locador)
 		REFERENCES j2ee.locador(cpf_pessoa)
