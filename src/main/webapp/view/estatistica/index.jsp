@@ -49,7 +49,6 @@
         </div>
     <footer> 
     <div class="container">
-      <%@include file="/header_footer/foot.jsp"%>
       <title>[BD 2020] Carros</title>
     </div>
   </footer>    
