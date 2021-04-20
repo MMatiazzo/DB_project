@@ -82,13 +82,13 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 query = READ_QUERY_CARS_PER_PERSON;
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
-            break;
+                break;
             
             case 2:
                 query = READ_QUERY_MEDIA_PRECOS_POR_MODELO;
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Double>());
-            break;
+                break;
             
             case 3:
                 query = READ_QUERY_MONTANTE_RECEBIDO_GASTO;
@@ -100,7 +100,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 query = READ_QUERY_CARROS_ALUGADOS_MENSALMENTE;
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
-            break;
+                break;
                 
             case 5:
                 query = READ_QUERY_CARROS_MAIS_BEM_AVALIADOS;
@@ -109,7 +109,16 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
-            break;
+                break;
+            
+            case 6:
+                query = READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO;
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<String>());
+                colunas.add(new ArrayList<Integer>());
+                break;
+                
+                
         }
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -143,6 +152,12 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                             colunas.get(2).add(result.getString("ano"));
                             colunas.get(3).add(result.getString("num_placa_carro"));
                             colunas.get(4).add(result.getInt("media_review"));
+                            break;
+                            
+                        case 6:
+                            colunas.get(0).add(result.getString("modelo"));
+                            colunas.get(1).add(result.getString("ano"));
+                            colunas.get(2).add(result.getInt("quantidade"));
                             break;
 
                     }

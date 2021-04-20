@@ -30,6 +30,7 @@ import model.Estatistica;
             "/estatistica/montate_gasto_recebido",
             "/estatistica/meses_maior_aluguel",
             "/estatistica/carros_avaliados",
+            "/estatistica/quantidade_carros_modelo_ano",
             
         })
 public class EstatisticaController extends HttpServlet {
@@ -66,6 +67,7 @@ public class EstatisticaController extends HttpServlet {
         ArrayList<String> modelo;
         ArrayList<String> placa;
         ArrayList<String> ano;
+        ArrayList<String> datasetList;
         
         switch (request.getServletPath()) {
             case "/estatistica/carros_por_pessoa":
@@ -252,6 +254,49 @@ public class EstatisticaController extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/view/estatistica/tabela.jsp");
                 dispatcher.forward(request, response);
                 break;
+                
+                
+                
+                 case "/estatistica/quantidade_carros_modelo_ano":
+                    try ( DAOFactory daoFactory = DAOFactory.getInstance()) {
+                        dao = daoFactory.getEstatisticaDAO();
+
+                        estatistica = dao.read(4);
+
+                        chart_index_axis = "'x'";
+                        chart_type = "'doughnut'";
+                        chart_title = "'Carros Adicionados Mensamente'";
+                        chart_data = "[";
+                        chart_labels = "";
+
+                        
+                        labels = estatistica.getColunas().get(0);
+                        valores = estatistica.getColunas().get(1);
+                        
+                        for(Integer integer : valores){
+                            chart_data += integer + ",";
+                        }
+                        
+                        chart_data = chart_data.substring(0, chart_data.length() - 1) + "]";
+
+                        for(String label : labels){
+                            chart_labels += "'" + label + "'" + ",";
+                        }
+
+
+                        request.setAttribute("chartType", chart_type);
+                        request.setAttribute("chartTitle", chart_title);
+                        request.setAttribute("chartData", chart_data);
+                        request.setAttribute("chartLabels", chart_labels);
+                        request.setAttribute("chartIndexAxis", chart_index_axis);
+
+                    } catch (ClassNotFoundException | IOException | SQLException ex) {
+                        request.getSession().setAttribute("error", ex.getMessage());
+                    }
+
+                    dispatcher = request.getRequestDispatcher("/view/estatistica/index.jsp");
+                    dispatcher.forward(request, response);
+                    break;
 
                 
 
