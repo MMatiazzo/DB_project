@@ -1,0 +1,52 @@
+--Carros por pessoa
+SELECT nome,SUM(1) AS quantidade
+FROM j2ee.car AS tabaux
+LEFT JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux2 ON tabaux.cpf_locador = tabaux2.cpf
+GROUP BY nome 
+ORDER BY nome;
+
+--Media preços por modelo
+SELECT tabaux.modelo AS modelo, ((SUM(preco) * 1.0 )/ tabaux2.quantidade) AS media 
+FROM j2ee.car AS tabaux
+INNER JOIN (SELECT modelo, SUM(1) AS quantidade FROM j2ee.car GROUP BY modelo) AS tabaux2 ON tabaux2.modelo = tabaux.modelo
+GROUP BY tabaux.modelo, tabaux2.quantidade;
+
+-- Recebido x Gasto
+SELECT nome, (CASE WHEN tabaux.valor_ganho IS NULL THEN 0 ELSE tabaux.valor_ganho END 
+	- CASE WHEN tabaux2.valor_gasto IS NULL THEN 0 ELSE tabaux2.valor_gasto END) AS sobrou
+FROM j2ee.pessoa AS tab
+LEFT JOIN ( SELECT cpf_locador , SUM(valor) AS valor_ganho
+FROM j2ee.pagamento GROUP BY cpf_locador ) AS tabaux ON tabaux.cpf_locador = tab.cpf
+LEFT JOIN (SELECT cpf_locatario, SUM(valor) AS valor_gasto
+FROM j2ee.pagamento GROUP BY cpf_locatario) tabaux2 ON tabaux2.cpf_locatario = tab.cpf
+ORDER BY nome;
+
+-- Carros alugados mensalmente
+SELECT to_char(data_pagamento, 'Mon') AS mes, SUM(1) AS carros_adicionados
+FROM j2ee.pagamento
+GROUP BY to_char(data_pagamento, 'Mon');
+
+
+-- Carros mais bem avaliados
+SELECT tabaux3.nome, tabaux2.modelo, tabaux2.ano, tabaux.num_placa_carro, tabaux.total_notas / tabaux.total_review AS media_review
+FROM ( SELECT num_placa_carro , SUM(nota) AS total_notas , SUM(1) AS total_review FROM j2ee.review GROUP BY num_placa_carro ) AS tabaux
+INNER JOIN (SELECT modelo, ano, cpf_locador, placa FROM j2ee.car)  AS tabaux2 ON tabaux2.placa = tabaux.num_placa_carro
+INNER JOIN (SELECT nome, cpf FROM j2ee.pessoa) AS tabaux3 ON tabaux3.cpf = tabaux2.cpf_locador
+WHERE tabaux.total_review > 3
+ORDER BY media_review DESC;
+
+
+-- Carros por ano e modelo
+SELECT testenovo.modelo AS modelo, testenovo.ano AS ano, (CASE WHEN teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano THEN teste2.total_de_carros ELSE 0 END) AS quantidade
+FROM j2ee.car
+RIGHT JOIN (SELECT testeteste.ano, modelos.modelo
+	FROM j2ee.car AS testeteste
+	RIGHT JOIN (SELECT modelo FROM j2ee.car GROUP BY modelo) AS modelos ON 1=1
+	GROUP BY ano, modelos.modelo) AS testenovo ON 1=1
+LEFT JOIN (SELECT modelo, ano, SUM(1) as total_de_carros
+	FROM j2ee.car
+	GROUP BY ano, modelo
+	ORDER BY ano, modelo ) AS teste2 ON teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano
+GROUP BY testenovo.ano, testenovo.modelo, (CASE WHEN teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano 
+	THEN teste2.total_de_carros ELSE 0 END)
+ORDER BY testenovo.modelo, testenovo.ano;
