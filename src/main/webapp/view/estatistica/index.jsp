@@ -67,8 +67,7 @@
             backgroundColor: colors_teste,
             borderColor: 'rgb(255, 55, 132)',
             data: ${chartData}
-          } ${datasetList}
-              ],
+          }]
         };
         const config = {
             type: ${chartType},// ${chartType}
