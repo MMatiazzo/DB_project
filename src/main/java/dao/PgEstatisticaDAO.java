@@ -56,9 +56,19 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
             + "WHERE tabaux.total_review > 0;";
             
     private static final String READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO
-            = "SELECT modelo, ano, SUM(1) as quantidade "
+            = "SELECT testenovo.modelo AS modelo, testenovo.ano AS ano, (CASE WHEN teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano THEN teste2.total_de_carros ELSE 0 END) AS quantidade "
             + "FROM j2ee.car "
-            + "GROUP BY modelo, ano;";
+            + "RIGHT JOIN (SELECT testeteste.ano, modelos.modelo "
+            + "FROM j2ee.car AS testeteste "
+            + "RIGHT JOIN (SELECT modelo FROM j2ee.car GROUP BY modelo) AS modelos ON 1=1 "
+            + "GROUP BY ano, modelos.modelo) AS testenovo ON 1=1 "
+            + "LEFT JOIN (SELECT modelo, ano, SUM(1) as total_de_carros "
+            + "FROM j2ee.car  "
+            + "GROUP BY ano, modelo "
+            + "ORDER BY ano, modelo ) AS teste2 ON teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano "
+            + "GROUP BY testenovo.ano, testenovo.modelo, (CASE WHEN teste2.modelo = testenovo.modelo AND teste2.ano = testenovo.ano THEN "
+            + "teste2.total_de_carros ELSE 0 END) "
+            + "ORDER BY testenovo.modelo, testenovo.ano;";
     
     
     public PgEstatisticaDAO(Connection connection) {
@@ -110,7 +120,7 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
                 colunas.add(new ArrayList<String>());
                 colunas.add(new ArrayList<Integer>());
                 break;
-            
+                
             case 6:
                 query = READ_QUERY_QUANTIDADE_CARROS_ANO_MODELO;
                 colunas.add(new ArrayList<String>());
@@ -193,6 +203,4 @@ public class PgEstatisticaDAO implements EstatisticaDAO{
     public List<Estatistica> all() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 }
